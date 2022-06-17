@@ -24,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Gate::define('admin.transaksi', 'App\Policies\UserPolicy@Transaksi');
+        Gate::define('admin.crud-vendor-client', 'App\Policies\UserPolicy@CRUD_Vendor_Client');
+        Gate::define('admin.cetakdn', 'App\Policies\UserPolicy@Cetak_DN');
+        Gate::define('admin.hakakses', 'App\Policies\UserPolicy@Hak_Akses');
         //
     }
 }
