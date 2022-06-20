@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('vendor', 'VendorController');
 	Route::resource('permission', 'PermissionController');
 	Route::resource('role', 'RoleController');
+	Route::resource('job_order', 'JobOrderController');
 	Route::get('/vendor_detail/{id}', 'VendorController@showTracking');
 	Route::get('/client_detail/{id}', 'ClientController@showTracking');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);

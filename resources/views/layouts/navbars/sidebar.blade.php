@@ -114,6 +114,26 @@
                         </div>
                     </li>
                 @endcan
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-crud-Transaksi" data-toggle="collapse" role="button"
+                        aria-expanded="true" aria-controls="navbar-crud-Transaksi">
+                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Clients & Transaksi') }}</span>
+                    </a>
+
+                    <div class="collapse show" id="navbar-crud-Transaksi">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('job_order.index') }}">
+                                    {{ __('Job Order') }}
+                                </a>
+                                <a class="nav-link" href="#">
+                                    {{ __('Sales Order') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <!-- Divider -->
             <hr class="my-3">

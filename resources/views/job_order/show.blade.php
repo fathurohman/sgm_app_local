@@ -13,10 +13,11 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Vendors</h3>
+                                <h3 class="mb-0">Job Orders</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('vendor.create') }}" class="btn btn-sm btn-primary">Add Vendors</a>
+                                <a href="{{ route('job_order.create') }}" class="btn btn-sm btn-primary">Add Job
+                                    Orders</a>
                             </div>
                         </div>
                     </div>
@@ -28,22 +29,30 @@
                         <table id="myTable" class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">NPWP</th>
-                                    <th scope="col">Vendor Name</th>
-                                    <th scope="col">Telephone</th>
-                                    <th scope="col">Address</th>
+                                    <th scope="col">Order_ID</th>
+                                    <th scope="col">Tipe Order</th>
+                                    <th scope="col">Client</th>
+                                    <th scope="col">Sales</th>
+                                    <th scope="col">Service</th>
+                                    <th scope="col">Via</th>
+                                    <th scope="col">Pol_Pod</th>
+                                    <th scope="col">ETD</th>
+                                    <th scope="col">ETA</th>
                                     <th scope="col">Action</th>
                                     {{-- <th scope="col">Delete</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($vendor as $x)
+                                @foreach ($job_order as $x)
                                     <tr>
-                                        <td>{{ $x->NPWP }}</td>
-                                        <td>
-                                            {{ $x->VENDOR }}
-                                        </td>
-                                        <td>{{ $x->TELEPHONE }}</td>
+                                        <td>{{ $x->order_id }}</td>
+                                        <td>{{ $x->tipe_order }}</td>
+                                        <td>{{ $x->client_id }}</td>
+                                        <td>{{ $x->Sales_id }}</td>
+                                        <td>{{ $x->service_id }}</td>
+                                        <td>{{ $x->via_id }}</td>
+                                        <td>{{ $x->ETD }}</td>
+                                        <td>{{ $x->ETA }}</td>
                                         <td>
                                             <button type="button" data-id="{{ $x->id }}"
                                                 class="btn btn-round btn-info infoU" data-toggle="modal"
@@ -58,9 +67,9 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('vendor.edit', $x->id) }}">Edit</a>
+                                                        href="{{ route('job_order.edit', $x->id) }}">Edit</a>
                                                     <form method="post" id="delete-form-{{ $x->id }}"
-                                                        action="{{ route('vendor.destroy', $x->id) }}"
+                                                        action="{{ route('job_order.destroy', $x->id) }}"
                                                         style="display: none">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
