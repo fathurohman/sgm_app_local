@@ -47,25 +47,24 @@
                                     <tr>
                                         <td>{{ $x->order_id }}</td>
                                         <td>{{ $x->tipe_order }}</td>
-                                        <td>{{ $x->client_id }}</td>
-                                        <td>{{ $x->Sales_id }}</td>
-                                        <td>{{ $x->service_id }}</td>
-                                        <td>{{ $x->via_id }}</td>
+                                        <td>{{ $x->clients->COMPANY_NAME }}</td>
+                                        <td>{{ $x->sales->name }}</td>
+                                        <td>{{ $x->service->service_name }}</td>
+                                        <td>{{ $x->via->via_name }}</td>
+                                        <td>{{ $x->pol_pod }}</td>
                                         <td>{{ $x->ETD }}</td>
                                         <td>{{ $x->ETA }}</td>
                                         <td>
-                                            <button type="button" data-id="{{ $x->id }}"
-                                                class="btn btn-round btn-info infoU" data-toggle="modal"
-                                                data-target="#alamat">
-                                                Detail </button>
-                                        </td>
-                                        <td class="text-right">
                                             <div class="dropdown">
                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a href="#" data-id="{{ $x->id }}"
+                                                        class="dropdown-item infoU" data-toggle="modal"
+                                                        data-target="#alamat">
+                                                        Detail </a>
                                                     <a class="dropdown-item"
                                                         href="{{ route('job_order.edit', $x->id) }}">Edit</a>
                                                     <form method="post" id="delete-form-{{ $x->id }}"

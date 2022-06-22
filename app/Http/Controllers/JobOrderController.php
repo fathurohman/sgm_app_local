@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Model\Client;
 use App\Model\job_order;
 use App\Model\Service;
+use App\Model\tipe_order;
 use App\Model\Via;
 use App\User;
+use Response;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -39,6 +41,8 @@ class JobOrderController extends Controller
         $order_id = "$year$month$sprint_order";
         $service = Service::all();
         $via = Via::all();
+        $clients = Client::all();
+        $job_order = job_order::all();
         // dd($via);
         $sales = User::where('department', 'sales')->get();
         $data = array(
@@ -46,6 +50,8 @@ class JobOrderController extends Controller
             'via' => $via,
             'sales' => $sales,
             'order_id' => $order_id,
+            'clients' => $clients,
+            'job_order' => $job_order,
         );
         return view('job_order.create', compact('data'));
     }
@@ -58,7 +64,39 @@ class JobOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->tipe_order);
+        $request->ETD = date("Y-m-d");
+        $request->ETA = date("Y-m-d");
+        $job_order = new job_order;
+        $job_order->order_id = $request->order_id;
+        $job_order->tipe_order = $request->tipe_order_text;
+        $job_order->client_id = $request->client_id;
+        $job_order->sales_id = $request->sales_id;
+        $job_order->service_id = $request->service_id;
+        $job_order->via_id = $request->via_id;
+        $job_order->ETD = $request->ETD;
+        $job_order->ETA = $request->ETA;
+        $job_order->pol_pod = $request->pol_pod;
+        $job_order->party = $request->party;
+        $job_order->HBL = $request->hbl;
+        $job_order->MBL = $request->mbl;
+        $job_order->GWT_MEAS = $request->gwt_meas;
+        $job_order->vessel1 = $request->vessel1;
+        $job_order->vessel2 = $request->vessel2;
+        $job_order->consignee = $request->consignee;
+        $job_order->agent_overseas = $request->agent_overseas;
+        $job_order->save();
+        // if (!empty($request->tipe_order)) {
+        //     $details = array(
+        //         'job_order_id' => $job_order->id,
+        //         'tipe' => $request->tipe_order,
+        //         'row' => '1',
+        //         'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        //         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+        //     );
+        //     tipe_order::insert($details);
+        // }
+        return redirect(route('job_order.index'));
     }
 
     /**
@@ -104,5 +142,41 @@ class JobOrderController extends Controller
     public function destroy(job_order $job_order)
     {
         //
+    }
+
+    public function getdata(Request $request)
+    {
+        $pid = $request->get('pid');
+        $tipes = Client::where('id', $pid)->first();
+        return Response::json($tipes);
+    }
+
+    public function getdataorder(Request $request)
+    {
+        $pid = $request->get('pid');
+        $jobs = job_order::where('id', $pid)->first();
+        $client_name = $jobs->clients->COMPANY_NAME;
+        $data = array(
+            'jobs' => $jobs,
+            'name_client' => $client_name,
+        );
+        return Response::json($data);
+        // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
+        // $tipe_name = $data = job_order::find($)->artk;
+    }
+
+    public function settipeorder(Request $request)
+    {
+        $pid = $request->get('pid');
+        $tipe = $request->get('tipe');
+        $jobs = job_order::where('order_id', $pid)->where('tipe_order', 'like', '%' .  $tipe . '%')->count();
+        $row = $jobs + 1;
+        $data = array(
+            'tipe' => $tipe,
+            'row' => $row,
+        );
+        return Response::json($data);
+        // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
+        // $tipe_name = $data = job_order::find($)->artk;
     }
 }

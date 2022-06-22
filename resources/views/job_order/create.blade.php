@@ -1,5 +1,7 @@
 @extends('layouts.app', ['title' => __('Create Job Order')])
-
+@push('css')
+    <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
+@endpush
 @section('content')
     @include('users.partials.header', [
         'class' => 'col-lg-7',
@@ -14,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('job_order.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('job_order.store') }}" autocomplete="off" id="form-order">
                             @csrf
                             <h6 class="heading-small text-muted mb-4">{{ __('Fill this form') }}</h6>
 
@@ -28,52 +30,45 @@
                             @endif
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="form-group{{ $errors->has('order_id') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-order_id">{{ __('order_id') }}</label>
-                                        <input type="text" name="order_id" id="input-order_id"
-                                            class="form-control form-control-alternative{{ $errors->has('order_id') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('order_id') }}" value="{{ $data['order_id'] }}" required
-                                            readonly>
-                                        @if ($errors->has('order_id'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('order_id') }}</strong>
-                                            </span>
-                                        @endif
+                                    <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
+                                    <div class="input-group">
+                                        <input id="order_id-field" type="text" class="form-control"
+                                            placeholder="order_id" aria-label="order_id" name="order_id">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-primary neword">
+                                                New
+                                            </button>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                                                data-target="#orderList">
+                                                Find
+                                            </button>
+                                        </div>
                                     </div>
+                                    <input id="order-id-hide" type="text" class="form-control"
+                                        value="{{ $data['order_id'] }}" hidden>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <label class="form-control-label"
-                                            for="input-for">{{ __('Untuk Transaksi:') }}</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" name="tipe_order" type="checkbox">
-                                                    I
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" name="tipe_order" type="checkbox">
-                                                    DN
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" name="tipe_order" type="checkbox">
-                                                    INV
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3">
+                                    <label class="form-control-label" for="input-for"></label>
+                                    <input type="text" id="tipe_order" class="form-control form-control-alternative"
+                                        required name="tipe_order_text">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-9">
+                                    <label class="form-control-label" for="input-for">{{ __('Untuk Transaksi:') }}</label>
+                                    <div class="col-sm-7">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tipe_order"
+                                                id="tipe_order1" value="I">
+                                            <label class="form-check-label">I</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tipe_order"
+                                                id="tipe_order2" value="DN">
+                                            <label class="form-check-label">DN</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="tipe_order"
+                                                id="tipe_order3" value="INV">
+                                            <label class="form-check-label">INV</label>
                                         </div>
                                     </div>
                                 </div>
@@ -82,8 +77,8 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label" for="input-Customer">{{ __('Customer') }}</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Customer"
-                                            aria-label="Customer" aria-describedby="basic-addon2">
+                                        <input id="customer-field" type="text" class="form-control"
+                                            placeholder="Customer" aria-label="Customer" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#CustomerList">
@@ -91,11 +86,13 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <input id="customer-field-id" type="text" class="form-control" placeholder="Customer"
+                                        name="client_id" hidden>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
-                                        <select name="for"
+                                        <select name="sales_id" id="sales_id"
                                             class="form-control form-control-alternative{{ $errors->has('sales') ? ' is-invalid' : '' }}"
                                             aria-label="sales:">
                                             <option selected>Open this select menu</option>
@@ -109,8 +106,9 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('Service') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label" for="input-Service">{{ __('Service') }}</label>
-                                        <select name="Service"
+                                        <label class="form-control-label"
+                                            for="input-Service">{{ __('Service') }}</label>
+                                        <select name="service_id" id="service_id"
                                             class="form-control form-control-alternative{{ $errors->has('Service') ? ' is-invalid' : '' }}"
                                             aria-label="Service:">
                                             <option selected>Open this select menu</option>
@@ -123,7 +121,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('via') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-via">{{ __('via') }}</label>
-                                        <select name="for"
+                                        <select name="via_id" id="via_id"
                                             class="form-control form-control-alternative{{ $errors->has('via') ? ' is-invalid' : '' }}"
                                             aria-label="via:">
                                             <option selected>Open this select menu</option>
@@ -143,8 +141,8 @@
                                                 <span class="input-group-text"><i
                                                         class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input class="form-control datepicker" placeholder="Select date"
-                                                type="text">
+                                            <input id="ETD" name="ETD" class="form-control datepicker"
+                                                placeholder="Select date" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -156,8 +154,8 @@
                                                 <span class="input-group-text"><i
                                                         class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input class="form-control datepicker" placeholder="Select date"
-                                                type="text">
+                                            <input id="ETA" name="ETA" class="form-control datepicker"
+                                                placeholder="Select date" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -306,8 +304,113 @@
             </div>
         </div>
     </div>
+    @include('job_order.order_list')
+    @include('job_order.customerlist')
     @include('layouts.footers.auth')
 @endsection
 @push('js')
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#customer').DataTable();
+        $('#order').DataTable();
+        $('.infoU').click(function() {
+            $currID = $(this).attr("data-id");
+            $('#customer-field').val('');
+            $('#customer-field-id').val('');
+            // alert($currID);
+            $.get('/customer_data?pid=' + $currID, function(data) {
+                $('#customer-field').val(data.COMPANY_NAME);
+                $('#customer-field-id').val(data.id);
+                // console.log(data);
+                // For debugging purposes you can add : console.log(data); to see the output of your request
+            });
+            $('#CustomerList').modal('toggle');
+            // $('#customer-field').val($currID);
+        });
+        //list orders
+        $('.infoO').click(function() {
+            $currID = $(this).attr("data-id");
+            $('#order_id-field').val('');
+            // alert($currID);
+            $.get('/job_data?pid=' + $currID, function(data) {
+                $('#order_id-field').val(data['jobs'].order_id);
+                $('#tipe_order').val(data['jobs'].tipe_order);
+                $('#customer-field').val(data['name_client']);
+                $('#customer-field-id').val(data['jobs'].client_id);
+                $('#sales_id').val(data['jobs'].sales_id);
+                $('#service_id').val(data['jobs'].sales_id);
+                $('#via_id').val(data['jobs'].via_id);
+                $('#ETD').val(data['jobs'].ETD);
+                $('#ETA').val(data['jobs'].ETA);
+                $('#input-pol_pod').val(data['jobs'].pol_pod);
+                $('#input-party').val(data['jobs'].party);
+                $('#input-hbl').val(data['jobs'].HBL);
+                $('#input-gwt_meas').val(data['jobs'].GWT_MEAS);
+                $('#input-mbl').val(data['jobs'].MBL);
+                $('#input-vessel1').val(data['jobs'].vessel1);
+                $('#input-vessel2').val(data['jobs'].vessel2);
+                $('#input-consignee').val(data['jobs'].consignee);
+                $('#input-agent_overseas').val(data['jobs'].agent_overseas);
+                // console.log(data);
+            });
+            $('#orderList').modal('toggle');
+            // $('#customer-field').val($currID);
+        });
+        $('.neword').click(function() {
+            $('#order_id-field').val('');
+            $('#tipe_order').val('');
+            $('#customer-field').val('');
+            $('#customer-field-id').val('');
+            $('#sales_id').val('');
+            $('#service_id').val('');
+            $('#via_id').val('');
+            $('#ETD').val('');
+            $('#ETA').val('');
+            $('#input-pol_pod').val('');
+            $('#input-party').val('');
+            $('#input-hbl').val('');
+            $('#input-gwt_meas').val('');
+            $('#input-mbl').val('');
+            $('#input-vessel1').val('');
+            $('#input-vessel2').val('');
+            $('#input-consignee').val('');
+            $('#input-agent_overseas').val('');
+            $('input[name="tipe_order"]').prop('checked', false);
+            var order_num = $('#order-id-hide').val();
+            $('#order_id-field').val(order_num);
+        });
+
+        $('#form-order input').on('change', function() {
+            $('#tipe_order').val('');
+            var nama_tipe = '';
+            var order_id = $('#order_id-field').val();
+            var tipe = ($('input[name=tipe_order]:checked', '#form-order').val());
+            // $.get('/set_tipe?pid=' + order_id + "/tipe=" + tipe, function(data) {
+            //     // $('#ticket_data').html(data);
+            //     console.log(data);
+            //     // For debugging purposes you can add : console.log(data); to see the output of your request
+            // });
+            $.ajax({
+                type: "GET",
+                url: "/set_tipe",
+                data: {
+                    pid: order_id,
+                    tipe: tipe
+                },
+                datatype: "html",
+                success: function(result) {
+                    $('#tipe_order').val(result.tipe + '-' + result.row)
+                }
+            })
+            // if (tipe == 'I') {
+            //     nama_tipe = 'I-1'
+            // } else if (tipe == 'DN') {
+            //     nama_tipe = 'DN-1';
+            // } else {
+            //     nama_tipe = 'INV-1';
+            // }
+            // $('#tipe_order').val(nama_tipe);
+        });
+    </script>
 @endpush

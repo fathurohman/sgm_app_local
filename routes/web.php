@@ -21,12 +21,18 @@ Auth::routes();
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('client', 'ClientController');
 	Route::resource('user', 'UserController');
-	Route::resource('vendor', 'VendorController');
 	Route::resource('permission', 'PermissionController');
 	Route::resource('role', 'RoleController');
+	//job order routes
 	Route::resource('job_order', 'JobOrderController');
+	Route::get('/customer_data', 'JobOrderController@getdata');
+	Route::get('/job_data', 'JobOrderController@getdataorder');
+	Route::get('/tipe_order', 'JobOrderController@gettipeorder');
+	Route::get('/set_tipe', 'JobOrderController@settipeorder');
+	//vendor client routes
+	Route::resource('client', 'ClientController');
+	Route::resource('vendor', 'VendorController');
 	Route::get('/vendor_detail/{id}', 'VendorController@showTracking');
 	Route::get('/client_detail/{id}', 'ClientController@showTracking');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
