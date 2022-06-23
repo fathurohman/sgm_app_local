@@ -42,7 +42,7 @@
                                     {{-- <th scope="col">Delete</th> --}}
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach ($job_order as $x)
                                     <tr>
                                         <td>{{ $x->order_id }}</td>
@@ -63,7 +63,7 @@
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     <a href="#" data-id="{{ $x->id }}"
                                                         class="dropdown-item infoU" data-toggle="modal"
-                                                        data-target="#alamat">
+                                                        data-target="#job_order">
                                                         Detail </a>
                                                     <a class="dropdown-item"
                                                         href="{{ route('job_order.edit', $x->id) }}">Edit</a>
@@ -87,7 +87,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                     <div class="card-footer py-4">
@@ -99,17 +99,17 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="alamat" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal fade" id="job_order" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
         <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Address</h6>
+                    <h6 class="modal-title" id="modal-title-default">Detail job</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
 
-                <div class="modal-body" id="vendor_data">
+                <div class="modal-body" id="job_data">
                 </div>
 
                 <div class="modal-footer">
@@ -122,15 +122,75 @@
 @endsection
 @push('js')
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(".infoU").click(function(e) {
             $currID = $(this).attr("data-id");
-            $.get("vendor_detail/" + $currID, function(data) {
-                $('#vendor_data').html(data);
+            $.get("job_detail/" + $currID, function(data) {
+                $('#job_data').html(data);
                 // console.log(data);
                 // For debugging purposes you can add : console.log(data); to see the output of your request
             });
         });
         $('#myTable').DataTable();
+    </script> --}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                processing: true,
+                serverSide: true,
+                drawCallback: function(settings) {
+                    $(".infoU").click(function(e) {
+                        $currID = $(this).attr("data-id");
+                        $.get("job_detail/" + $currID, function(data) {
+                            $('#job_data').html(data);
+                            // console.log(data);
+                            // For debugging purposes you can add : console.log(data); to see the output of your request
+                        });
+                    });
+                },
+                ajax: '{!! route('listordershow') !!}',
+                columns: [{
+                        data: 'job_order',
+                        name: 'job_order'
+                    },
+                    {
+                        data: 'DNI',
+                        name: 'DNI'
+                    },
+                    {
+                        data: 'Client',
+                        name: 'Client'
+                    },
+                    {
+                        data: 'Sales',
+                        name: 'Sales'
+                    },
+                    {
+                        data: 'Service',
+                        name: 'Service'
+                    },
+                    {
+                        data: 'Via',
+                        name: 'Via'
+                    },
+                    {
+                        data: 'Pol_Pod',
+                        name: 'Pol_Pod'
+                    },
+                    {
+                        data: 'ETD',
+                        name: 'ETD'
+                    },
+                    {
+                        data: 'ETA',
+                        name: 'ETA'
+                    },
+                    {
+                        data: 'Action',
+                        name: 'Action'
+                    },
+                ]
+            });
+        });
     </script>
 @endpush

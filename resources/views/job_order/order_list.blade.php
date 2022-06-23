@@ -19,7 +19,7 @@
                             <th>Pol_Pod</th>
                             <th>Action</th>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             @foreach ($data['job_order'] as $x)
                                 <tr>
                                     <td>{{ $x->order_id }}</td>
@@ -33,7 +33,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>

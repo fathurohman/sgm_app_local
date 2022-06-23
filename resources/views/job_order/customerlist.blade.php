@@ -17,7 +17,7 @@
                             <th>Address</th>
                             <th>Action</th>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             @foreach ($data['clients'] as $x)
                                 <tr>
                                     <td>{{ $x->COMPANY_NAME }}</td>
@@ -30,7 +30,7 @@
                                         </button></td>
                                 </tr>
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>

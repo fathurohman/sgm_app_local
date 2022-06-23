@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Model\Client;
 use App\Model\job_order;
+use App\Model\logs_user;
 use App\Model\Service;
-use App\Model\tipe_order;
+use Yajra\Datatables\Datatables;
 use App\Model\Via;
 use App\User;
 use Response;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobOrderController extends Controller
 {
@@ -21,8 +23,7 @@ class JobOrderController extends Controller
      */
     public function index()
     {
-        $job_order = job_order::all();
-        return view('job_order.show', compact('job_order'));
+        return view('job_order.show');
     }
 
     /**
@@ -41,7 +42,7 @@ class JobOrderController extends Controller
         $order_id = "$year$month$sprint_order";
         $service = Service::all();
         $via = Via::all();
-        $clients = Client::all();
+        // $clients = Client::all();
         $job_order = job_order::all();
         // dd($via);
         $sales = User::where('department', 'sales')->get();
@@ -50,7 +51,7 @@ class JobOrderController extends Controller
             'via' => $via,
             'sales' => $sales,
             'order_id' => $order_id,
-            'clients' => $clients,
+            // 'clients' => $clients,
             'job_order' => $job_order,
         );
         return view('job_order.create', compact('data'));
@@ -116,9 +117,23 @@ class JobOrderController extends Controller
      * @param  \App\Model\job_order  $job_order
      * @return \Illuminate\Http\Response
      */
-    public function edit(job_order $job_order)
+    public function edit($id)
     {
-        //
+        $job_order = job_order::find($id);
+        $tipe = strtok($job_order->tipe_order, '-');
+        $clients = Client::all();
+        $service = Service::all();
+        $via = Via::all();
+        $clients = Client::all();
+        $sales = User::where('department', 'sales')->get();
+        $data = array(
+            'clients' => $clients,
+            'service' => $service,
+            'via' => $via,
+            'sales' => $sales,
+            'tipe' => $tipe,
+        );
+        return view('job_order.edit', compact('data', 'job_order'));
     }
 
     /**
@@ -128,9 +143,30 @@ class JobOrderController extends Controller
      * @param  \App\Model\job_order  $job_order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, job_order $job_order)
+    public function update(Request $request, $id)
     {
-        //
+        $request->ETD = date("Y-m-d");
+        $request->ETA = date("Y-m-d");
+        $job_order = job_order::find($id);
+        $job_order->order_id = $request->order_id;
+        $job_order->tipe_order = $request->tipe_order_text;
+        $job_order->client_id = $request->client_id;
+        $job_order->sales_id = $request->sales_id;
+        $job_order->service_id = $request->service_id;
+        $job_order->via_id = $request->via_id;
+        $job_order->ETD = $request->ETD;
+        $job_order->ETA = $request->ETA;
+        $job_order->pol_pod = $request->pol_pod;
+        $job_order->party = $request->party;
+        $job_order->HBL = $request->hbl;
+        $job_order->MBL = $request->mbl;
+        $job_order->GWT_MEAS = $request->gwt_meas;
+        $job_order->vessel1 = $request->vessel1;
+        $job_order->vessel2 = $request->vessel2;
+        $job_order->consignee = $request->consignee;
+        $job_order->agent_overseas = $request->agent_overseas;
+        $job_order->save();
+        return redirect(route('job_order.index'));
     }
 
     /**
@@ -139,9 +175,20 @@ class JobOrderController extends Controller
      * @param  \App\Model\job_order  $job_order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(job_order $job_order)
+    public function destroy($id)
     {
-        //
+        job_order::where('id', $id)->update(['deleted' => '1']);
+        $details = array(
+            // 'job_orders_id' => $id,
+            'logs' => 'deleting job orders with id ' . $id . '',
+            'user_id' => Auth::id(),
+            // 'row' => '1',
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+        );
+        logs_user::insert($details);
+        // job_order::where('id', $id)->delete();
+        return redirect()->back();
     }
 
     public function getdata(Request $request)
@@ -178,5 +225,94 @@ class JobOrderController extends Controller
         return Response::json($data);
         // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
         // $tipe_name = $data = job_order::find($)->artk;
+    }
+
+    public function showDetail($id)
+    {
+        $job_detail = job_order::find($id);
+        return view('job_order.order_detail', compact('job_detail'));
+    }
+
+    public function listcustomer()
+    {
+        $query = Client::all();
+        return Datatables::of(
+            $query
+        )->addColumn('COMPANY_NAME', function ($row) {
+            return $row->COMPANY_NAME;
+        })->addColumn('NPWP', function ($row) {
+            return $row->NPWP;
+        })->addColumn('Address', function ($row) {
+            return substr($row->ADDRESS, 0, 20);
+        })->addColumn('Action', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('job_order.dt.act_pilih', compact('data'));
+        })->rawColumns(['action'])->toJson();
+        // $users = User::where('department', $dept)->where('active', 1)->get();
+        // return view('ticket.history', compact('data'));
+    }
+
+    public function listorder()
+    {
+        $query = job_order::where('deleted', '0');
+        return Datatables::of(
+            $query
+        )->addColumn('job_order', function ($row) {
+            return $row->order_id;
+        })->addColumn('DNI', function ($row) {
+            return $row->tipe_order;
+        })->addColumn('Date', function ($row) {
+            return $row->created_at;
+        })->addColumn('Client', function ($row) {
+            return $row->clients->COMPANY_NAME;
+        })->addColumn('Party', function ($row) {
+            return $row->party;
+        })->addColumn('Pol_Pod', function ($row) {
+            return $row->pol_pod;
+        })->addColumn('Action', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('job_order.dt.act_order_pilih', compact('data'));
+        })->rawColumns(['action'])->toJson();
+        // $users = User::where('department', $dept)->where('active', 1)->get();
+        // return view('ticket.history', compact('data'));
+    }
+
+    public function listordershow()
+    {
+        $query = job_order::where('deleted', '0');
+        return Datatables::of(
+            $query
+        )->addColumn('job_order', function ($row) {
+            return $row->order_id;
+        })->addColumn('DNI', function ($row) {
+            return $row->tipe_order;
+        })->addColumn('Date', function ($row) {
+            return $row->created_at;
+        })->addColumn('Client', function ($row) {
+            return $row->clients->COMPANY_NAME;
+        })->addColumn('Sales', function ($row) {
+            return $row->sales->name;
+        })->addColumn('Service', function ($row) {
+            return $row->service->service_name;
+        })->addColumn('Via', function ($row) {
+            return $row->via->via_name;
+        })->addColumn('Pol_Pod', function ($row) {
+            return $row->pol_pod;
+        })->addColumn('ETD', function ($row) {
+            return $row->ETD;
+        })->addColumn('ETA', function ($row) {
+            return $row->ETA;
+        })->addColumn('Action', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('job_order.dt.act_list_order', compact('data'));
+        })->rawColumns(['action'])->toJson();
+        // $users = User::where('department', $dept)->where('active', 1)->get();
+        // return view('ticket.history', compact('data'));
     }
 }

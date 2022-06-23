@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/job_data', 'JobOrderController@getdataorder');
 	Route::get('/tipe_order', 'JobOrderController@gettipeorder');
 	Route::get('/set_tipe', 'JobOrderController@settipeorder');
+	Route::get('/job_detail/{id}', 'JobOrderController@showDetail');
+	Route::get('/listcustomer', 'JobOrderController@listcustomer')->name('listcustomer');
+	Route::get('/listorder', 'JobOrderController@listorder')->name('listorder');
+	Route::get('/listordershow', 'JobOrderController@listordershow')->name('listordershow');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
