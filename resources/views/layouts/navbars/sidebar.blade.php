@@ -127,7 +127,7 @@
                                 <a class="nav-link" href="{{ route('job_order.index') }}">
                                     {{ __('Job Order') }}
                                 </a>
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('sales_order.create') }}">
                                     {{ __('Sales Order') }}
                                 </a>
                             </li>

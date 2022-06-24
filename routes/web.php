@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('role', 'RoleController');
 	//job order routes
 	Route::resource('job_order', 'JobOrderController');
+	Route::resource('sales_order', 'SalesOrderController');
 	Route::get('/customer_data', 'JobOrderController@getdata');
 	Route::get('/job_data', 'JobOrderController@getdataorder');
 	Route::get('/tipe_order', 'JobOrderController@gettipeorder');
@@ -34,6 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/listcustomer', 'JobOrderController@listcustomer')->name('listcustomer');
 	Route::get('/listorder', 'JobOrderController@listorder')->name('listorder');
 	Route::get('/listordershow', 'JobOrderController@listordershow')->name('listordershow');
+	//sales order routes
+	Route::get('/job_data_sales', 'SalesOrderController@getdataordersales');
+	Route::get('/listordersales', 'SalesOrderController@listordersales')->name('listordersales');
+	Route::resource('sales_order', 'SalesOrderController');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
