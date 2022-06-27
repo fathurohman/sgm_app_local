@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\BuyingOrder;
+use App\Model\Curr;
 use App\Model\job_order;
 use App\Model\SalesOrder;
+use App\Model\SellingOrder;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,12 +32,13 @@ class SalesOrderController extends Controller
      */
     public function create()
     {
-        $sales = User::where('department', 'sales')->get();
+        $curr = Curr::all();
+        // $sales = User::where('department', 'sales')->get();
         // $job_order = job_order::where('deleted', '0')->get();
-        $data = array(
-            'sales' => $sales,
-        );
-        return view('sales_order.create', compact('data'));
+        // $data = array(
+        //     'sales' => $sales,
+        // );
+        return view('sales_order.create', compact('curr'));
     }
 
     /**
@@ -45,7 +49,49 @@ class SalesOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $i = 0;
+        $sales_order = new SalesOrder;
+        $sales_order->nomor_invoice = $request->no_inv;
+        $sales_order->job_order_id = $request->order_id;
+        $sales_order->notes = $request->notes;
+        $sales_order->save();
+        if (!empty($request->description_b[0])) {
+            foreach ($request->description_b as $a => $v) {
+                $details_b = array(
+                    'sales_order_id' => $sales_order->id,
+                    'description' => $v,
+                    'qty' => $request->qty_b[$a],
+                    'curr' => $request->curr_b[$a],
+                    'price' => $request->price_b[$a],
+                    'sub_total' => $request->sub_total_b[$a],
+                    'remark' => $request->remark_b[$a],
+                    'name' => $request->name_b[$a],
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                );
+                BuyingOrder::insert($details_b);
+                $i++;
+            }
+        }
+        if (!empty($request->description_s[0])) {
+            foreach ($request->description_s as $a => $v) {
+                $details_s = array(
+                    'sales_order_id' => $sales_order->id,
+                    'description' => $v,
+                    'qty' => $request->qty_s[$a],
+                    'curr' => $request->curr_s[$a],
+                    'price' => $request->price_s[$a],
+                    'sub_total' => $request->sub_total_s[$a],
+                    'remark' => $request->remark_s[$a],
+                    'name' => $request->name_s[$a],
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                );
+                SellingOrder::insert($details_s);
+                $i++;
+            }
+        }
+        return redirect(route('sales_order.index'));
     }
 
     /**
@@ -125,6 +171,7 @@ class SalesOrderController extends Controller
         $pid = $request->get('pid');
         $jobs = job_order::where('id', $pid)->first();
         $client_name = $jobs->clients->COMPANY_NAME;
+        $sales_name = $jobs->sales->name;
         // $jobs->created_at = date("Y-m-d");
         // $tanggal = $jobs->created_at;
         $createdAt = Carbon::parse($jobs->created_at);
@@ -145,6 +192,7 @@ class SalesOrderController extends Controller
             'name_client' => $client_name,
             'inv' => $inv,
             'tanggal' => $tanggal,
+            'sales_name' => $sales_name,
         );
         return Response::json($data);
         // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)

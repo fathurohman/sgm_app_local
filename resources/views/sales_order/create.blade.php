@@ -33,7 +33,7 @@
                                     <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
                                     <div class="input-group">
                                         <input id="order_id-field" type="text" class="form-control"
-                                            placeholder="order_id" aria-label="order_id" name="order_id">
+                                            placeholder="order_id" aria-label="order_id" readonly>
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#orderList">
@@ -41,17 +41,17 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <input id="order-id-hide" type="text" class="form-control" hidden>
+                                    <input id="order-id-hide" name="order_id" type="text" class="form-control" hidden>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6">
                                     <label class="form-control-label" for="input-tipe_order">{{ __('IDN/INV') }}</label>
                                     <input type="text" id="tipe_order" class="form-control form-control-alternative"
-                                        required name="tipe_order_text">
+                                        required name="tipe_order_text" readonly>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6">
                                     <label class="form-control-label" for="input-no_inv">{{ __('No. INV') }}</label>
-                                    <input type="text" id="no_inv" class="form-control form-control-alternative"
-                                        required>
+                                    <input name="no_inv" type="text" id="no_inv"
+                                        class="form-control form-control-alternative" required readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -62,8 +62,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input id="Tanggal" name="Tanggal" class="form-control datepicker"
-                                                placeholder="Select date" type="text">
+                                            <input id="Tanggal" name="Tanggal" class="form-control"
+                                                placeholder="Select date" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -74,8 +74,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input id="ETD" name="ETD" class="form-control datepicker"
-                                                placeholder="Select date" type="text">
+                                            <input id="ETD" name="ETD" class="form-control"
+                                                placeholder="Select date" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +86,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input id="ETA" name="ETA" class="form-control datepicker"
-                                                placeholder="Select date" type="text">
+                                            <input id="ETA" name="ETA" class="form-control"
+                                                placeholder="Select date" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -96,14 +96,9 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
-                                        <select name="sales_id" id="sales_id"
-                                            class="form-control form-control-alternative{{ $errors->has('sales') ? ' is-invalid' : '' }}"
-                                            aria-label="sales:">
-                                            <option selected>Open this select menu</option>
-                                            @foreach ($data['sales'] as $x)
-                                                <option value="{{ $x->id }}">{{ $x->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input name="sales_id" type="text" id="sales_id"
+                                            class="form-control form-control-alternative" required name="tipe_order_text"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -112,7 +107,7 @@
                                             for="input-vessel1">{{ __('vessel1') }}</label>
                                         <input type="text" name="vessel1" id="input-vessel1"
                                             class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('vessel1') }}" required>
+                                            placeholder="{{ __('vessel1') }}" required readonly>
                                         @if ($errors->has('vessel1'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel1') }}</strong>
@@ -126,7 +121,7 @@
                                             for="input-gwt_meas">{{ __('gwt_meas') }}</label>
                                         <input type="text" name="gwt_meas" id="input-gwt_meas"
                                             class="form-control form-control-alternative{{ $errors->has('gwt_meas') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('gwt_meas') }}" required>
+                                            placeholder="{{ __('gwt_meas') }}" required readonly>
                                         @if ($errors->has('gwt_meas'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('gwt_meas') }}</strong>
@@ -142,7 +137,7 @@
                                             for="input-customer">{{ __('shipper') }}</label>
                                         <input type="text" name="customer" id="input-customer"
                                             class="form-control form-control-alternative{{ $errors->has('customer') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('customer') }}" required>
+                                            placeholder="{{ __('customer') }}" required readonly>
                                         @if ($errors->has('customer'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('customer') }}</strong>
@@ -156,7 +151,7 @@
                                             for="input-vessel2">{{ __('vessel2') }}</label>
                                         <input type="text" name="vessel2" id="input-vessel2"
                                             class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('vessel2') }}" required>
+                                            placeholder="{{ __('vessel2') }}" required readonly>
                                         @if ($errors->has('vessel2'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel2') }}</strong>
@@ -169,7 +164,7 @@
                                         <label class="form-control-label" for="input-hbl">{{ __('hbl') }}</label>
                                         <input type="text" name="hbl" id="input-hbl"
                                             class="form-control form-control-alternative{{ $errors->has('hbl') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('hbl') }}" required>
+                                            placeholder="{{ __('hbl') }}" required readonly>
                                         @if ($errors->has('hbl'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('hbl') }}</strong>
@@ -185,7 +180,7 @@
                                             for="input-pol_pod">{{ __('pol_pod') }}</label>
                                         <input type="text" name="pol_pod" id="input-pol_pod"
                                             class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('pol_pod') }}" required>
+                                            placeholder="{{ __('pol_pod') }}" required readonly>
                                         @if ($errors->has('pol_pod'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('pol_pod') }}</strong>
@@ -198,7 +193,7 @@
                                         <label class="form-control-label" for="input-party">{{ __('party') }}</label>
                                         <input type="text" name="party" id="input-party"
                                             class="form-control form-control-alternative{{ $errors->has('party') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('party') }}" required>
+                                            placeholder="{{ __('party') }}" required readonly>
                                         @if ($errors->has('party'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('party') }}</strong>
@@ -211,7 +206,7 @@
                                         <label class="form-control-label" for="input-mbl">{{ __('mbl') }}</label>
                                         <input type="text" name="mbl" id="input-mbl"
                                             class="form-control form-control-alternative{{ $errors->has('mbl') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('mbl') }}" required>
+                                            placeholder="{{ __('mbl') }}" required readonly>
                                         @if ($errors->has('mbl'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('mbl') }}</strong>
@@ -236,21 +231,22 @@
                                                 <th>Add</th>
                                                 <th>Remove</th>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="buying">
                                                 <tr>
-                                                    <td><input type="text" id="description_b" name="description[]">
+                                                    <td><input type="text" id="description_b" name="description_b[]">
                                                     </td>
-                                                    <td><input type="text" id="qty_b" name="qty[]"></td>
-                                                    <td><input type="text" id="curr_b" name="curr[]"></td>
-                                                    <td><input type="text" id="price_b" name="price[]"></td>
-                                                    <td><input type="text" id="sub_total_b" name="sub_total[]"></td>
-                                                    <td><input type="text" id="remark_b" name="remark[]"></td>
-                                                    <td><input type="text" id="name_b" name="name[]"></td>
-                                                    <td><a href="#" id="addkolom"><i class="fa fa-plus"></i></a>
+                                                    <td><input type="text" id="qty_b" name="qty_b[]"></td>
+                                                    <td><input type="text" id="curr_b" name="curr_b[]"></td>
+                                                    <td><input type="text" id="price_b" name="price_b[]"></td>
+                                                    <td><input type="text" id="sub_total_b" name="sub_total_b[]"></td>
+                                                    <td><input type="text" id="remark_b" name="remark_b[]"></td>
+                                                    <td><input type="text" id="name_b" name="name_b[]"></td>
+                                                    <td><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a>
                                                     </td>
-                                                    <td><a href="#" id="removekolomatk"
-                                                            class="btn btn-danger removeatk"><i
-                                                                class="fa fa-times"></i></a></td>
+                                                    <td><a href="#" id="removekolom_b"
+                                                            class="btn btn-danger remove_b"><i
+                                                                class="fa fa-times"></i></a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -272,21 +268,22 @@
                                                 <th>Name</th>
                                                 <th>Action</th>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="selling">
                                                 <tr>
-                                                    <td><input type="text" id="description_s" name="description[]">
+                                                    <td><input type="text" id="description_s" name="description_s[]">
                                                     </td>
-                                                    <td><input type="text" id="qty_s" name="qty[]"></td>
-                                                    <td><input type="text" id="curr_s" name="curr[]"></td>
-                                                    <td><input type="text" id="price_s" name="price[]"></td>
-                                                    <td><input type="text" id="sub_total_s" name="sub_total[]"></td>
-                                                    <td><input type="text" id="remark_s" name="remark[]"></td>
-                                                    <td><input type="text" id="name_s" name="name[]"></td>
-                                                    <td><a href="#" id="addkolom"><i class="fa fa-plus"></i></a>
+                                                    <td><input type="text" id="qty_s" name="qty_s[]"></td>
+                                                    <td><input type="text" id="curr_s" name="curr_s[]"></td>
+                                                    <td><input type="text" id="price_s" name="price_s[]"></td>
+                                                    <td><input type="text" id="sub_total_s" name="sub_total_s[]"></td>
+                                                    <td><input type="text" id="remark_s" name="remark_s[]"></td>
+                                                    <td><input type="text" id="name_s" name="name_s[]"></td>
+                                                    <td><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a>
                                                     </td>
-                                                    <td><a href="#" id="removekolomatk"
-                                                            class="btn btn-danger removeatk"><i
-                                                                class="fa fa-times"></i></a></td>
+                                                    <td><a href="#" id="removekolom_s"
+                                                            class="btn btn-danger remove_s"><i
+                                                                class="fa fa-times"></i></a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -363,6 +360,7 @@
     @include('layouts.footers.auth')
 @endsection
 @push('js')
+    <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -378,13 +376,14 @@
                         $.get('/job_data_sales?pid=' + $currID, function(data) {
                             //    console.log(data['jobs'].order_id);
                             $('#order_id-field').val(data['jobs'].order_id);
+                            $('#order-id-hide').val(data['jobs'].id);
                             $('#tipe_order').val(data['jobs'].tipe_order);
                             $('#Tanggal').val(data['tanggal']);
                             $('#no_inv').val(data['inv']);
-                            $('#customer-field').val(data['name_client']);
-                            $('#customer-field-id').val(data['jobs'].client_id);
-                            $('#sales_id').val(data['jobs'].sales_id);
-                            $('#service_id').val(data['jobs'].sales_id);
+                            $('#input-customer').val(data['name_client']);
+                            // $('#customer-field-id').val(data['jobs'].client_id);
+                            $('#sales_id').val(data['sales_name']);
+                            // $('#service_id').val(data['jobs'].sales_id);
                             $('#via_id').val(data['jobs'].via_id);
                             $('#ETD').val(data['jobs'].ETD);
                             $('#ETA').val(data['jobs'].ETA);
