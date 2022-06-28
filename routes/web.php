@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/job_data_sales', 'SalesOrderController@getdataordersales');
 	Route::get('/listordersales', 'SalesOrderController@listordersales')->name('listordersales');
 	Route::resource('sales_order', 'SalesOrderController');
+	Route::get('search/autocomplete/', 'SalesOrderController@autocomplete_desc');
+	Route::get('search/autocomplete_remark/', 'SalesOrderController@autocomplete_remark');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
@@ -58,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {
 		return view('pages.tables');
 	})->name('table');
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 
 

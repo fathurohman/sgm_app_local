@@ -226,21 +226,35 @@
                                                 <th>Curr</th>
                                                 <th>Price</th>
                                                 <th>Sub Total</th>
-                                                <th>Remark</th>
                                                 <th>Name</th>
+                                                <th>Remark</th>
                                                 <th>Add</th>
                                                 <th>Remove</th>
                                             </thead>
                                             <tbody class="buying">
                                                 <tr>
-                                                    <td><input type="text" id="description_b" name="description_b[]">
+                                                    <td><input type="text" class="autosuggest ui-widget"
+                                                            id="description_b" name="description_b[]">
                                                     </td>
-                                                    <td><input type="text" id="qty_b" name="qty_b[]"></td>
-                                                    <td><input type="text" id="curr_b" name="curr_b[]"></td>
-                                                    <td><input type="text" id="price_b" name="price_b[]"></td>
-                                                    <td><input type="text" id="sub_total_b" name="sub_total_b[]"></td>
-                                                    <td><input type="text" id="remark_b" name="remark_b[]"></td>
-                                                    <td><input type="text" id="name_b" name="name_b[]"></td>
+                                                    <td><input class="qty" type="text" id="qty_b"
+                                                            name="qty_b[]"></td>
+                                                    {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
+                                                    <td><select id="curr_b" name="curr_b[]" class="form-select"
+                                                            aria-label="Default select example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option>IDR</option>
+                                                            <option>SGD</option>
+                                                            <option>USD</option>
+                                                            <option>EUR</option>
+                                                        </select></td>
+                                                    <td><input type="text" class="price" id="price_b"
+                                                            name="price_b[]"></td>
+                                                    <td><input type="text" class="sub_total" id="sub_total_b"
+                                                            name="sub_total_b[]"></td>
+                                                    <td><input type="text" class="name_b ui-widget" id="name_b"
+                                                            name="name_b[]"></td>
+                                                    <td><input type="text" class="remark_b" id="remark_b"
+                                                            name="remark_b[]"></td>
                                                     <td><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a>
                                                     </td>
                                                     <td><a href="#" id="removekolom_b"
@@ -264,20 +278,25 @@
                                                 <th>Curr</th>
                                                 <th>Price</th>
                                                 <th>Sub Total</th>
-                                                <th>Remark</th>
                                                 <th>Name</th>
-                                                <th>Action</th>
+                                                <th>Remark</th>
+                                                <th>Add</th>
+                                                <th>Remove</th>
                                             </thead>
                                             <tbody class="selling">
                                                 <tr>
-                                                    <td><input type="text" id="description_s" name="description_s[]">
+                                                    <td><input class="autosuggest ui-widget" type="text"
+                                                            id="description_s" name="description_s[]">
                                                     </td>
-                                                    <td><input type="text" id="qty_s" name="qty_s[]"></td>
+                                                    <td><input class="qty" type="text" id="qty_s"
+                                                            name="qty_s[]"></td>
                                                     <td><input type="text" id="curr_s" name="curr_s[]"></td>
-                                                    <td><input type="text" id="price_s" name="price_s[]"></td>
-                                                    <td><input type="text" id="sub_total_s" name="sub_total_s[]"></td>
-                                                    <td><input type="text" id="remark_s" name="remark_s[]"></td>
+                                                    <td><input class="price" type="text" id="price_s"
+                                                            name="price_s[]"></td>
+                                                    <td><input type="text" class="sub_total" id="sub_total_s"
+                                                            name="sub_total_s[]"></td>
                                                     <td><input type="text" id="name_s" name="name_s[]"></td>
+                                                    <td><input type="text" id="remark_s" name="remark_s[]"></td>
                                                     <td><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a>
                                                     </td>
                                                     <td><a href="#" id="removekolom_s"
@@ -360,10 +379,12 @@
     @include('layouts.footers.auth')
 @endsection
 @push('js')
-    <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+        // var data = {
+        //     currency: @json($curr)
+        // };
         $(document).ready(function() {
             $('#order').DataTable({
                 processing: true,
@@ -433,6 +454,53 @@
                     },
                 ]
             });
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function() {
+                $('tbody').on('focus', ".autosuggest", function() {
+                    var tr = $(this).parent().parent();
+                    // console.log(tipeatk);
+                    $(this).autocomplete({
+                        source: "{{ URL('search/autocomplete') }}",
+                        // source: "{{ URL('search/autocompletenama') }}",
+                        minLength: 1,
+                        select: function(event, ui) {
+                            // tr.find('.qty').val("");
+                            // $('#selectnip').val(ui.item.value);
+                            tr.find('.autosuggest').val(ui.item.value);
+                            // tr.find('.autosuggestid').val(ui.item.id);
+                            var description = tr.find('.autosuggest').val();
+                            // var idatk = tr.find('.autosuggestid').val();
+                            // console.log(idatk);
+                        }
+                    })
+                })
+                $('tbody').on('keyup', ".price", function() {
+                    var tr = $(this).parent().parent();
+                    var qty = tr.find('.qty').val();
+                    var price = tr.find('.price').val();
+                    var total = qty * price;
+                    tr.find('.sub_total').val(total.toLocaleString('id-ID'));
+                })
+                $('tbody.buying').on('focus', ".name_b", function() {
+                    var tr = $(this).parent().parent();
+                    // console.log(tipeatk);
+                    $(this).autocomplete({
+                        source: "{{ URL('search/autocomplete_remark') }}",
+                        // source: "{{ URL('search/autocompletenama') }}",
+                        minLength: 1,
+                        select: function(event, ui) {
+                            tr.find('.name_b').val(ui.item.value);
+                            tr.find('.remark_b').val(ui.item.nick);
+                            var remark = tr.find('.remark_b').val();
+                            var name = tr.find('.name_b').val();
+                        }
+                    })
+                })
+            })
         });
     </script>
 @endpush

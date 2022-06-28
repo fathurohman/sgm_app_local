@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 class SalesOrderController extends Controller
 {
@@ -197,5 +198,34 @@ class SalesOrderController extends Controller
         return Response::json($data);
         // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
         // $tipe_name = $data = job_order::find($)->artk;
+    }
+
+    public function autocomplete_desc(Request $request)
+    {
+        $term = $request->term;
+        $queries = DB::table('item')
+            ->where('ITEM', 'LIKE', '%' . $term . '%')
+            // ->where('rtk', '1')
+            ->get();
+        $results = array();
+        foreach ($queries as $query) {
+            $results[] = ['id' => $query->id, 'value' => $query->ITEM];
+        }
+        return Response::json($results);
+    }
+
+    public function autocomplete_remark(Request $request)
+    {
+        $term = $request->term;
+        $queries = DB::table('vendors')
+            ->where('nick', 'LIKE', '%' . $term . '%')
+            ->orWhere('VENDOR', 'LIKE', '%' . $term . '%')
+            // ->where('rtk', '1')
+            ->get();
+        $results = array();
+        foreach ($queries as $query) {
+            $results[] = ['id' => $query->id, 'value' => $query->VENDOR, 'nick' => $query->nick];
+        }
+        return Response::json($results);
     }
 }
