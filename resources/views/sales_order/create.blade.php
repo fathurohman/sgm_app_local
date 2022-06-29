@@ -239,7 +239,7 @@
                                                     <td><input class="qty" type="text" id="qty_b"
                                                             name="qty_b[]"></td>
                                                     {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
-                                                    <td><select id="curr_b" name="curr_b[]" class="form-select"
+                                                    <td><select id="curr_b" name="curr_b[]" class="form-select curr_b"
                                                             aria-label="Default select example">
                                                             <option selected>Open this select menu</option>
                                                             <option>IDR</option>
@@ -249,7 +249,7 @@
                                                         </select></td>
                                                     <td><input type="text" class="price" id="price_b"
                                                             name="price_b[]"></td>
-                                                    <td><input type="text" class="sub_total" id="sub_total_b"
+                                                    <td><input type="text" class="sub_total_b" id="sub_total_b"
                                                             name="sub_total_b[]"></td>
                                                     <td><input type="text" class="name_b ui-widget" id="name_b"
                                                             name="name_b[]"></td>
@@ -288,15 +288,24 @@
                                                     <td><input class="autosuggest ui-widget" type="text"
                                                             id="description_s" name="description_s[]">
                                                     </td>
-                                                    <td><input class="qty" type="text" id="qty_s"
+                                                    <td><input class="qty" type="number" id="qty_s"
                                                             name="qty_s[]"></td>
-                                                    <td><input type="text" id="curr_s" name="curr_s[]"></td>
-                                                    <td><input class="price" type="text" id="price_s"
+                                                    <td><select id="curr_s" name="curr_s[]" class="form-select curr_s"
+                                                            aria-label="Default select example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option>IDR</option>
+                                                            <option>SGD</option>
+                                                            <option>USD</option>
+                                                            <option>EUR</option>
+                                                        </select></td>
+                                                    <td><input class="price" type="number" id="price_s"
                                                             name="price_s[]"></td>
-                                                    <td><input type="text" class="sub_total" id="sub_total_s"
-                                                            name="sub_total_s[]"></td>
-                                                    <td><input type="text" id="name_s" name="name_s[]"></td>
-                                                    <td><input type="text" id="remark_s" name="remark_s[]"></td>
+                                                    <td><input class="sub_total_s" id="sub_total_s" name="sub_total_s[]">
+                                                    </td>
+                                                    <td><input type="text" id="name_s" class="name_s ui-widget"
+                                                            name="name_s[]"></td>
+                                                    <td><input type="text" id="remark_s" class="remark_s"
+                                                            name="remark_s[]"></td>
                                                     <td><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a>
                                                     </td>
                                                     <td><a href="#" id="removekolom_s"
@@ -323,10 +332,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><input type="text" id="customer" name="customer[]"></td>
-                                                    <td><input type="text" id="currency" name="currency[]"></td>
-                                                    <td><input type="text" id="total" name="total[]"></td>
-                                                    <td><input type="text" id="dp" name="dp[]"></td>
+                                                    <td><input type="text" id="customer_dp" name="customer[]"
+                                                            readonly></td>
+                                                    <td><input type="text" id="currency_dp" name="currency[]"
+                                                            readonly></td>
+                                                    <td><input id="total_dp" name="total[]" readonly></td>
+                                                    <td><input id="d_payment" name="dp[]"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -344,12 +355,16 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><input type="text" id="currency" name="currency[]"></td>
-                                                    <td><input type="text" id="total_selling" name="total_selling[]">
+                                                    <td><input type="text" class="curr_prof" id="currency_prof"
+                                                            name="currency[]" readonly></td>
+                                                    <td><input type="text" id="total_selling" name="total_selling[]"
+                                                            readonly>
                                                     </td>
-                                                    <td><input type="text" id="total_buying" name="total_buying[]">
+                                                    <td><input type="text" id="total_buying" name="total_buying[]"
+                                                            readonly>
                                                     </td>
-                                                    <td><input type="text" id="profit" name="profit[]"></td>
+                                                    <td><input type="text" id="profit_buy" name="profit[]" readonly>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -471,10 +486,6 @@
                             // tr.find('.qty').val("");
                             // $('#selectnip').val(ui.item.value);
                             tr.find('.autosuggest').val(ui.item.value);
-                            // tr.find('.autosuggestid').val(ui.item.id);
-                            var description = tr.find('.autosuggest').val();
-                            // var idatk = tr.find('.autosuggestid').val();
-                            // console.log(idatk);
                         }
                     })
                 })
@@ -483,7 +494,15 @@
                     var qty = tr.find('.qty').val();
                     var price = tr.find('.price').val();
                     var total = qty * price;
-                    tr.find('.sub_total').val(total.toLocaleString('id-ID'));
+                    // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
+                    tr.find('.sub_total_s').val(total);
+                    tr.find('.sub_total_b').val(total);
+                    // parseInt(tr.find('.sub_total_s').val(total), 10);
+                    // parseInt($("#replies").text(),10);
+                })
+                $('tbody').on('change', ".qty", function() {
+                    var $this = $(this);
+                    $this.val(parseFloat($this.val()).toFixed(3));
                 })
                 $('tbody.buying').on('focus', ".name_b", function() {
                     var tr = $(this).parent().parent();
@@ -497,6 +516,54 @@
                             tr.find('.remark_b').val(ui.item.nick);
                             var remark = tr.find('.remark_b').val();
                             var name = tr.find('.name_b').val();
+                        }
+                    })
+                })
+                $('tbody.selling').on('focus', ".name_s", function() {
+                    var tr = $(this).parent().parent();
+                    // console.log(tipeatk);
+                    $(this).autocomplete({
+                        source: "{{ URL('search/autocomplete_client') }}",
+                        // source: "{{ URL('search/autocompletenama') }}",
+                        minLength: 1,
+                        select: function(event, ui) {
+                            $('#total_dp').val('');
+                            $('#d_payment').val('');
+                            $('#total_selling').val('');
+                            $('#total_buying').val('');
+                            $('#profit_buy').val('');
+                            tr.find('.name_s').val(ui.item.value);
+                            tr.find('.remark_s').val(ui.item.nick);
+                            var remark = tr.find('.remark_s').val();
+                            var name = tr.find('.name_s').val();
+                            var curr_sell = tr.find('.curr_s').val();
+                            // var sub_total = $('.sub_total_s').val();
+                            var curr_buy = $('.curr_b').val();
+                            var sub_total_buy = $('.sub_total_b').val();
+                            // console.log(sub_total_buy);
+                            // var price = tr.find('.price').val();
+                            // var total = qty * price;
+                            var sum_s = 0;
+                            var sum_b = 0;
+                            $('.sub_total_s').each(function() {
+                                sum_s += +$(this).val();
+                            });
+                            $('.sub_total_b').each(function() {
+                                sum_b += +$(this).val();
+                            });
+                            var profit = sum_s - sum_b;
+                            console.log(profit);
+                            // var total = parseInt(sum_s, 10);
+                            // var description = tr.find('.autosuggest').val();
+                            $('#customer_dp').val(name);
+                            $('#currency_dp').val(curr_sell);
+                            $('#total_dp').val(sum_s);
+                            $('#d_payment').val(sum_s);
+                            //profit
+                            $('#currency_prof').val(curr_buy);
+                            $('#total_selling').val(sum_s);
+                            $('#total_buying').val(sum_b);
+                            $('#profit_buy').val(profit);
                         }
                     })
                 })

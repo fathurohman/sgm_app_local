@@ -228,4 +228,19 @@ class SalesOrderController extends Controller
         }
         return Response::json($results);
     }
+
+    public function autocomplete_client(Request $request)
+    {
+        $term = $request->term;
+        $queries = DB::table('clients')
+            ->where('nick', 'LIKE', '%' . $term . '%')
+            ->orWhere('COMPANY_NAME', 'LIKE', '%' . $term . '%')
+            ->where('active', '1')
+            ->get();
+        $results = array();
+        foreach ($queries as $query) {
+            $results[] = ['id' => $query->id, 'value' => $query->COMPANY_NAME, 'nick' => $query->nick];
+        }
+        return Response::json($results);
+    }
 }

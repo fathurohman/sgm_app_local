@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('sales_order', 'SalesOrderController');
 	Route::get('search/autocomplete/', 'SalesOrderController@autocomplete_desc');
 	Route::get('search/autocomplete_remark/', 'SalesOrderController@autocomplete_remark');
+	Route::get('search/autocomplete_client/', 'SalesOrderController@autocomplete_client');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
