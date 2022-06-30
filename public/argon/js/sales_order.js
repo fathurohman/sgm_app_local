@@ -8,7 +8,7 @@ $("#addkolom_b").click(function () {
      // console.log(curr);
 });
 function addkolom_b() {
-     var kolom = '<tr>' +
+     var kolom = '<tr class="row-buying">' +
           '<td><input class="autosuggest ui-widget" type="text" id="description_b' + nextid_b + '" name="description_b[]"></td>' +
           '<td><input class="qty" type="text" id="qty_b' + nextid_b + '" name="qty_b[]"></td>' +
           // '<td><input type="text" id="curr_b' + nextid_b + '" name="curr_b[]"></td>' +

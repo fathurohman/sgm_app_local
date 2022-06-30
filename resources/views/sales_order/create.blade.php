@@ -232,7 +232,7 @@
                                                 <th>Remove</th>
                                             </thead>
                                             <tbody class="buying">
-                                                <tr>
+                                                <tr class="row-buying">
                                                     <td><input type="text" class="autosuggest ui-widget"
                                                             id="description_b" name="description_b[]">
                                                     </td>
@@ -353,8 +353,8 @@
                                                 <th>Total Buying</th>
                                                 <th>Profit</th>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody class="profit_tb">
+                                                {{-- <tr>
                                                     <td><input type="text" class="curr_prof" id="currency_prof"
                                                             name="currency[]" readonly></td>
                                                     <td><input type="text" id="total_selling" name="total_selling[]"
@@ -365,7 +365,7 @@
                                                     </td>
                                                     <td><input type="text" id="profit_buy" name="profit[]" readonly>
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -516,6 +516,18 @@
                             tr.find('.remark_b').val(ui.item.nick);
                             var remark = tr.find('.remark_b').val();
                             var name = tr.find('.name_b').val();
+                            // var curr_beli = tr.find('.curr_b').val();
+                            // var tb = '<tr>' +
+                            //     '<td><input type="text" id="currency_prof' + curr_beli +
+                            //     '" name="currency[]" readonly></td>' +
+                            //     '<td><input type="text" id="total_selling' + curr_beli +
+                            //     '" name="total_selling[]" readonly></td>' +
+                            //     '<td><input type="text" id="total_buying' + curr_beli +
+                            //     '" name="total_buying[]" readonly></td>' +
+                            //     '<td><input type="text" id="profit_buy' + curr_beli +
+                            //     '" name="profit[]" readonly></td>' +
+                            //     '</tr>';
+                            // $('.profit_tb').append(tb);
                         }
                     })
                 })
@@ -538,21 +550,129 @@
                             var name = tr.find('.name_s').val();
                             var curr_sell = tr.find('.curr_s').val();
                             // var sub_total = $('.sub_total_s').val();
-                            var curr_buy = $('.curr_b').val();
+                            // var curr_buy = $('.curr_b').val();
                             var sub_total_buy = $('.sub_total_b').val();
-                            // console.log(sub_total_buy);
-                            // var price = tr.find('.price').val();
-                            // var total = qty * price;
                             var sum_s = 0;
                             var sum_b = 0;
                             $('.sub_total_s').each(function() {
                                 sum_s += +$(this).val();
                             });
+
                             $('.sub_total_b').each(function() {
                                 sum_b += +$(this).val();
                             });
                             var profit = sum_s - sum_b;
-                            console.log(profit);
+                            //ambil buying per mata uang
+                            var rowCount = $('tbody.buying tr').length;
+                            // console.log(rowCount);
+                            if (rowCount > 1) {
+                                var sum_idr = 0;
+                                var sum_usd = 0;
+                                var sum_sgd = 0;
+                                var sum_eur = 0;
+                                var curr_id_prof = '';
+                                $('.row-buying').each(function() {
+                                    var item = $(this);
+                                    var curr_beli = item.find('.curr_b').val();
+                                    var jumlah = item.find('.sub_total_b')
+                                        .val();
+                                    // console.log(jumlah);
+                                    if (curr_beli == 'IDR') {
+                                        sum_idr += +jumlah;
+                                        // profit = sum_s - sum_idr;
+                                    } else if (curr_beli == 'USD') {
+                                        sum_usd += +jumlah;
+                                        // profit = sum_s - sum_usd;
+                                    } else if (curr_beli == 'SGD') {
+                                        sum_sgd += +jumlah;
+                                        // profit = sum_s - sum_sgd;
+                                    } else {
+                                        sum_eur += +jumlah;
+                                        // var profit = sum_s - sum_eur;
+                                    }
+                                });
+                                // console.log(sum_idr);
+                                // console.log(sum_usd);
+                                // console.log(sum_sgd);
+                                // console.log(sum_eur);
+                                // console.log(profit);
+                                if (sum_idr > 0) {
+                                    var curr_beli = 'IDR';
+                                    var tb = '<tr>' +
+                                        '<td><input type="text" id="currency_prof' +
+                                        curr_beli +
+                                        '" name="currency[]" readonly></td>' +
+                                        '<td><input type="text" id="total_selling' +
+                                        curr_beli +
+                                        '" name="total_selling[]" readonly></td>' +
+                                        '<td><input type="text" id="total_buying' +
+                                        curr_beli +
+                                        '" name="total_buying[]" readonly></td>' +
+                                        '<td><input type="text" id="profit_buy' +
+                                        curr_beli +
+                                        '" name="profit[]" readonly></td>' +
+                                        '</tr>';
+                                    $('.profit_tb').append(tb);
+                                    $('#currency_prof' + curr_beli + '').val(curr_beli);
+                                    $('#total_selling' + curr_beli + '').val(sum_s);
+                                    $('#total_buying' + curr_beli + '').val(sum_idr);
+                                    // $('#profit_buy').val(profit);
+                                }
+                                if (sum_usd > 0) {
+                                    var curr_beli = 'USD';
+                                    var tb = '<tr>' +
+                                        '<td><input type="text" id="currency_prof' +
+                                        curr_beli +
+                                        '" name="currency[]" readonly></td>' +
+                                        '<td><input type="text" id="total_selling' +
+                                        curr_beli +
+                                        '" name="total_selling[]" readonly></td>' +
+                                        '<td><input type="text" id="total_buying' +
+                                        curr_beli +
+                                        '" name="total_buying[]" readonly></td>' +
+                                        '<td><input type="text" id="profit_buy' +
+                                        curr_beli +
+                                        '" name="profit[]" readonly></td>' +
+                                        '</tr>';
+                                    $('.profit_tb').append(tb);
+                                }
+                                if (sum_sgd > 0) {
+                                    var curr_beli = 'SGD';
+                                    var tb = '<tr>' +
+                                        '<td><input type="text" id="currency_prof' +
+                                        curr_beli +
+                                        '" name="currency[]" readonly></td>' +
+                                        '<td><input type="text" id="total_selling' +
+                                        curr_beli +
+                                        '" name="total_selling[]" readonly></td>' +
+                                        '<td><input type="text" id="total_buying' +
+                                        curr_beli +
+                                        '" name="total_buying[]" readonly></td>' +
+                                        '<td><input type="text" id="profit_buy' +
+                                        curr_beli +
+                                        '" name="profit[]" readonly></td>' +
+                                        '</tr>';
+                                    $('.profit_tb').append(tb);
+                                }
+                                if (sum_eur > 0) {
+                                    var curr_beli = 'EUR';
+                                    var tb = '<tr>' +
+                                        '<td><input type="text" id="currency_prof' +
+                                        curr_beli +
+                                        '" name="currency[]" readonly></td>' +
+                                        '<td><input type="text" id="total_selling' +
+                                        curr_beli +
+                                        '" name="total_selling[]" readonly></td>' +
+                                        '<td><input type="text" id="total_buying' +
+                                        curr_beli +
+                                        '" name="total_buying[]" readonly></td>' +
+                                        '<td><input type="text" id="profit_buy' +
+                                        curr_beli +
+                                        '" name="profit[]" readonly></td>' +
+                                        '</tr>';
+                                    $('.profit_tb').append(tb);
+                                }
+                            }
                             // var total = parseInt(sum_s, 10);
                             // var description = tr.find('.autosuggest').val();
                             $('#customer_dp').val(name);
@@ -560,10 +680,10 @@
                             $('#total_dp').val(sum_s);
                             $('#d_payment').val(sum_s);
                             //profit
-                            $('#currency_prof').val(curr_buy);
-                            $('#total_selling').val(sum_s);
-                            $('#total_buying').val(sum_b);
-                            $('#profit_buy').val(profit);
+                            // $('#currency_prof').val(curr_buy);
+                            // $('#total_selling').val(sum_s);
+                            // $('#total_buying').val(sum_b);
+                            // $('#profit_buy').val(profit);
                         }
                     })
                 })
