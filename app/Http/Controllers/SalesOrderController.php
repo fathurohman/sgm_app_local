@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Model\BuyingOrder;
+use App\Model\Client;
 use App\Model\Curr;
+use App\Model\Down_Payment;
 use App\Model\job_order;
+use App\Model\Profit;
 use App\Model\SalesOrder;
 use App\Model\SellingOrder;
 use App\User;
@@ -55,6 +58,11 @@ class SalesOrderController extends Controller
         $sales_order->nomor_invoice = $request->no_inv;
         $sales_order->job_order_id = $request->order_id;
         $sales_order->notes = $request->notes;
+        if (empty($request->published)) {
+            $sales_order->published = 0;
+        } else {
+            $sales_order->published = $request->published;
+        }
         $sales_order->save();
         if (!empty($request->description_b[0])) {
             foreach ($request->description_b as $a => $v) {
@@ -92,6 +100,31 @@ class SalesOrderController extends Controller
                 $i++;
             }
         }
+        if (!empty($request->currency_prof[0])) {
+            foreach ($request->currency_prof as $a => $v) {
+                $details_prof = array(
+                    'sales_order_id' => $sales_order->id,
+                    'currency' => $v,
+                    'total_selling' => $request->total_selling_prof[$a],
+                    'total_buying' => $request->total_buying_prof[$a],
+                    'profit' => $request->profit[$a],
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                );
+                Profit::insert($details_prof);
+                $i++;
+            }
+        }
+        $details_dp = array(
+            'sales_order_id' => $sales_order->id,
+            'customer' => $request->customer_dp,
+            'currency' => $request->currency_dp,
+            'total' => $request->total_dp,
+            'dp' => $request->dp,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+        );
+        Down_Payment::insert($details_dp);
         return redirect(route('sales_order.index'));
     }
 

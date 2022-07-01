@@ -325,7 +325,7 @@
                 $('#customer-field').val(data['name_client']);
                 $('#customer-field-id').val(data['jobs'].client_id);
                 $('#sales_id').val(data['jobs'].sales_id);
-                $('#service_id').val(data['jobs'].sales_id);
+                $('#service_id').val(data['jobs'].service_id);
                 $('#via_id').val(data['jobs'].via_id);
                 $('#ETD').val(data['jobs'].ETD);
                 $('#ETA').val(data['jobs'].ETA);
@@ -407,7 +407,7 @@
                             $('#customer-field').val(data['name_client']);
                             $('#customer-field-id').val(data['jobs'].client_id);
                             $('#sales_id').val(data['jobs'].sales_id);
-                            $('#service_id').val(data['jobs'].sales_id);
+                            $('#service_id').val(data['jobs'].service_id);
                             $('#via_id').val(data['jobs'].via_id);
                             $('#ETD').val(data['jobs'].ETD);
                             $('#ETA').val(data['jobs'].ETA);

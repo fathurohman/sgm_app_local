@@ -43,7 +43,7 @@ $("#addkolom_s").click(function () {
      // console.log(sub);
 });
 function addkolom_s() {
-     var kolom = '<tr>' +
+     var kolom = '<tr class="row-selling">' +
           '<td><input class="autosuggest ui-widget" type="text" id="description_s' + nextid_s + '" name="description_s[]"></td>' +
           '<td><input class="qty" type="number" id="qty_s' + nextid_s + '" name="qty_s[]"></td>' +
           // '<td><input type="number" id="curr_s' + nextid_s + '" name="curr_s[]"></td>' +
