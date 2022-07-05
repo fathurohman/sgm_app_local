@@ -73,3 +73,24 @@ $(document).on('click', '.remove_s', function () {
           $(this).parent().parent().remove();
      }
 });
+$('tbody').on('keyup', ".price", function () {
+     var tr = $(this).parent().parent();
+     var qty = tr.find('.qty').val();
+     var price = tr.find('.price').val();
+     var total = qty * price;
+     // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
+     tr.find('.sub_total_s').val(total);
+     tr.find('.sub_total_b').val(total);
+     // parseInt(tr.find('.sub_total_s').val(total), 10);
+     // parseInt($("#replies").text(),10);
+})
+$('tbody').on('change', ".qty", function () {
+     var tr = $(this).parent().parent();
+     var $this = $(this);
+     $this.val(parseFloat($this.val()).toFixed(3));
+     var qty = tr.find('.qty').val();
+     var price = tr.find('.price').val();
+     var total = qty * price;
+     tr.find('.sub_total_s').val(total);
+     tr.find('.sub_total_b').val(total);
+})

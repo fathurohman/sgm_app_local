@@ -26,7 +26,40 @@ class SalesOrderController extends Controller
      */
     public function index()
     {
-        //
+        // $sales_orders = SalesOrder::all();
+        return view('sales_order.show');
+    }
+
+    public function listsalesshow()
+    {
+        $query = SalesOrder::where('deleted', '0');
+        return Datatables::of(
+            $query
+        )->addColumn('invoice_no', function ($row) {
+            return $row->nomor_invoice;
+        })->addColumn('job_order_id', function ($row) {
+            return $row->job_orders->order_id;
+        })->addColumn('tipe_order', function ($row) {
+            return $row->job_orders->tipe_order;
+        })->addColumn('notes', function ($row) {
+            return $row->notes;
+        })->addColumn('status', function ($row) {
+            if ($row->published == '1') {
+                return 'Process by finance';
+            } else {
+                return 'draft';
+            }
+        })->addColumn('More', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('sales_order.dt.act_list_more', compact('data'));
+        })->addColumn('Action', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('sales_order.dt.act_list_crud', compact('data'));
+        })->rawColumns(['action', 'More'])->toJson();
     }
 
     /**
@@ -145,9 +178,37 @@ class SalesOrderController extends Controller
      * @param  \App\Model\SalesOrder  $salesOrder
      * @return \Illuminate\Http\Response
      */
-    public function edit(SalesOrder $salesOrder)
+    public function edit($id)
     {
-        //
+        $sales_order = SalesOrder::find($id);
+        $job_id = $sales_order->job_order_id;
+        $data_job = job_order::find($job_id);
+        $createdAt = Carbon::parse($data_job->created_at);
+        $tanggal = $createdAt->format('Y-m-d');
+        $sales = $data_job->sales->name;
+        $shipper = $data_job->clients->COMPANY_NAME;
+        $data = array(
+            'tanggal' => $tanggal,
+            'sales' => $sales,
+            'shipper' => $shipper,
+        );
+        // $selling = SellingOrder::where('sales_order_id', $sales_order->id)->get();
+        $selling = SalesOrder::find($id)->sellings;
+        $buying = SalesOrder::find($id)->buyings;
+        $profit = SalesOrder::find($id)->profits;
+        // $buying = BuyingOrder::where('sales_order_id', $sales_order->id)->get();
+        // $profit = Profit::where('sales_order_id', $sales_order->id)->get();
+        $down_payment = Down_Payment::where('sales_order_id', $sales_order->id)->first();
+        // $data = array('');
+        return view('sales_order.edit', compact(
+            'sales_order',
+            'data_job',
+            'data',
+            'selling',
+            'buying',
+            'down_payment',
+            'profit'
+        ));
     }
 
     /**
@@ -157,9 +218,83 @@ class SalesOrderController extends Controller
      * @param  \App\Model\SalesOrder  $salesOrder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SalesOrder $salesOrder)
+    public function update(Request $request, $id)
     {
-        //
+        $i = 0;
+        $sales_order = SalesOrder::find($id);
+        $sales_order->nomor_invoice = $request->no_inv;
+        $sales_order->job_order_id = $request->order_id;
+        $sales_order->notes = $request->notes;
+        if (empty($request->published)) {
+            $sales_order->published = 0;
+        } else {
+            $sales_order->published = $request->published;
+        }
+        $sales_order->save();
+        //down_payments
+        $down_payment = Down_Payment::find($request->dp_id);
+        $down_payment->sales_order_id = $id;
+        $down_payment->customer = $request->customer_dp;
+        $down_payment->currency = $request->currency_dp;
+        $down_payment->total = $request->total_dp;
+        $down_payment->dp = $request->dp;
+        $down_payment->save();
+        // Down_Payment::updateorCreate([
+        //     ['id' => $request->dp_id],
+        //     [
+        //         'sales_order_id' => $sales_order->id,
+        //         'customer' => $request->customer_dp,
+        //         'currency' => $request->currency_dp,
+        //         'total' => $request->total_dp,
+        //         'dp' => $request->dp,
+        //     ]
+        // ]);
+        //buying
+        foreach ($request->description_b as $a => $v) {
+            BuyingOrder::updateorCreate(
+                ['id' => $request->id_buying[$a]],
+                [
+                    'sales_order_id' => $sales_order->id,
+                    'description' => $v,
+                    'qty' => $request->qty_b[$a],
+                    'curr' => $request->curr_b[$a],
+                    'price' => $request->price_b[$a],
+                    'sub_total' => $request->sub_total_b[$a],
+                    'remark' => $request->remark_b[$a],
+                    'name' => $request->name_b[$a],
+                ]
+            );
+        }
+        //selling
+        foreach ($request->description_s as $a => $v) {
+            SellingOrder::updateorCreate(
+                ['id' => $request->id_selling[$a]],
+                [
+                    'sales_order_id' => $sales_order->id,
+                    'description' => $v,
+                    'qty' => $request->qty_s[$a],
+                    'curr' => $request->curr_s[$a],
+                    'price' => $request->price_s[$a],
+                    'sub_total' => $request->sub_total_s[$a],
+                    'remark' => $request->remark_s[$a],
+                    'name' => $request->name_s[$a],
+                ]
+            );
+        }
+        //profit
+        Profit::where('sales_order_id', $sales_order->id)->delete();
+        foreach ($request->currency_prof as $a => $v) {
+            Profit::updateOrCreate(
+                ['id' => $request->id_profit[$a]],
+                [
+                    'sales_order_id' => $sales_order->id,
+                    'currency' => $v,
+                    'total_selling' => $request->total_selling_prof[$a],
+                    'total_buying' => $request->total_buying_prof[$a],
+                    'profit' => $request->profit[$a],
+                ]
+            );
+        }
     }
 
     /**
@@ -275,5 +410,29 @@ class SalesOrderController extends Controller
             $results[] = ['id' => $query->id, 'value' => $query->COMPANY_NAME, 'nick' => $query->nick];
         }
         return Response::json($results);
+    }
+
+    public function showDetailSelling($id)
+    {
+        $selling_orders  = SellingOrder::where('sales_order_id', $id)->get();
+        return view('sales_order.sales_selling', compact('selling_orders'));
+    }
+
+    public function showDetailBuying($id)
+    {
+        $buying_orders  = BuyingOrder::where('sales_order_id', $id)->get();
+        return view('sales_order.sales_buying', compact('buying_orders'));
+    }
+
+    public function showDetailDP($id)
+    {
+        $dp_orders  = Down_Payment::where('sales_order_id', $id)->first();
+        return view('sales_order.sales_dp', compact('dp_orders'));
+    }
+
+    public function showDetailProfit($id)
+    {
+        $profit_orders  = Profit::where('sales_order_id', $id)->get();
+        return view('sales_order.sales_profit', compact('profit_orders'));
     }
 }

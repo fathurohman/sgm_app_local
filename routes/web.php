@@ -36,6 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/listorder', 'JobOrderController@listorder')->name('listorder');
 	Route::get('/listordershow', 'JobOrderController@listordershow')->name('listordershow');
 	//sales order routes
+	Route::get('/listsalesshow', 'SalesOrderController@listsalesshow')->name('listsalesshow');
+	Route::get('/sales_selling_detail/{id}', 'SalesOrderController@showDetailSelling');
+	Route::get('/sales_buying_detail/{id}', 'SalesOrderController@showDetailBuying');
+	Route::get('/sales_profit_detail/{id}', 'SalesOrderController@showDetailProfit');
+	Route::get('/sales_dp_detail/{id}', 'SalesOrderController@showDetailDP');
 	Route::get('/job_data_sales', 'SalesOrderController@getdataordersales');
 	Route::get('/listordersales', 'SalesOrderController@listordersales')->name('listordersales');
 	Route::resource('sales_order', 'SalesOrderController');
