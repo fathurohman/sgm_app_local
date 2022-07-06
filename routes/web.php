@@ -54,6 +54,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/client_detail/{id}', 'ClientController@showTracking');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+	//finance routes
+	Route::get('/finance', 'FinanceController@index')->name('finance.index');
+	Route::get('/listinvoiceshow', 'FinanceController@listinvoiceshow')->name('listinvoiceshow');
+	Route::get('/cetak_invoice', 'FinanceController@cetak_invoice');
+	//end
 	Route::get('upgrade', function () {
 		return view('pages.upgrade');
 	})->name('upgrade');

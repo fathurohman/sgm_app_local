@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Response;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 
 class SalesOrderController extends Controller
 {
@@ -88,8 +89,11 @@ class SalesOrderController extends Controller
     {
         $i = 0;
         $sales_order = new SalesOrder;
+        $tipe = $request->tipe_order_text;
+        $tipe_order = strtok($tipe, '-');
         $sales_order->nomor_invoice = $request->no_inv;
         $sales_order->job_order_id = $request->order_id;
+        $sales_order->tipe = $tipe_order;
         $sales_order->notes = $request->notes;
         if (empty($request->published)) {
             $sales_order->published = 0;
@@ -338,14 +342,19 @@ class SalesOrderController extends Controller
         $tanggal = $createdAt->format('Y-m-d');
         // $order_id = $jobs->order_id;
         $tipe_order = strtok($jobs->tipe_order, '-');
-        $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
+        // $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
         // print_r($jenis_order);
         //no invoice
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
-        $jml_by_month = job_order::whereMonth('created_at', $month)->count();
+        $jml_by_month = SalesOrder::whereMonth('created_at', $month)
+            ->where([
+                ['tipe', '=', $tipe_order],
+                ['deleted', '=', '0'],
+            ])
+            ->count();
         $order_month = $jml_by_month + 1;
-        $inv = "$jenis_order/SGM/$tipe_order/$month/$year";
+        $inv = "$order_month/SGM/$tipe_order/$month/$year";
         //end
         $data = array(
             'jobs' => $jobs,

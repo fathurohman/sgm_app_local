@@ -37,6 +37,7 @@ class JobOrderController extends Controller
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
         $jml_by_month = job_order::whereMonth('created_at', $month)->count();
+        // dd($jml_by_month);
         $order_month = $jml_by_month + 1;
         $sprint_order = sprintf('%03d', $order_month);
         $order_id = "$year$month$sprint_order";
