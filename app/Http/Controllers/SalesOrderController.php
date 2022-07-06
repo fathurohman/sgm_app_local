@@ -239,16 +239,6 @@ class SalesOrderController extends Controller
         $down_payment->total = $request->total_dp;
         $down_payment->dp = $request->dp;
         $down_payment->save();
-        // Down_Payment::updateorCreate([
-        //     ['id' => $request->dp_id],
-        //     [
-        //         'sales_order_id' => $sales_order->id,
-        //         'customer' => $request->customer_dp,
-        //         'currency' => $request->currency_dp,
-        //         'total' => $request->total_dp,
-        //         'dp' => $request->dp,
-        //     ]
-        // ]);
         //buying
         foreach ($request->description_b as $a => $v) {
             BuyingOrder::updateorCreate(
@@ -295,6 +285,7 @@ class SalesOrderController extends Controller
                 ]
             );
         }
+        return redirect(route('sales_order.index'));
     }
 
     /**

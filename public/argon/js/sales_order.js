@@ -9,7 +9,8 @@ $("#addkolom_b").click(function () {
 });
 function addkolom_b() {
      var kolom = '<tr class="row-buying">' +
-          '<td><input class="autosuggest ui-widget" type="text" id="description_b' + nextid_b + '" name="description_b[]"></td>' +
+          '<td><input class="autosuggest ui-widget" type="text" id="description_b' + nextid_b + '" name="description_b[]">' +
+          '<input type="text" name="id_buying[]" hidden></td>' +
           '<td><input class="qty" type="text" id="qty_b' + nextid_b + '" name="qty_b[]"></td>' +
           // '<td><input type="text" id="curr_b' + nextid_b + '" name="curr_b[]"></td>' +
           '<td><select class="curr_b" id="curr_b' + nextid_b + '" name="curr_b[]" class="form-select" aria-label="Default select example">' +
@@ -44,7 +45,8 @@ $("#addkolom_s").click(function () {
 });
 function addkolom_s() {
      var kolom = '<tr class="row-selling">' +
-          '<td><input class="autosuggest ui-widget" type="text" id="description_s' + nextid_s + '" name="description_s[]"></td>' +
+          '<td><input class="autosuggest ui-widget" type="text" id="description_s' + nextid_s + '" name="description_s[]">' +
+          '<input type="text" name="id_buying[]" hidden></td>' +
           '<td><input class="qty" type="number" id="qty_s' + nextid_s + '" name="qty_s[]"></td>' +
           // '<td><input type="number" id="curr_s' + nextid_s + '" name="curr_s[]"></td>' +
           '<td><select id="curr_s' + nextid_s + '" name="curr_s[]" class="form-select curr_s" aria-label="Default select example">' +

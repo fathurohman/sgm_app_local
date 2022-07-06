@@ -224,8 +224,8 @@
                                                 <th>Sub Total</th>
                                                 <th>Name</th>
                                                 <th>Remark</th>
-                                                {{-- <th><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a></th>
-                                                <th>Remove</th> --}}
+                                                <th><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a></th>
+                                                <th>Remove</th>
                                             </thead>
                                             <tbody class="buying">
                                                 @foreach ($buying as $x)
@@ -258,8 +258,9 @@
                                                         <td><input type="text" class="remark_b"
                                                                 value="{{ $x->remark }}" id="remark_b"
                                                                 name="remark_b[]"></td>
-                                                        {{-- <td></td>
-                                                        <td><a href="#" id="removekolom_b"
+                                                        <td></td>
+                                                        <td></td>
+                                                        {{-- <td><a href="#" id="removekolom_b"
                                                                 class="btn btn-danger remove_b"><i
                                                                     class="fa fa-times"></i></a>
                                                         </td> --}}
@@ -283,8 +284,8 @@
                                                 <th>Sub Total</th>
                                                 <th>Name</th>
                                                 <th>Remark</th>
-                                                {{-- <th><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a></th> --}}
-                                                {{-- <th>Remove</th> --}}
+                                                <th><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a></th>
+                                                <th>Remove</th>
                                             </thead>
                                             <tbody class="selling">
                                                 @foreach ($selling as $x)
@@ -316,9 +317,9 @@
                                                         </td>
                                                         <td><input value="{{ $x->remark }}" type="text"
                                                                 id="remark_s" class="remark_s" name="remark_s[]"></td>
-                                                        {{-- <td>
-                                                        </td>
-                                                        <td><a href="#" id="removekolom_s"
+                                                        <td></td>
+                                                        <td></td>
+                                                        {{-- <td><a href="#" id="removekolom_s"
                                                                 class="btn btn-danger remove_s"><i
                                                                     class="fa fa-times"></i></a>
                                                         </td> --}}
@@ -427,11 +428,166 @@
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            var appendidr = true;
+            var appendusd = true;
+            var appendsgd = true;
+            var appendeur = true;
+
+            function calculate() {
+                var rowCount = $('tbody.buying tr').length;
+                // console.log(rowCount);
+                var sum_idr = 0;
+                var sum_usd = 0;
+                var sum_sgd = 0;
+                var sum_eur = 0;
+                var sum_idr_s = 0;
+                var sum_usd_s = 0;
+                var sum_sgd_s = 0;
+                var sum_eur_s = 0;
+                var curr_id_prof = '';
+                $('.row-buying').each(function() {
+                    var item = $(this);
+                    var curr_beli = item.find('.curr_b').val();
+                    var jumlah = item.find('.sub_total_b')
+                        .val();
+                    // console.log(jumlah);
+                    if (curr_beli == 'IDR') {
+                        sum_idr += +jumlah;
+                    } else if (curr_beli == 'USD') {
+                        sum_usd += +jumlah;
+                    } else if (curr_beli == 'SGD') {
+                        sum_sgd += +jumlah;
+                    } else {
+                        sum_eur += +jumlah;
+                    }
+                });
+                $('.row-selling').each(function() {
+                    var item = $(this);
+                    var curr_beli = item.find('.curr_s').val();
+                    var jumlah = item.find('.sub_total_s')
+                        .val();
+                    // console.log(jumlah);
+                    if (curr_beli == 'IDR') {
+                        sum_idr_s += +jumlah;
+                    } else if (curr_beli == 'USD') {
+                        sum_usd_s += +jumlah;
+                    } else if (curr_beli == 'SGD') {
+                        sum_sgd_s += +jumlah;
+                    } else {
+                        sum_eur_s += +jumlah;
+                    }
+                });
+                // console.log(sum_idr);
+                // console.log(sum_usd);
+                // console.log(sum_sgd);
+                // console.log(sum_eur);
+                if (sum_idr > 0) {
+                    var curr_beli = 'IDR';
+                    var profit = sum_idr_s - sum_idr;
+                    // console.log(profit);
+                    var tb = '<tr>' +
+                        '<td><input type="text" id="currency_prof' +
+                        curr_beli +
+                        '" name="currency_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_selling' +
+                        curr_beli +
+                        '" name="total_selling_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_buying' +
+                        curr_beli +
+                        '" name="total_buying_prof[]" readonly></td>' +
+                        '<td><input type="text" id="profit_buy' +
+                        curr_beli +
+                        '" name="profit[]" readonly></td>' +
+                        '</tr>';
+                    if (appendidr) {
+                        $('.profit_tb').append(tb);
+                        appendidr = false;
+                    }
+                    $('#currency_prof' + curr_beli + '').val(curr_beli);
+                    $('#total_selling' + curr_beli + '').val(sum_idr_s);
+                    $('#total_buying' + curr_beli + '').val(sum_idr);
+                    $('#profit_buy' + curr_beli + '').val(profit);
+                }
+                if (sum_usd > 0) {
+                    var curr_beli = 'USD';
+                    var profit = sum_usd_s - sum_usd;
+                    var tb = '<tr>' +
+                        '<td><input type="text" id="currency_prof' +
+                        curr_beli +
+                        '" name="currency_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_selling' +
+                        curr_beli +
+                        '" name="total_selling_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_buying' +
+                        curr_beli +
+                        '" name="total_buying_prof[]" readonly></td>' +
+                        '<td><input type="text" id="profit_buy' +
+                        curr_beli +
+                        '" name="profit[]" readonly></td>' +
+                        '</tr>';
+                    if (appendusd) {
+                        $('.profit_tb').append(tb);
+                        appendusd = false;
+                    }
+                    $('#currency_prof' + curr_beli + '').val(curr_beli);
+                    $('#total_selling' + curr_beli + '').val(sum_usd_s);
+                    $('#total_buying' + curr_beli + '').val(sum_usd);
+                    $('#profit_buy' + curr_beli + '').val(profit);
+                }
+                if (sum_sgd > 0) {
+                    var curr_beli = 'SGD';
+                    var profit = sum_sgd_s - sum_sgd;
+                    var tb = '<tr>' +
+                        '<td><input type="text" id="currency_prof' +
+                        curr_beli +
+                        '" name="currency_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_selling' +
+                        curr_beli +
+                        '" name="total_selling_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_buying' +
+                        curr_beli +
+                        '" name="total_buying_prof[]" readonly></td>' +
+                        '<td><input type="text" id="profit_buy' +
+                        curr_beli +
+                        '" name="profit[]" readonly></td>' +
+                        '</tr>';
+                    if (appendsgd) {
+                        $('.profit_tb').append(tb);
+                        appendsgd = false;
+                    }
+                    $('#currency_prof' + curr_beli + '').val(curr_beli);
+                    $('#total_selling' + curr_beli + '').val(sum_sgd_s);
+                    $('#total_buying' + curr_beli + '').val(sum_sgd);
+                    $('#profit_buy' + curr_beli + '').val(profit);
+                }
+                if (sum_eur > 0) {
+                    var curr_beli = 'EUR';
+                    var profit = sum_eur_s - sum_eur;
+                    var tb = '<tr>' +
+                        '<td><input type="text" id="currency_prof' +
+                        curr_beli +
+                        '" name="currency_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_selling' +
+                        curr_beli +
+                        '" name="total_selling_prof[]" readonly></td>' +
+                        '<td><input type="text" id="total_buying' +
+                        curr_beli +
+                        '" name="total_buying_prof[]" readonly></td>' +
+                        '<td><input type="text" id="profit_buy' +
+                        curr_beli +
+                        '" name="profit[]" readonly></td>' +
+                        '</tr>';
+                    if (appendeur) {
+                        $('.profit_tb').append(tb);
+                        appendeur = false;
+                    }
+                    $('#currency_prof' + curr_beli + '').val(curr_beli);
+                    $('#total_selling' + curr_beli + '').val(sum_eur_s);
+                    $('#total_buying' + curr_beli + '').val(sum_eur);
+                    $('#profit_buy' + curr_beli + '').val(profit);
+                }
+            }
             $(function() {
-                var appendidr = true;
-                var appendusd = true;
-                var appendsgd = true;
-                var appendeur = true;
                 var removetbprof = true;
                 $('tbody').on('focus', ".autosuggest", function() {
                     var tr = $(this).parent().parent();
@@ -463,156 +619,7 @@
                             tr.find('.remark_b').val(ui.item.nick);
                             var remark = tr.find('.remark_b').val();
                             var name = tr.find('.name_b').val();
-                            var sum_idr = 0;
-                            var sum_usd = 0;
-                            var sum_sgd = 0;
-                            var sum_eur = 0;
-                            var sum_idr_s = 0;
-                            var sum_usd_s = 0;
-                            var sum_sgd_s = 0;
-                            var sum_eur_s = 0;
-                            var curr_id_prof = '';
-                            $('.row-buying').each(function() {
-                                var item = $(this);
-                                var curr_beli = item.find('.curr_b').val();
-                                var jumlah = item.find('.sub_total_b')
-                                    .val();
-                                // console.log(jumlah);
-                                if (curr_beli == 'IDR') {
-                                    sum_idr += +jumlah;
-                                } else if (curr_beli == 'USD') {
-                                    sum_usd += +jumlah;
-                                } else if (curr_beli == 'SGD') {
-                                    sum_sgd += +jumlah;
-                                } else {
-                                    sum_eur += +jumlah;
-                                }
-                            });
-                            $('.row-selling').each(function() {
-                                var item = $(this);
-                                var curr_beli = item.find('.curr_s').val();
-                                var jumlah = item.find('.sub_total_s')
-                                    .val();
-                                // console.log(jumlah);
-                                if (curr_beli == 'IDR') {
-                                    sum_idr_s += +jumlah;
-                                } else if (curr_beli == 'USD') {
-                                    sum_usd_s += +jumlah;
-                                } else if (curr_beli == 'SGD') {
-                                    sum_sgd_s += +jumlah;
-                                } else {
-                                    sum_eur_s += +jumlah;
-                                }
-                            });
-                            // console.log(sum_idr);
-                            // console.log(sum_usd);
-                            // console.log(sum_sgd);
-                            // console.log(sum_eur);
-                            if (sum_idr > 0) {
-                                var curr_beli = 'IDR';
-                                var profit = sum_idr_s - sum_idr;
-                                // console.log(profit);
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendidr) {
-                                    $('.profit_tb').append(tb);
-                                    appendidr = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_idr_s);
-                                $('#total_buying' + curr_beli + '').val(sum_idr);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_usd > 0) {
-                                var curr_beli = 'USD';
-                                var profit = sum_usd_s - sum_usd;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendusd) {
-                                    $('.profit_tb').append(tb);
-                                    appendusd = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_usd_s);
-                                $('#total_buying' + curr_beli + '').val(sum_usd);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_sgd > 0) {
-                                var curr_beli = 'SGD';
-                                var profit = sum_sgd_s - sum_sgd;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendsgd) {
-                                    $('.profit_tb').append(tb);
-                                    appendsgd = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_sgd_s);
-                                $('#total_buying' + curr_beli + '').val(sum_sgd);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_eur > 0) {
-                                var curr_beli = 'EUR';
-                                var profit = sum_eur_s - sum_eur;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendeur) {
-                                    $('.profit_tb').append(tb);
-                                    appendeur = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_eur_s);
-                                $('#total_buying' + curr_beli + '').val(sum_eur);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
+                            calculate();
                         }
                     })
                 })
@@ -651,170 +658,14 @@
                             //     sum_b += +$(this).val();
                             // });
                             // var profit = sum_s - sum_b;
+                            //dari sini
                             //ambil buying per mata uang
-                            var rowCount = $('tbody.buying tr').length;
-                            // console.log(rowCount);
-                            var sum_idr = 0;
-                            var sum_usd = 0;
-                            var sum_sgd = 0;
-                            var sum_eur = 0;
-                            var sum_idr_s = 0;
-                            var sum_usd_s = 0;
-                            var sum_sgd_s = 0;
-                            var sum_eur_s = 0;
-                            var curr_id_prof = '';
-                            $('.row-buying').each(function() {
-                                var item = $(this);
-                                var curr_beli = item.find('.curr_b').val();
-                                var jumlah = item.find('.sub_total_b')
-                                    .val();
-                                // console.log(jumlah);
-                                if (curr_beli == 'IDR') {
-                                    sum_idr += +jumlah;
-                                } else if (curr_beli == 'USD') {
-                                    sum_usd += +jumlah;
-                                } else if (curr_beli == 'SGD') {
-                                    sum_sgd += +jumlah;
-                                } else {
-                                    sum_eur += +jumlah;
-                                }
-                            });
-                            $('.row-selling').each(function() {
-                                var item = $(this);
-                                var curr_beli = item.find('.curr_s').val();
-                                var jumlah = item.find('.sub_total_s')
-                                    .val();
-                                // console.log(jumlah);
-                                if (curr_beli == 'IDR') {
-                                    sum_idr_s += +jumlah;
-                                } else if (curr_beli == 'USD') {
-                                    sum_usd_s += +jumlah;
-                                } else if (curr_beli == 'SGD') {
-                                    sum_sgd_s += +jumlah;
-                                } else {
-                                    sum_eur_s += +jumlah;
-                                }
-                            });
-                            // console.log(sum_idr);
-                            // console.log(sum_usd);
-                            // console.log(sum_sgd);
-                            // console.log(sum_eur);
-                            if (sum_idr > 0) {
-                                var curr_beli = 'IDR';
-                                var profit = sum_idr_s - sum_idr;
-                                // console.log(profit);
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendidr) {
-                                    $('.profit_tb').append(tb);
-                                    appendidr = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_idr_s);
-                                $('#total_buying' + curr_beli + '').val(sum_idr);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_usd > 0) {
-                                var curr_beli = 'USD';
-                                var profit = sum_usd_s - sum_usd;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendusd) {
-                                    $('.profit_tb').append(tb);
-                                    appendusd = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_usd_s);
-                                $('#total_buying' + curr_beli + '').val(sum_usd);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_sgd > 0) {
-                                var curr_beli = 'SGD';
-                                var profit = sum_sgd_s - sum_sgd;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendsgd) {
-                                    $('.profit_tb').append(tb);
-                                    appendsgd = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_sgd_s);
-                                $('#total_buying' + curr_beli + '').val(sum_sgd);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            if (sum_eur > 0) {
-                                var curr_beli = 'EUR';
-                                var profit = sum_eur_s - sum_eur;
-                                var tb = '<tr>' +
-                                    '<td><input type="text" id="currency_prof' +
-                                    curr_beli +
-                                    '" name="currency_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_selling' +
-                                    curr_beli +
-                                    '" name="total_selling_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="total_buying' +
-                                    curr_beli +
-                                    '" name="total_buying_prof[]" readonly></td>' +
-                                    '<td><input type="text" id="profit_buy' +
-                                    curr_beli +
-                                    '" name="profit[]" readonly></td>' +
-                                    '</tr>';
-                                if (appendeur) {
-                                    $('.profit_tb').append(tb);
-                                    appendeur = false;
-                                }
-                                $('#currency_prof' + curr_beli + '').val(curr_beli);
-                                $('#total_selling' + curr_beli + '').val(sum_eur_s);
-                                $('#total_buying' + curr_beli + '').val(sum_eur);
-                                $('#profit_buy' + curr_beli + '').val(profit);
-                            }
-                            // var total = parseInt(sum_s, 10);
-                            // var description = tr.find('.autosuggest').val();
+                            calculate();
+                            //end
                             $('#customer_dp').val(name);
                             $('#currency_dp').val(curr_sell);
                             $('#total_dp').val(sum_s);
                             $('#d_payment').val(sum_s);
-                            //profit
-                            // $('#currency_prof').val(curr_buy);
-                            // $('#total_selling').val(sum_s);
-                            // $('#total_buying').val(sum_b);
-                            // $('#profit_buy').val(profit);
                         }
                     })
                 })
