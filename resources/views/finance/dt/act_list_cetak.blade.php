@@ -4,6 +4,7 @@
         <i class="fas fa-ellipsis-v"></i>
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-        <a class="dropdown-item" href="cetak_invoice">Cetak Invoice</a>
+        <a class="dropdown-item" href="cetak_invoice/{{ $data['id'] }}/{{ $data['tipe'] }}" target="_blank">Cetak
+            Invoice</a>
     </div>
 </div>

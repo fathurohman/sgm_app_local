@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//finance routes
 	Route::get('/finance', 'FinanceController@index')->name('finance.index');
 	Route::get('/listinvoiceshow', 'FinanceController@listinvoiceshow')->name('listinvoiceshow');
-	Route::get('/cetak_invoice', 'FinanceController@cetak_invoice');
+	Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
 	//end
 	Route::get('upgrade', function () {
 		return view('pages.upgrade');
