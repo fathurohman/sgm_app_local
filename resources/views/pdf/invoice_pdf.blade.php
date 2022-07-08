@@ -46,7 +46,7 @@
         .table-terbilang table {
             width: 100%;
             /* text-decoration: underline; */
-            border-collapse: collapse;
+            /* border-collapse: collapse; */
         }
 
         .table-signature table {
@@ -165,10 +165,10 @@
         <table style="table-layout:fixed;">
             <thead>
                 <tr>
-                    <th style="width: 50%; text-align:center">Description</th>
-                    <th style="width: 10%">Volume</th>
-                    <th style="width: 20%; text-align:center">Price / Unit</th>
-                    <th style="width: 20%; text-align:center">Value</th>
+                    <th style="width: 48%; text-align:center">Description</th>
+                    <th style="width: 11%">Volume</th>
+                    <th style="width: 21%; text-align:center">Price / Unit</th>
+                    <th style="width: 19%; text-align:center">Value</th>
                 </tr>
             </thead>
             <tbody>
@@ -178,37 +178,63 @@
                         <td style="text-align:center">{{ $x->qty }}</td>
                         <td style="text-align:center">{{ number_format($x->price) }}</td>
                         <td style="text-align:center">{{ $x->curr }} {{ number_format($x->sub_total) }}</td>
+                        <td></td>
                     </tr>
                 @endforeach
+                {{-- <tr>
+                    <td colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
+                    <td style="text-align:left">Total :</td>
+                    <td style="text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</td>
+                </tr> --}}
             </tbody>
         </table>
     </div>
     <div class="table-terbilang">
         <table style="table-layout:fixed;">
             <tr>
-                <th style="width: 20%; text-align:left">Terbilang</th>
+                <th rowspan="3" style="width: 18%;text-align:left">Terbilang :</th>
+                <th rowspan="3" style="width: 43%;text-align:left">{{ $data['terbilang'] }}</th>
+                <th style="width: 21%;text-align:left">Total :</th>
+                <th style="width: 18%;text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</th>
+            </tr>
+            <tr>
+                <th style="width: 21%;text-align:left">VAT {{ $data['nilai_pajak'] }} % :</th>
+                <th style="width: 18%;text-align:left">{{ $data['curr'] }}
+                    {{ number_format($data['total_pajak']) }}</th>
+            </tr>
+            <tr>
+                <th style="width: 22%;text-align:left">Total Charges :</th>
+                <th style="width: 17%;text-align:left">{{ $data['curr'] }}
+                    {{ number_format($data['total_charge']) }}</th>
+            </tr>
+            {{-- <tr>
+                <th style="width: 15%; text-align:left">Terbilang</th>
                 <th style="width: 5%">:</th>
                 <th style="width: 40%; text-align:left">{{ $data['terbilang'] }}</th>
-                <th style="width: 10%; text-align:left">Total</th>
+                <th style="width: 15%; text-align:left">Total</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ number_format($data['sum']) }}</th>
+                <th style="width: 20%; text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</th>
             </tr>
             <tr>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 15%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 30%; text-align:left"></th>
-                <th style="width: 20%; text-align:left">VAT</th>
+                <th style="width: 40%; text-align:left"></th>
+                <th style="width: 15%; text-align:left">VAT {{ $data['nilai_pajak'] }} %</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ number_format($data['total_pajak']) }}</th>
+                <th style="width: 20%; text-align:left">
+                    {{ $data['curr'] }}
+                    {{ number_format($data['total_pajak']) }}</th>
             </tr>
             <tr>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 15%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 30%; text-align:left"></th>
-                <th style="width: 20%; text-align:left">Total Charges</th>
+                <th style="width: 40%; text-align:left"></th>
+                <th style="width: 15%; text-align:left">Total Charges</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ number_format($data['total_charge']) }}</th>
-            </tr>
+                <th style="width: 20%; text-align:left">
+                    {{ $data['curr'] }}
+                    {{ number_format($data['total_charge']) }}</th>
+            </tr> --}}
         </table>
     </div>
     <div class="table-signature">

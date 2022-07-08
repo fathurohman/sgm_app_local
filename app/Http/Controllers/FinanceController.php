@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Client;
 use App\Model\SalesOrder;
+use App\Model\Settings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -62,11 +63,15 @@ class FinanceController extends Controller
         foreach ($selling as $x) {
             $sub_total = $x->sub_total;
             $sum += $sub_total;
+            $curr = $x->curr;
         }
-        $vat = 11 / 100;
+        $pajak = Settings::where('name', 'Pajak')->first();
+        $nilai_pajak = $pajak->value;
+        $vat = $nilai_pajak / 100;
         $total_pajak = $sum * $vat;
         $total_charge = $sum - $total_pajak;
         $terbilang = Terbilang::make($sum, ' rupiah');
+        // $terbilang = Terbilang::make(2858250, ' rupiah');
         $data = array(
             'sales_order' => $sales_order,
             'sales_job' => $sales_job,
@@ -77,8 +82,10 @@ class FinanceController extends Controller
             'customer' => $list_customer,
             'terbilang' => $terbilang,
             'sum' => $sum,
+            'nilai_pajak' => $nilai_pajak,
             'total_pajak' => $total_pajak,
             'total_charge' => $total_charge,
+            'curr' => $curr,
         );
         if ($tipe == 'I') {
             $view = View('pdf.invoice_pdf', ['data' => $data]);
