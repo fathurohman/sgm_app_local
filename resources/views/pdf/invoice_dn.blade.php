@@ -6,100 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style type="text/css">
-        @page {
-            margin-top: 100px;
-            margin-left: 80px;
-            margin-right: 80px;
-            font-size: 10pt;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .table-request table {
-            width: 100%;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-            /* border: 1px solid #000; */
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-            /* text-align: center; */
-            /* margin-top: 80px; */
-        }
-
-        .table-customer table {
-            width: 100%;
-            /* text-decoration: underline; */
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .selling {
-            /* min-height: 300px; */
-            /* border: 1px solid; */
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .selling-judul th {
-            border-bottom: 1px solid;
-        }
-
-        .kanan {
-            height: 20px;
-            /* border: 1px solid; */
-            border-right: 1px solid;
-        }
-
-        .selling-value {
-            border-right: 1px solid;
-        }
-
-        .empty-td {
-            height: 300px;
-        }
-
-        .empty-value {
-            border-right: 1px solid;
-            border-bottom: 1px solid;
-        }
-
-        .last-empty-value {
-            border-bottom: 1px solid;
-        }
-
-        .last-terbilang-value {
-            border-bottom: 1px solid;
-            border-left: 1px solid;
-        }
-
-        .table-terbilang table {
-            width: 100%;
-            /* border: 1px solid; */
-            /* text-decoration: underline; */
-            /* border-collapse: collapse; */
-        }
-
-        .table-signature table {
-            width: 100%;
-            margin-top: 40px;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-        }
-
-        .table-name_signature table {
-            width: 100%;
-            margin-top: 90px;
-            text-decoration: underline;
-            border-collapse: collapse;
-        }
-
-        .table-dept_signature table {
-            width: 100%;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-        }
-    </style>
+    <link type="text/css" href="{{ public_path('argon') }}/css/invoice.css" rel="stylesheet">
 </head>
 
 <body>
@@ -220,13 +127,20 @@
             <td class="empty-value"></td>
             <td class="last-empty-value"></td>
         </tr>
+        <tr>
+            <td colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
+            <td style="text-align:center">Total Charges:</td>
+            <td class="last-terbilang-value" style="text-align:center">{{ $data['curr'] }}
+                {{ number_format($data['sum']) }}
+            </td>
+        </tr>
         {{-- <tr>
                     <td colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
                     <td style="text-align:left">Total :</td>
                     <td style="text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</td>
                 </tr> --}}
     </table>
-    <div class="table-terbilang">
+    {{-- <div class="table-terbilang">
         <table style="table-layout:fixed;">
             <tr>
                 <th style="width: 18%;text-align:left">Terbilang :</th>
@@ -236,16 +150,8 @@
                     {{ number_format($data['sum']) }}
                 </th>
             </tr>
-            {{-- <tr>
-                <th style="width: 15%; text-align:left">Terbilang</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 40%; text-align:left">{{ $data['terbilang'] }}</th>
-                <th style="width: 15%; text-align:left">Total</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</th>
-            </tr> --}}
         </table>
-    </div>
+    </div> --}}
     <div class="table-signature">
         <table style="table-layout:fixed;">
             <tr>
@@ -263,7 +169,7 @@
                 <th style="width: 20%; text-align:left"></th>
                 <th style="width: 5%"></th>
                 <th style="width: 40%; text-align:left"></th>
-                <th style="width: 30%; text-align:center">Rika Apriyanti</th>
+                <th style="width: 30%; text-align:center;text-decoration: underline">{{ $data['name'] }}</th>
                 <th style="width: 5%; text-align:left"></th>
             </tr>
         </table>

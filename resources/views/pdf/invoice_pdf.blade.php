@@ -6,69 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style type="text/css">
-        @page {
-            margin-top: 100px;
-            margin-left: 80px;
-            margin-right: 80px;
-            font-size: 11pt;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .table-request table {
-            width: 100%;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-            /* border: 1px solid #000; */
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-            /* text-align: center; */
-            /* margin-top: 80px; */
-        }
-
-        .table-customer table {
-            width: 100%;
-            /* text-decoration: underline; */
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .table-selling table,
-        .table-selling th {
-            border: 1px solid;
-            width: 100%;
-            height: 20px;
-            /* text-decoration: underline; */
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .table-terbilang table {
-            width: 100%;
-            /* text-decoration: underline; */
-            /* border-collapse: collapse; */
-        }
-
-        .table-signature table {
-            width: 100%;
-            margin-top: 40px;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-        }
-
-        .table-name_signature table {
-            width: 100%;
-            margin-top: 80px;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-        }
-
-        .table-dept_signature table {
-            width: 100%;
-            /* text-decoration: underline; */
-            border-collapse: collapse;
-        }
-    </style>
+    <link type="text/css" href="{{ public_path('argon') }}/css/invoice.css" rel="stylesheet">
 </head>
 
 <body>
@@ -161,90 +99,82 @@
             </tr>
         </table>
     </div>
-    <div class="table-selling">
-        <table style="table-layout:fixed;">
-            <thead>
-                <tr>
-                    <th style="width: 48%; text-align:center">Description</th>
-                    <th style="width: 11%">Volume</th>
-                    <th style="width: 21%; text-align:center">Price / Unit</th>
-                    <th style="width: 19%; text-align:center">Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data['selling'] as $x)
-                    <tr>
-                        <td style="text-align:left">{{ $x->description }}</td>
-                        <td style="text-align:center">{{ $x->qty }}</td>
-                        <td style="text-align:center">{{ number_format($x->price) }}</td>
-                        <td style="text-align:center">{{ $x->curr }} {{ number_format($x->sub_total) }}</td>
-                        <td></td>
-                    </tr>
-                @endforeach
-                {{-- <tr>
+    <table class="selling">
+        <tr class="selling-judul">
+            <th class="kanan" style="width: 48%; text-align:center">Description</th>
+            <th class="kanan" style="width: 11%">Volume</th>
+            <th class="kanan" style="width: 22%; text-align:center">Price / Unit</th>
+            <th style="width: 19%; text-align:center">Value</th>
+        </tr>
+        @foreach ($data['selling'] as $x)
+            <tr>
+                <td class="selling-value" style="text-align:left">{{ $x->description }}</td>
+                <td class="selling-value" style="text-align:center">{{ $x->qty }}</td>
+                <td class="selling-value" style="text-align:center">{{ number_format($x->price) }}</td>
+                <td style="text-align:center">{{ $x->curr }}
+                    {{ number_format($x->sub_total) }}</td>
+            </tr>
+        @endforeach
+        <tr>
+            <td class="empty-td empty-value"></td>
+            <td class="empty-value"></td>
+            <td class="empty-value"></td>
+            <td class="last-empty-value"></td>
+        </tr>
+        <tr>
+            <td rowspan="3" colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
+            <td>Total:</td>
+            <td class="terbilang-value">{{ $data['curr'] }}
+                {{ number_format($data['sum']) }}
+            </td>
+        </tr>
+        <tr>
+            <td>VAT {{ $data['nilai_pajak'] }} % :</td>
+            <td class="terbilang-value">{{ $data['curr'] }}
+                {{ number_format($data['total_pajak']) }}
+            </td>
+        </tr>
+        <tr>
+            <td>Total Charges :</td>
+            <td class="last-terbilang-value">{{ $data['curr'] }}
+                {{ number_format($data['total_charge']) }}
+            </td>
+        </tr>
+        {{-- <tr>
                     <td colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
                     <td style="text-align:left">Total :</td>
                     <td style="text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</td>
                 </tr> --}}
-            </tbody>
-        </table>
-    </div>
-    <div class="table-terbilang">
-        <table style="table-layout:fixed;">
+    </table>
+    {{-- <div class="table-terbilang">
+        <table>
             <tr>
                 <th rowspan="3" style="width: 18%;text-align:left">Terbilang :</th>
-                <th rowspan="3" style="width: 43%;text-align:left">{{ $data['terbilang'] }}</th>
-                <th style="width: 21%;text-align:left">Total :</th>
-                <th style="width: 18%;text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</th>
+                <th rowspan="3" style="width: 41%;text-align:left">{{ $data['terbilang'] }}</th>
+                <th class="terbilang-value" style="width: 22%;text-align:left">Total :</th>
+                <th style="width: 19%;text-align:left">{{ $data['curr'] }}
+                    {{ number_format($data['sum']) }}</th>
             </tr>
             <tr>
-                <th style="width: 21%;text-align:left">VAT {{ $data['nilai_pajak'] }} % :</th>
-                <th style="width: 18%;text-align:left">{{ $data['curr'] }}
-                    {{ number_format($data['total_pajak']) }}</th>
+                <td class="terbilang-value" style="text-align:left">VAT {{ $data['nilai_pajak'] }} % :</td>
+                <td style="text-align:left">{{ $data['curr'] }}
+                    {{ number_format($data['total_pajak']) }}</td>
             </tr>
             <tr>
-                <th style="width: 22%;text-align:left">Total Charges :</th>
-                <th style="width: 17%;text-align:left">{{ $data['curr'] }}
-                    {{ number_format($data['total_charge']) }}</th>
+                <td class="last-terbilang-value" style="text-align:left">Total Charges :</td>
+                <td class="last-empty-value" style="text-align:left">{{ $data['curr'] }}
+                    {{ number_format($data['total_charge']) }}</td>
             </tr>
-            {{-- <tr>
-                <th style="width: 15%; text-align:left">Terbilang</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 40%; text-align:left">{{ $data['terbilang'] }}</th>
-                <th style="width: 15%; text-align:left">Total</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</th>
-            </tr>
-            <tr>
-                <th style="width: 15%; text-align:left"></th>
-                <th style="width: 5%"></th>
-                <th style="width: 40%; text-align:left"></th>
-                <th style="width: 15%; text-align:left">VAT {{ $data['nilai_pajak'] }} %</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">
-                    {{ $data['curr'] }}
-                    {{ number_format($data['total_pajak']) }}</th>
-            </tr>
-            <tr>
-                <th style="width: 15%; text-align:left"></th>
-                <th style="width: 5%"></th>
-                <th style="width: 40%; text-align:left"></th>
-                <th style="width: 15%; text-align:left">Total Charges</th>
-                <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">
-                    {{ $data['curr'] }}
-                    {{ number_format($data['total_charge']) }}</th>
-            </tr> --}}
         </table>
-    </div>
+    </div> --}}
     <div class="table-signature">
         <table style="table-layout:fixed;">
             <tr>
                 <th style="width: 20%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 30%; text-align:left"></th>
-                <th style="width: 35%; text-align:left">PT SIGMA GLOBAL MAKMUR</th>
-                <th style="width: 10%; text-align:left"></th>
+                <th style="width: 40%; text-align:left"></th>
+                <th style="width: 30%; text-align:center">PT SIGMA GLOBAL MAKMUR</th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
         </table>
     </div>
@@ -253,9 +183,9 @@
             <tr>
                 <th style="width: 20%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 30%; text-align:left"></th>
-                <th style="width: 35%; text-align:center">Rika Apriyanti</th>
-                <th style="width: 10%; text-align:left"></th>
+                <th style="width: 40%; text-align:left"></th>
+                <th style="width: 30%; text-align:center;text-decoration: underline">{{ $data['name'] }}</th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
         </table>
     </div>
@@ -264,9 +194,9 @@
             <tr>
                 <th style="width: 20%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 30%; text-align:left"></th>
-                <th style="width: 35%; text-align:center">Finance</th>
-                <th style="width: 10%; text-align:left"></th>
+                <th style="width: 40%; text-align:left"></th>
+                <th style="width: 30%; text-align:center">Finance</th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
         </table>
     </div>
