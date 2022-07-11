@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Create role')])
+@extends('layouts.app', ['activePage' => 'role'])
 
 @section('content')
     @include('users.partials.header', [

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Create permission')])
+@extends('layouts.app', ['activePage' => 'permission'])
 
 @section('content')
     @include('users.partials.header', [

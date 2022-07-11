@@ -20,6 +20,7 @@
     <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+    <link type="text/css" href="{{ asset('argon') }}/css/my.css" rel="stylesheet">
     @stack('css')
 </head>
 
@@ -48,6 +49,30 @@
 
     <!-- Argon JS -->
     <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+    <script type="text/javascript">
+        if ($('li.nav-vc').hasClass('active')) {
+            //ada class active
+            $('li.nav-vc a').removeClass('collapsed').attr("aria-expanded", "true");
+            // var thisID = $('.collapse').addClass('show');
+            var thisID = $('li.nav-vc a').next().addClass('show');
+            // console.log(thisID);
+        }
+        if ($('li.nav-pa').hasClass('active')) {
+            //ada class active
+            $('li.nav-pa a').removeClass('collapsed').attr("aria-expanded", "true");
+            var thisID = $('li.nav-pa a').next().addClass('show');
+        }
+        if ($('li.nav-tr').hasClass('active')) {
+            //ada class active
+            $('li.nav-tr a').removeClass('collapsed').attr("aria-expanded", "true");
+            var thisID = $('li.nav-tr a').next().addClass('show');
+        }
+        if ($('li.nav-inv').hasClass('active')) {
+            //ada class active
+            $('li.nav-inv a').removeClass('collapsed').attr("aria-expanded", "true");
+            var thisID = $('li.nav-inv a').next().addClass('show');
+        }
+    </script>
 </body>
 
 </html>

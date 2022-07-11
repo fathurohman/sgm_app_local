@@ -19,7 +19,7 @@ class UserPolicy
         return $this->getPermission($user, 2);
     }
 
-    public function Cetak_DN(User $user)
+    public function Cetak_INV(User $user)
     {
         return $this->getPermission($user, 3);
     }

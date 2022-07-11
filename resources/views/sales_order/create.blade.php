@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Create Job Order')])
+@extends('layouts.app', ['activePage' => 'sales_orders'])
 @push('css')
     <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
 @endpush
@@ -220,7 +220,7 @@
                                     <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
                                     <div class="table-responsive">
                                         <table id="buying" class="table align-items-center table-flush">
-                                            <thead class="thead-light">
+                                            <thead class="thead-light d-flex">
                                                 <th>Description</th>
                                                 <th>Qty</th>
                                                 <th>Curr</th>

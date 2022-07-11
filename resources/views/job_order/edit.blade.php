@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Create Job Order')])
+@extends('layouts.app', ['activePage' => 'job_orders'])
 @push('css')
     <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
 @endpush

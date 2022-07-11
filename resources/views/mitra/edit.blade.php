@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Edit Vendors')])
+@extends('layouts.app', ['activePage' => 'vendor'])
 
 @section('content')
     @include('users.partials.header', [
