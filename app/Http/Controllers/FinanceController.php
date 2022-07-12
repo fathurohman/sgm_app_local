@@ -50,6 +50,10 @@ class FinanceController extends Controller
     {
         $sum = 0;
         $sales_order = SalesOrder::find($id);
+        $inv = $sales_order->nomor_invoice;
+        $ptng = sprintf('%03d', $inv);
+        $sub_string = substr($inv, strpos($inv, "/") + 1);
+        $inv_fix = "$ptng/$sub_string";
         $sales_job = $sales_order->job_orders;
         $selling = SalesOrder::find($id)->sellings;
         // dd($selling);
@@ -75,6 +79,7 @@ class FinanceController extends Controller
         $name = Auth::user()->name;
         // $terbilang = Terbilang::make(2858250, ' rupiah');
         $data = array(
+            'inv' => $inv_fix,
             'sales_order' => $sales_order,
             'sales_job' => $sales_job,
             'selling' => $selling,

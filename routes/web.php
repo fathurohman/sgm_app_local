@@ -52,26 +52,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('vendor', 'VendorController');
 	Route::get('/vendor_detail/{id}', 'VendorController@showTracking');
 	Route::get('/client_detail/{id}', 'ClientController@showTracking');
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+	Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+	Route::put('profile/update', 'ProfileController@update')->name('profile.update');
 	//finance routes
 	Route::get('/finance', 'FinanceController@index')->name('finance.index');
 	Route::get('/listinvoiceshow', 'FinanceController@listinvoiceshow')->name('listinvoiceshow');
 	Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
 	//end
-	Route::get('upgrade', function () {
-		return view('pages.upgrade');
-	})->name('upgrade');
-	Route::get('map', function () {
-		return view('pages.maps');
-	})->name('map');
-	Route::get('icons', function () {
-		return view('pages.icons');
-	})->name('icons');
-	Route::get('table-list', function () {
-		return view('pages.tables');
-	})->name('table');
-	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+	Route::put('profile/password', 'ProfileController@password')->name('profile.password');
 });
 
 

@@ -178,17 +178,18 @@ class JobOrderController extends Controller
      */
     public function destroy($id)
     {
-        job_order::where('id', $id)->update(['deleted' => '1']);
+        $jo = job_order::find($id);
+        // job_order::where('id', $id)->update(['deleted' => '1']);
         $details = array(
             // 'job_orders_id' => $id,
-            'logs' => 'deleting job orders with id ' . $id . '',
+            'logs' => 'deleting job orders with id ' . $id . ' and order id is ' . $jo->order_id . '',
             'user_id' => Auth::id(),
             // 'row' => '1',
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
         );
         logs_user::insert($details);
-        // job_order::where('id', $id)->delete();
+        job_order::where('id', $id)->delete();
         return redirect()->back();
     }
 
@@ -257,7 +258,7 @@ class JobOrderController extends Controller
 
     public function listorder()
     {
-        $query = job_order::where('deleted', '0');
+        $query = job_order::all();
         return Datatables::of(
             $query
         )->addColumn('job_order', function ($row) {
@@ -284,7 +285,8 @@ class JobOrderController extends Controller
 
     public function listordershow()
     {
-        $query = job_order::where('deleted', '0');
+        $query = job_order::all();
+        // $query = job_order::all();
         return Datatables::of(
             $query
         )->addColumn('job_order', function ($row) {

@@ -7,6 +7,7 @@ use App\Model\Client;
 use App\Model\Curr;
 use App\Model\Down_Payment;
 use App\Model\job_order;
+use App\Model\logs_user;
 use App\Model\Profit;
 use App\Model\SalesOrder;
 use App\Model\SellingOrder;
@@ -17,6 +18,7 @@ use Yajra\Datatables\Datatables;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 
 class SalesOrderController extends Controller
 {
@@ -33,7 +35,7 @@ class SalesOrderController extends Controller
 
     public function listsalesshow()
     {
-        $query = SalesOrder::where('deleted', '0');
+        $query = SalesOrder::all();
         return Datatables::of(
             $query
         )->addColumn('invoice_no', function ($row) {
@@ -72,7 +74,7 @@ class SalesOrderController extends Controller
     {
         $curr = Curr::all();
         // $sales = User::where('department', 'sales')->get();
-        // $job_order = job_order::where('deleted', '0')->get();
+        // $job_order = job_order::all()->get();
         // $data = array(
         //     'sales' => $sales,
         // );
@@ -298,14 +300,27 @@ class SalesOrderController extends Controller
      * @param  \App\Model\SalesOrder  $salesOrder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SalesOrder $salesOrder)
+    public function destroy($id)
     {
-        //
+        $so = SalesOrder::find($id);
+        // SalesOrder::where('id', $id)->update(['deleted' => '1']);
+        $details = array(
+            // 'job_orders_id' => $id,
+            'logs' => 'deleting sales orders with id ' . $id . ' and nomor invoice ' . $so->nomor_invoice . '',
+            'user_id' => Auth::id(),
+            // 'row' => '1',
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+        );
+        logs_user::insert($details);
+        // job_order::where('id', $id)->delete();
+        SalesOrder::where('id', $id)->delete();
+        return redirect()->back();
     }
 
     public function listordersales()
     {
-        $query = job_order::where('deleted', '0');
+        $query = job_order::all();
         return Datatables::of(
             $query
         )->addColumn('job_order', function ($row) {

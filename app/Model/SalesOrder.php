@@ -3,9 +3,13 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SalesOrder extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     public function job_orders()
     {
         return $this->belongsTo('App\Model\job_order', 'job_order_id');

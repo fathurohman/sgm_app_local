@@ -220,7 +220,7 @@
                                     <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
                                     <div class="table-responsive">
                                         <table id="buying" class="table align-items-center table-flush">
-                                            <thead class="thead-light d-flex">
+                                            <thead class="thead-light">
                                                 <th>Description</th>
                                                 <th>Qty</th>
                                                 <th>Curr</th>

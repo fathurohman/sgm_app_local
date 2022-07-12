@@ -15,7 +15,7 @@
             <tr>
                 <th style="width: 20%; text-align:left">Debit No</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['sales_order']['nomor_invoice'] }}</th>
+                <th style="width: 30%; text-align:left">{{ $data['inv'] }}</th>
                 <th style="width: 20%; text-align:left">Date</th>
                 <th style="width: 5%">:</th>
                 <th style="width: 20%; text-align:left">{{ $data['tanggal'] }}</th>
