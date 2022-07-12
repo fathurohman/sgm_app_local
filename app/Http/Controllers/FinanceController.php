@@ -7,6 +7,7 @@ use App\Model\SalesOrder;
 use App\Model\Settings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Terbilang;
@@ -75,7 +76,12 @@ class FinanceController extends Controller
         $vat = $nilai_pajak / 100;
         $total_pajak = $sum * $vat;
         $total_charge = $sum + $total_pajak;
-        $terbilang = Terbilang::make($total_charge, ' rupiah');
+        if ($curr == 'IDR') {
+            $terbilang = Terbilang::make($total_charge, ' rupiah');
+        } else {
+            App::setLocale('en');
+            $terbilang = Terbilang::make($total_charge, ' dollars');
+        }
         $name = Auth::user()->name;
         // $terbilang = Terbilang::make(2858250, ' rupiah');
         $data = array(
