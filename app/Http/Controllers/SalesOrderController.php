@@ -35,18 +35,20 @@ class SalesOrderController extends Controller
 
     public function listsalesshow()
     {
-        $query = SalesOrder::all();
+        // $query = SalesOrder::all();
+        $auth = Auth::id();
+        $query = SalesOrder::where('created_by', $auth);
         return Datatables::of(
             $query
-        )->addColumn('invoice_no', function ($row) {
+        )->editColumn('nomor_invoice', function ($row) {
             return $row->nomor_invoice;
-        })->addColumn('job_order_id', function ($row) {
+        })->editColumn('job_order_id', function ($row) {
             return $row->job_orders->order_id;
-        })->addColumn('tipe_order', function ($row) {
+        })->editColumn('tipe', function ($row) {
             return $row->job_orders->tipe_order;
-        })->addColumn('notes', function ($row) {
+        })->editColumn('notes', function ($row) {
             return $row->notes;
-        })->addColumn('status', function ($row) {
+        })->editColumn('published', function ($row) {
             if ($row->published == '1') {
                 return 'Process by finance';
             } else {
@@ -102,6 +104,7 @@ class SalesOrderController extends Controller
         } else {
             $sales_order->published = $request->published;
         }
+        $sales_order->created_by = Auth::id();
         $sales_order->save();
         if (!empty($request->description_b[0])) {
             foreach ($request->description_b as $a => $v) {

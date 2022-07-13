@@ -150,44 +150,46 @@
                 },
                 ajax: '{!! route('listordershow') !!}',
                 columns: [{
-                        data: 'job_order',
-                        name: 'job_order'
+                        data: 'order_id',
+                        name: 'order_id',
                     },
                     {
-                        data: 'DNI',
-                        name: 'DNI'
+                        data: 'tipe_order',
+                        name: 'tipe_order',
                     },
                     {
-                        data: 'Client',
-                        name: 'Client'
+                        data: 'client_id',
+                        name: 'client_id',
                     },
                     {
-                        data: 'Sales',
-                        name: 'Sales'
+                        data: 'sales_id',
+                        name: 'sales_id',
                     },
                     {
-                        data: 'Service',
-                        name: 'Service'
+                        data: 'service_id',
+                        name: 'service_id',
                     },
                     {
-                        data: 'Via',
-                        name: 'Via'
+                        data: 'via_id',
+                        name: 'via_id',
                     },
                     {
-                        data: 'Pol_Pod',
-                        name: 'Pol_Pod'
+                        data: 'pol_pod',
+                        name: 'pol_pod',
                     },
                     {
                         data: 'ETD',
-                        name: 'ETD'
+                        name: 'ETD',
                     },
                     {
                         data: 'ETA',
-                        name: 'ETA'
+                        name: 'ETA',
                     },
                     {
                         data: 'Action',
-                        name: 'Action'
+                        name: 'Action',
+                        searchable: false,
+                        orderable: false
                     },
                 ]
             });

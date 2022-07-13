@@ -87,6 +87,7 @@ class JobOrderController extends Controller
         $job_order->vessel2 = $request->vessel2;
         $job_order->consignee = $request->consignee;
         $job_order->agent_overseas = $request->agent_overseas;
+        $job_order->created_by = Auth::id();
         $job_order->save();
         // if (!empty($request->tipe_order)) {
         //     $details = array(
@@ -285,29 +286,28 @@ class JobOrderController extends Controller
 
     public function listordershow()
     {
-        $query = job_order::all();
+        $auth = Auth::id();
+        $query = job_order::where('created_by', $auth);
         // $query = job_order::all();
         return Datatables::of(
             $query
-        )->addColumn('job_order', function ($row) {
+        )->editColumn('order_id', function ($row) {
             return $row->order_id;
-        })->addColumn('DNI', function ($row) {
+        })->editColumn('tipe_order', function ($row) {
             return $row->tipe_order;
-        })->addColumn('Date', function ($row) {
-            return $row->created_at;
-        })->addColumn('Client', function ($row) {
+        })->editColumn('client_id', function ($row) {
             return $row->clients->COMPANY_NAME;
-        })->addColumn('Sales', function ($row) {
+        })->editColumn('sales_id', function ($row) {
             return $row->sales->name;
-        })->addColumn('Service', function ($row) {
+        })->editColumn('service_id', function ($row) {
             return $row->service->service_name;
-        })->addColumn('Via', function ($row) {
+        })->editColumn('via_id', function ($row) {
             return $row->via->via_name;
-        })->addColumn('Pol_Pod', function ($row) {
+        })->editColumn('pol_pod', function ($row) {
             return $row->pol_pod;
-        })->addColumn('ETD', function ($row) {
+        })->editColumn('ETD', function ($row) {
             return $row->ETD;
-        })->addColumn('ETA', function ($row) {
+        })->editColumn('ETA', function ($row) {
             return $row->ETA;
         })->addColumn('Action', function ($row) {
             $data = [
