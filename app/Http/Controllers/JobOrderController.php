@@ -259,20 +259,22 @@ class JobOrderController extends Controller
 
     public function listorder()
     {
-        $query = job_order::all();
+        $auth = Auth::id();
+        $query = job_order::where('created_by', $auth);
+        // $query = job_order::all();
         return Datatables::of(
             $query
-        )->addColumn('job_order', function ($row) {
+        )->editColumn('order_id', function ($row) {
             return $row->order_id;
-        })->addColumn('DNI', function ($row) {
+        })->editColumn('tipe_order', function ($row) {
             return $row->tipe_order;
-        })->addColumn('Date', function ($row) {
+        })->editColumn('created_at', function ($row) {
             return $row->created_at;
-        })->addColumn('Client', function ($row) {
+        })->editColumn('client_id', function ($row) {
             return $row->clients->COMPANY_NAME;
-        })->addColumn('Party', function ($row) {
+        })->editColumn('party', function ($row) {
             return $row->party;
-        })->addColumn('Pol_Pod', function ($row) {
+        })->editColumn('pol_pod', function ($row) {
             return $row->pol_pod;
         })->addColumn('Action', function ($row) {
             $data = [
@@ -280,6 +282,7 @@ class JobOrderController extends Controller
             ];
             return view('job_order.dt.act_order_pilih', compact('data'));
         })->rawColumns(['action'])->toJson();
+
         // $users = User::where('department', $dept)->where('active', 1)->get();
         // return view('ticket.history', compact('data'));
     }

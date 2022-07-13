@@ -448,32 +448,34 @@
                 },
                 ajax: '{!! route('listordersales') !!}',
                 columns: [{
-                        data: 'job_order',
-                        name: 'job_order'
+                        data: 'order_id',
+                        name: 'order_id'
                     },
                     {
-                        data: 'DNI',
-                        name: 'DNI'
+                        data: 'tipe_order',
+                        name: 'tipe_order'
                     },
                     {
-                        data: 'Date',
-                        name: 'Date'
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
-                        data: 'Client',
-                        name: 'Client'
+                        data: 'client_id',
+                        name: 'client_id'
                     },
                     {
-                        data: 'Party',
-                        name: 'Party'
+                        data: 'party',
+                        name: 'party'
                     },
                     {
-                        data: 'Pol_Pod',
-                        name: 'Pol_Pod'
+                        data: 'pol_pod',
+                        name: 'pol_pod'
                     },
                     {
                         data: 'Action',
-                        name: 'Action'
+                        name: 'Action',
+                        searchable: false,
+                        orderable: false
                     },
                 ]
             });
