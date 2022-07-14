@@ -368,10 +368,9 @@ class SalesOrderController extends Controller
         //no invoice
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
-        $jml_by_month = SalesOrder::whereMonth('created_at', $month)
+        $jml_by_month = SalesOrder::withTrashed()->whereMonth('created_at', $month)
             ->where([
                 ['tipe', '=', $tipe_order],
-                ['deleted', '=', '0'],
             ])
             ->count();
         $order_month = $jml_by_month + 1;

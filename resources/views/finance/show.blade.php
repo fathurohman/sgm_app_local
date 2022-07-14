@@ -83,16 +83,16 @@
             },
             ajax: '{!! route('listinvoiceshow') !!}',
             columns: [{
-                    data: 'invoice_no',
-                    name: 'invoice_no'
+                    data: 'nomor_invoice',
+                    name: 'nomor_invoice'
                 },
                 {
                     data: 'job_order_id',
                     name: 'job_order_id'
                 },
                 {
-                    data: 'tipe_order',
-                    name: 'tipe_order'
+                    data: 'tipe',
+                    name: 'tipe'
                 },
                 {
                     data: 'notes',
@@ -100,11 +100,15 @@
                 },
                 {
                     data: 'More',
-                    name: 'More'
+                    name: 'More',
+                    searchable: false,
+                    orderable: false
                 },
                 {
                     data: 'Action',
-                    name: 'Action'
+                    name: 'Action',
+                    searchable: false,
+                    orderable: false
                 },
             ]
         });

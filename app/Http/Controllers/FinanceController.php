@@ -21,16 +21,16 @@ class FinanceController extends Controller
 
     public function listinvoiceshow()
     {
-        $query = SalesOrder::where('deleted', '0')->where('published', '1');
+        $query = SalesOrder::where('published', '1');
         return Datatables::of(
             $query
-        )->addColumn('invoice_no', function ($row) {
+        )->editColumn('nomor_invoice', function ($row) {
             return $row->nomor_invoice;
-        })->addColumn('job_order_id', function ($row) {
+        })->editColumn('job_order_id', function ($row) {
             return $row->job_orders->order_id;
-        })->addColumn('tipe_order', function ($row) {
+        })->editColumn('tipe', function ($row) {
             return $row->job_orders->tipe_order;
-        })->addColumn('notes', function ($row) {
+        })->editColumn('notes', function ($row) {
             return $row->notes;
         })->addColumn('More', function ($row) {
             $data = [
