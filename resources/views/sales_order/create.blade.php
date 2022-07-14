@@ -250,7 +250,7 @@
                                                     <td><input type="text" class="price" id="price_b"
                                                             name="price_b[]"></td>
                                                     <td><input type="text" class="sub_total_b" id="sub_total_b"
-                                                            name="sub_total_b[]"></td>
+                                                            name="sub_total_b[]" readonly></td>
                                                     <td><input type="text" class="name_b ui-widget" id="name_b"
                                                             name="name_b[]"></td>
                                                     <td><input type="text" class="remark_b" id="remark_b"
@@ -298,9 +298,10 @@
                                                             <option>USD</option>
                                                             <option>EUR</option>
                                                         </select></td>
-                                                    <td><input class="price" type="number" id="price_s"
+                                                    <td><input class="price" type="text" id="price_s"
                                                             name="price_s[]"></td>
-                                                    <td><input class="sub_total_s" id="sub_total_s" name="sub_total_s[]">
+                                                    <td><input class="sub_total_s" id="sub_total_s" name="sub_total_s[]"
+                                                            readonly>
                                                     </td>
                                                     <td><input type="text" id="name_s" class="name_s ui-widget"
                                                             name="name_s[]"></td>
@@ -374,8 +375,7 @@
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-12">
                                     <label class="form-control-label" for="input-Notes">{{ __('Notes') }}</label>
-                                    <textarea name="notes" class="form-control" id="notes" rows="3"
-                                        placeholder="Write a large text here ..."></textarea>
+                                    <textarea name="notes" class="form-control" id="notes" rows="3" placeholder="Catatan tambahan..."></textarea>
                                 </div>
                                 <div class="col-lg-4 col-md-8 col-sm-12">
                                     <label class="form-control-label" for="input-send">{{ __('send') }}</label>

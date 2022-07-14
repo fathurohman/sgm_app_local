@@ -21,7 +21,7 @@ function addkolom_b() {
           '<option>EUR</option>' +
           '</select></td>' +
           '<td><input class="price" type="text" id="price_b ' + nextid_b + '" name="price_b[]"></td>' +
-          '<td><input class="sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]"></td>' +
+          '<td><input class="sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]" readonly></td>' +
           '<td><input class="name_b" type="text" id="name_b ' + nextid_b + '" name="name_b[]"></td>' +
           '<td><input class="remark_b ui-widget" type="text" id="remark_b ' + nextid_b + '" name="remark_b[]"></td>' +
           '<td></td>' +
@@ -56,8 +56,8 @@ function addkolom_s() {
           '<option>USD</option>' +
           '<option>EUR</option>' +
           '</select></td>' +
-          '<td><input class="price" type="number" id="price_s ' + nextid_s + '" name="price_s[]"></td>' +
-          '<td><input class="sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]"></td>' +
+          '<td><input class="price" type="text" id="price_s ' + nextid_s + '" name="price_s[]"></td>' +
+          '<td><input class="sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]" readonly></td>' +
           '<td><input class="name_s" type="text" id="name_s ' + nextid_s + '" name="name_s[]"></td>' +
           '<td><input class="remark_s ui-widget" type="text" id="remark_s ' + nextid_s + '" name="remark_s[]"></td>' +
           '<td></td>' +
@@ -76,10 +76,32 @@ $(document).on('click', '.remove_s', function () {
      }
 });
 $('tbody').on('keyup', ".price", function () {
+     var format = function (num) {
+          var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
+          if (str.indexOf(".") > 0) {
+               parts = str.split(".");
+               str = parts[0];
+          }
+          str = str.split("").reverse();
+          for (var j = 0, len = str.length; j < len; j++) {
+               if (str[j] != ",") {
+                    output.push(str[j]);
+                    if (i % 3 == 0 && j < (len - 1)) {
+                         output.push(",");
+                    }
+                    i++;
+               }
+          }
+          formatted = output.reverse().join("");
+          return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+     };
+     $(this).val(format($(this).val()));
      var tr = $(this).parent().parent();
      var qty = tr.find('.qty').val();
      var price = tr.find('.price').val();
-     var total = qty * price;
+     var polos_price = price.replace(/\D/g, '');
+     // console.log(polos_price);
+     var total = qty * polos_price;
      // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
      tr.find('.sub_total_s').val(total);
      tr.find('.sub_total_b').val(total);
