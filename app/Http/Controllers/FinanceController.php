@@ -64,13 +64,15 @@ class FinanceController extends Controller
         $ETA = $sales_job->ETA;
         $x_etd = date('M d,Y', strtotime($ETD));
         $x_eta = date('M d,Y', strtotime($ETA));
-        $customer = $sales_job->client_id;
-        $list_customer = Client::find($customer);
+        // $customer = $sales_job->client_id;
+        // $list_customer = Client::find($customer);
         foreach ($selling as $x) {
             $sub_total = $x->sub_total;
             $sum += $sub_total;
             $curr = $x->curr;
+            $customer = $x->name;
         }
+        $list_customer = Client::where('COMPANY_NAME', $customer)->first();
         $pajak = Settings::where('name', 'Pajak')->first();
         $nilai_pajak = $pajak->value;
         $vat = $nilai_pajak / 100;

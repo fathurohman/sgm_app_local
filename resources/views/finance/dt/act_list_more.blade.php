@@ -1,7 +1,6 @@
 <div class="dropdown">
-    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <i class="fas fa-ellipsis-v"></i>
+    <a class="btn btn-warning" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">Details
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
         <a href="#" data-id="{{ $data['id'] }}" class="dropdown-item infoS" data-toggle="modal"

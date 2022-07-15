@@ -217,79 +217,27 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
-                                    <div class="table-responsive">
-                                        <table id="buying" class="table align-items-center table-flush">
-                                            <thead class="thead-light">
-                                                <th>Description</th>
-                                                <th>Qty</th>
-                                                <th>Curr</th>
-                                                <th>Price</th>
-                                                <th>Sub Total</th>
-                                                <th>Name</th>
-                                                <th>Remark</th>
-                                                <th>Add</th>
-                                                <th>Remove</th>
-                                            </thead>
-                                            <tbody class="buying">
-                                                <tr class="row-buying">
-                                                    <td><input type="text" class="autosuggest ui-widget"
-                                                            id="description_b" name="description_b[]">
-                                                    </td>
-                                                    <td><input class="qty" type="text" id="qty_b"
-                                                            name="qty_b[]"></td>
-                                                    {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
-                                                    <td><select id="curr_b" name="curr_b[]" class="form-select curr_b"
-                                                            aria-label="Default select example">
-                                                            <option selected>Open this select menu</option>
-                                                            <option>IDR</option>
-                                                            <option>SGD</option>
-                                                            <option>USD</option>
-                                                            <option>EUR</option>
-                                                        </select></td>
-                                                    <td><input type="text" class="price" id="price_b"
-                                                            name="price_b[]"></td>
-                                                    <td><input type="text" class="sub_total_b" id="sub_total_b"
-                                                            name="sub_total_b[]" readonly></td>
-                                                    <td><input type="text" class="name_b ui-widget" id="name_b"
-                                                            name="name_b[]"></td>
-                                                    <td><input type="text" class="remark_b" id="remark_b"
-                                                            name="remark_b[]"></td>
-                                                    <td><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a>
-                                                    </td>
-                                                    <td><a href="#" id="removekolom_b"
-                                                            class="btn btn-danger remove_b"><i
-                                                                class="fa fa-times"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
                                     <div class="table-responsive">
                                         <table id="selling" class="table align-items-center table-flush">
                                             <thead class="thead-light">
-                                                <th>Description</th>
-                                                <th>Qty</th>
-                                                <th>Curr</th>
-                                                <th>Price</th>
-                                                <th>Sub Total</th>
-                                                <th>Name</th>
-                                                <th>Remark</th>
-                                                <th>Add</th>
-                                                <th>Remove</th>
+                                                <th style="background: #2493BF; color:white">Description</th>
+                                                <th style="background: #2493BF; color:white ">Qty</th>
+                                                <th style="background: #2493BF; color:white ">Curr</th>
+                                                <th style="background: #2493BF; color:white ">Price</th>
+                                                <th style="background: #2493BF; color:white ">Sub Total</th>
+                                                <th style="background: #2493BF; color:white ">Name</th>
+                                                <th style="background: #2493BF; color:white ">Remark</th>
+                                                <th style="background: #2493BF; color:white ">Add</th>
+                                                <th style="background: #2493BF; color:white ">Remove</th>
                                             </thead>
                                             <tbody class="selling">
                                                 <tr class="row-selling">
                                                     <td><input class="autosuggest ui-widget" type="text"
                                                             id="description_s" name="description_s[]">
                                                     </td>
-                                                    <td><input class="qty" type="number" id="qty_s"
-                                                            name="qty_s[]"></td>
+                                                    <td><input class="qty" step="any" type="number"
+                                                            id="qty_s" name="qty_s[]"></td>
                                                     <td><select id="curr_s" name="curr_s[]" class="form-select curr_s"
                                                             aria-label="Default select example">
                                                             <option selected>Open this select menu</option>
@@ -311,6 +259,58 @@
                                                     </td>
                                                     <td><a href="#" id="removekolom_s"
                                                             class="btn btn-danger remove_s"><i
+                                                                class="fa fa-times"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
+                                    <div class="table-responsive">
+                                        <table id="buying" class="table align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th style="background: #BF2455; color:white">Description</th>
+                                                <th style="background: #BF2455; color:white">Qty</th>
+                                                <th style="background: #BF2455; color:white">Curr</th>
+                                                <th style="background: #BF2455; color:white">Price</th>
+                                                <th style="background: #BF2455; color:white">Sub Total</th>
+                                                <th style="background: #BF2455; color:white">Name</th>
+                                                <th style="background: #BF2455; color:white">Remark</th>
+                                                <th style="background: #BF2455; color:white">Add</th>
+                                                <th style="background: #BF2455; color:white">Remove</th>
+                                            </thead>
+                                            <tbody class="buying">
+                                                <tr class="row-buying">
+                                                    <td><input type="text" class="autosuggest ui-widget"
+                                                            id="description_b" name="description_b[]">
+                                                    </td>
+                                                    <td><input step="any" class="qty" type="text"
+                                                            id="qty_b" name="qty_b[]"></td>
+                                                    {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
+                                                    <td><select id="curr_b" name="curr_b[]" class="form-select curr_b"
+                                                            aria-label="Default select example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option>IDR</option>
+                                                            <option>SGD</option>
+                                                            <option>USD</option>
+                                                            <option>EUR</option>
+                                                        </select></td>
+                                                    <td><input type="text" class="price" id="price_b"
+                                                            name="price_b[]"></td>
+                                                    <td><input type="text" class="sub_total_b" id="sub_total_b"
+                                                            name="sub_total_b[]" readonly></td>
+                                                    <td><input type="text" class="name_b ui-widget" id="name_b"
+                                                            name="name_b[]"></td>
+                                                    <td><input type="text" class="remark_b" id="remark_b"
+                                                            name="remark_b[]"></td>
+                                                    <td><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a>
+                                                    </td>
+                                                    <td><a href="#" id="removekolom_b"
+                                                            class="btn btn-danger remove_b"><i
                                                                 class="fa fa-times"></i></a>
                                                     </td>
                                                 </tr>
@@ -708,7 +708,7 @@
                             $('#customer_dp').val(name);
                             $('#currency_dp').val(curr_sell);
                             $('#total_dp').val(sum_s);
-                            $('#d_payment').val(sum_s);
+                            $('#d_payment').val('0');
                         }
                     })
                 })

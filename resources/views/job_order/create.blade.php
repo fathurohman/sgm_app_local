@@ -49,8 +49,8 @@
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3">
                                     <label class="form-control-label" for="input-for"></label>
-                                    <input type="text" id="tipe_order" class="form-control form-control-alternative"
-                                        required name="tipe_order_text">
+                                    <input type="text" id="tipe_order_full" class="form-control form-control-alternative"
+                                        name="tipe_order_text">
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-9">
                                     <label class="form-control-label" for="input-for">{{ __('Untuk Transaksi:') }}</label>
@@ -386,7 +386,7 @@
                 },
                 datatype: "html",
                 success: function(result) {
-                    $('#tipe_order').val(result.tipe + '-' + result.row)
+                    $('#tipe_order_full').val(result.tipe + '-' + result.row);
                 }
             })
         });
@@ -403,7 +403,7 @@
                         // alert($currID);
                         $.get('/job_data?pid=' + $currID, function(data) {
                             $('#order_id-field').val(data['jobs'].order_id);
-                            $('#tipe_order').val(data['jobs'].tipe_order);
+                            $('#tipe_order_full').val(data['jobs'].tipe_order);
                             $('#customer-field').val(data['name_client']);
                             $('#customer-field-id').val(data['jobs'].client_id);
                             $('#sales_id').val(data['jobs'].sales_id);

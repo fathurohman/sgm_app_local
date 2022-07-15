@@ -66,6 +66,7 @@ class JobOrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->tipe_order_text);
         // dd($request->tipe_order);
         $request->ETD = date("Y-m-d");
         $request->ETA = date("Y-m-d");

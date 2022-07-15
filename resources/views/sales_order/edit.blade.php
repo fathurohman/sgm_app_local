@@ -213,19 +213,80 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
+                                    <div class="table-responsive">
+                                        <table id="selling" class="table align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th style="background: #2493BF; color:white">Description</th>
+                                                <th style="background: #2493BF; color:white">Qty</th>
+                                                <th style="background: #2493BF; color:white">Curr</th>
+                                                <th style="background: #2493BF; color:white">Price</th>
+                                                <th style="background: #2493BF; color:white">Sub Total</th>
+                                                <th style="background: #2493BF; color:white">Name</th>
+                                                <th style="background: #2493BF; color:white">Remark</th>
+                                                <th style="background: #2493BF; color:white"><a href="#"
+                                                        id="addkolom_s"><i class="fa fa-plus"></i></a></th>
+                                                <th style="background: #2493BF; color:white">Remove</th>
+                                            </thead>
+                                            <tbody class="selling">
+                                                @foreach ($selling as $x)
+                                                    <tr class="row-selling">
+                                                        <td><input class="autosuggest ui-widget" type="text"
+                                                                id="description_s" value="{{ $x->description }}"
+                                                                name="description_s[]">
+                                                            <input type="text" name="id_selling[]"
+                                                                value="{{ $x->id }}" hidden>
+                                                        </td>
+                                                        <td><input class="qty" type="number" id="qty_s"
+                                                                name="qty_s[]" value="{{ $x->qty }}"></td>
+                                                        <td><select id="curr_s" name="curr_s[]"
+                                                                class="form-select curr_s"
+                                                                aria-label="Default select example">
+                                                                <option selected>{{ $x->curr }}</option>
+                                                                <option>IDR</option>
+                                                                <option>SGD</option>
+                                                                <option>USD</option>
+                                                                <option>EUR</option>
+                                                            </select></td>
+                                                        <td><input value="{{ $x->price }}" class="price"
+                                                                type="number" id="price_s" name="price_s[]"></td>
+                                                        <td><input value="{{ $x->sub_total }}" class="sub_total_s"
+                                                                id="sub_total_s" name="sub_total_s[]">
+                                                        </td>
+                                                        <td><input value="{{ $x->name }}" type="text"
+                                                                id="name_s" class="name_s ui-widget" name="name_s[]">
+                                                        </td>
+                                                        <td><input value="{{ $x->remark }}" type="text"
+                                                                id="remark_s" class="remark_s" name="remark_s[]"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        {{-- <td><a href="#" id="removekolom_s"
+                                                                class="btn btn-danger remove_s"><i
+                                                                    class="fa fa-times"></i></a>
+                                                        </td> --}}
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
                                     <div class="table-responsive">
                                         <table id="buying" class="table align-items-center table-flush">
                                             <thead class="thead-light">
-                                                <th>Description</th>
-                                                <th>Qty</th>
-                                                <th>Curr</th>
-                                                <th>Price</th>
-                                                <th>Sub Total</th>
-                                                <th>Name</th>
-                                                <th>Remark</th>
-                                                <th><a href="#" id="addkolom_b"><i class="fa fa-plus"></i></a></th>
-                                                <th>Remove</th>
+                                                <th style="background: #BF2455; color:white">Description</th>
+                                                <th style="background: #BF2455; color:white">Qty</th>
+                                                <th style="background: #BF2455; color:white">Curr</th>
+                                                <th style="background: #BF2455; color:white">Price</th>
+                                                <th style="background: #BF2455; color:white">Sub Total</th>
+                                                <th style="background: #BF2455; color:white">Name</th>
+                                                <th style="background: #BF2455; color:white">Remark</th>
+                                                <th style="background: #BF2455; color:white"><a href="#"
+                                                        id="addkolom_b"><i class="fa fa-plus"></i></a></th>
+                                                <th style="background: #BF2455; color:white">Remove</th>
                                             </thead>
                                             <tbody class="buying">
                                                 @foreach ($buying as $x)
@@ -262,65 +323,6 @@
                                                         <td></td>
                                                         {{-- <td><a href="#" id="removekolom_b"
                                                                 class="btn btn-danger remove_b"><i
-                                                                    class="fa fa-times"></i></a>
-                                                        </td> --}}
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
-                                    <div class="table-responsive">
-                                        <table id="selling" class="table align-items-center table-flush">
-                                            <thead class="thead-light">
-                                                <th>Description</th>
-                                                <th>Qty</th>
-                                                <th>Curr</th>
-                                                <th>Price</th>
-                                                <th>Sub Total</th>
-                                                <th>Name</th>
-                                                <th>Remark</th>
-                                                <th><a href="#" id="addkolom_s"><i class="fa fa-plus"></i></a></th>
-                                                <th>Remove</th>
-                                            </thead>
-                                            <tbody class="selling">
-                                                @foreach ($selling as $x)
-                                                    <tr class="row-selling">
-                                                        <td><input class="autosuggest ui-widget" type="text"
-                                                                id="description_s" value="{{ $x->description }}"
-                                                                name="description_s[]">
-                                                            <input type="text" name="id_selling[]"
-                                                                value="{{ $x->id }}" hidden>
-                                                        </td>
-                                                        <td><input class="qty" type="number" id="qty_s"
-                                                                name="qty_s[]" value="{{ $x->qty }}"></td>
-                                                        <td><select id="curr_s" name="curr_s[]"
-                                                                class="form-select curr_s"
-                                                                aria-label="Default select example">
-                                                                <option selected>{{ $x->curr }}</option>
-                                                                <option>IDR</option>
-                                                                <option>SGD</option>
-                                                                <option>USD</option>
-                                                                <option>EUR</option>
-                                                            </select></td>
-                                                        <td><input value="{{ $x->price }}" class="price"
-                                                                type="number" id="price_s" name="price_s[]"></td>
-                                                        <td><input value="{{ $x->sub_total }}" class="sub_total_s"
-                                                                id="sub_total_s" name="sub_total_s[]">
-                                                        </td>
-                                                        <td><input value="{{ $x->name }}" type="text"
-                                                                id="name_s" class="name_s ui-widget" name="name_s[]">
-                                                        </td>
-                                                        <td><input value="{{ $x->remark }}" type="text"
-                                                                id="remark_s" class="remark_s" name="remark_s[]"></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        {{-- <td><a href="#" id="removekolom_s"
-                                                                class="btn btn-danger remove_s"><i
                                                                     class="fa fa-times"></i></a>
                                                         </td> --}}
                                                     </tr>
@@ -665,7 +667,7 @@
                             $('#customer_dp').val(name);
                             $('#currency_dp').val(curr_sell);
                             $('#total_dp').val(sum_s);
-                            $('#d_payment').val(sum_s);
+                            $('#d_payment').val('0');
                         }
                     })
                 })

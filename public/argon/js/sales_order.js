@@ -3,7 +3,8 @@ var a = 1;
 var nextid_b = 2;
 var nextid_s = 2;
 // var curr = (data.currency);
-$("#addkolom_b").click(function () {
+$(document).on('click', '#addkolom_b', function (e) {
+     e.preventDefault();
      addkolom_b();
      // console.log(curr);
 });
@@ -31,6 +32,7 @@ function addkolom_b() {
      nextid_b++;
 };
 $(document).on('click', '.remove_b', function () {
+     e.preventDefault();
      var l = $('tbody.buying tr').length;
      // console.log(l);
      if (l == 1) {
@@ -39,9 +41,10 @@ $(document).on('click', '.remove_b', function () {
           $(this).parent().parent().remove();
      }
 });
-$("#addkolom_s").click(function () {
+$(document).on('click', '#addkolom_s', function (e) {
+     // $("#addkolom_s").click(function () {
+     e.preventDefault();
      addkolom_s();
-     // console.log(sub);
 });
 function addkolom_s() {
      var kolom = '<tr class="row-selling">' +
@@ -67,6 +70,7 @@ function addkolom_s() {
      nextid_s++;
 };
 $(document).on('click', '.remove_s', function () {
+     e.preventDefault();
      var l = $('tbody.selling tr').length;
      // console.log(l);
      if (l == 1) {
@@ -76,32 +80,32 @@ $(document).on('click', '.remove_s', function () {
      }
 });
 $('tbody').on('keyup', ".price", function () {
-     var format = function (num) {
-          var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
-          if (str.indexOf(".") > 0) {
-               parts = str.split(".");
-               str = parts[0];
-          }
-          str = str.split("").reverse();
-          for (var j = 0, len = str.length; j < len; j++) {
-               if (str[j] != ",") {
-                    output.push(str[j]);
-                    if (i % 3 == 0 && j < (len - 1)) {
-                         output.push(",");
-                    }
-                    i++;
-               }
-          }
-          formatted = output.reverse().join("");
-          return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-     };
-     $(this).val(format($(this).val()));
+     // var format = function (num) {
+     //      var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
+     //      if (str.indexOf(".") > 0) {
+     //           parts = str.split(".");
+     //           str = parts[0];
+     //      }
+     //      str = str.split("").reverse();
+     //      for (var j = 0, len = str.length; j < len; j++) {
+     //           if (str[j] != ",") {
+     //                output.push(str[j]);
+     //                if (i % 3 == 0 && j < (len - 1)) {
+     //                     output.push(",");
+     //                }
+     //                i++;
+     //           }
+     //      }
+     //      formatted = output.reverse().join("");
+     //      return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+     // };
+     // $(this).val(format($(this).val()));
      var tr = $(this).parent().parent();
      var qty = tr.find('.qty').val();
      var price = tr.find('.price').val();
-     var polos_price = price.replace(/\D/g, '');
+     // var polos_price = price.replace(/\D/g, '');
      // console.log(polos_price);
-     var total = qty * polos_price;
+     var total = qty * price;
      // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
      tr.find('.sub_total_s').val(total);
      tr.find('.sub_total_b').val(total);
@@ -110,8 +114,8 @@ $('tbody').on('keyup', ".price", function () {
 })
 $('tbody').on('change', ".qty", function () {
      var tr = $(this).parent().parent();
-     var $this = $(this);
-     $this.val(parseFloat($this.val()).toFixed(3));
+     // var $this = $(this);
+     // $this.val(parseFloat($this.val()).toFixed(3));
      var qty = tr.find('.qty').val();
      var price = tr.find('.price').val();
      var total = qty * price;
