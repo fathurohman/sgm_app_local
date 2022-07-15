@@ -492,12 +492,14 @@
                         name: 'NPWP'
                     },
                     {
-                        data: 'Address',
-                        name: 'Address'
+                        data: 'ADDRESS',
+                        name: 'ADDRESS'
                     },
                     {
                         data: 'Action',
-                        name: 'Action'
+                        name: 'Action',
+                        searchable: false,
+                        orderable: false
                     },
                 ]
             });

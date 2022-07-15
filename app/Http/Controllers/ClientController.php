@@ -41,6 +41,11 @@ class ClientController extends Controller
         $client->COMPANY_NAME = $request->name;
         $client->ADDRESS = $request->alamat;
         $client->TELEPHONE = $request->telephone;
+        if (empty($request->active)) {
+            $client->active = 0;
+        } else {
+            $client->active = $request->active;
+        }
         $client->save();
         return redirect(route('client.index'));
     }
@@ -82,6 +87,11 @@ class ClientController extends Controller
         $client->COMPANY_NAME = $request->name;
         $client->ADDRESS = $request->alamat;
         $client->TELEPHONE = $request->telephone;
+        if (empty($request->active)) {
+            $client->active = 0;
+        } else {
+            $client->active = $request->active;
+        }
         $client->save();
         return redirect(route('client.index'));
     }

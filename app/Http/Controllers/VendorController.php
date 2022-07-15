@@ -41,6 +41,11 @@ class VendorController extends Controller
         $vendor->VENDOR = $request->name;
         $vendor->ADDRESS = $request->alamat;
         $vendor->TELEPHONE = $request->telephone;
+        if (empty($request->active)) {
+            $vendor->active = 0;
+        } else {
+            $vendor->active = $request->active;
+        }
         $vendor->save();
         return redirect(route('vendor.index'));
     }
@@ -82,6 +87,11 @@ class VendorController extends Controller
         $vendor->VENDOR = $request->name;
         $vendor->ADDRESS = $request->alamat;
         $vendor->TELEPHONE = $request->telephone;
+        if (empty($request->active)) {
+            $vendor->active = 0;
+        } else {
+            $vendor->active = $request->active;
+        }
         $vendor->save();
         return redirect(route('vendor.index'));
     }

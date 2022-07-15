@@ -86,6 +86,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-8 col-sm-12">
+                                    <label class="form-control-label" for="input-send">{{ __('Active') }}</label>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input name="active" class="custom-control-input" id="Active" type="checkbox"
+                                            value="1" @if ($client->active == 1) {{ 'checked' }} @endif>
+                                        <label class="custom-control-label" for="Active">Active</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 <a href="{{ route('client.index') }}" type="button"

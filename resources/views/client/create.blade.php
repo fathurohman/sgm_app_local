@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends('layouts.app', ['activePage' => 'client'])
 
 @section('content')
     @include('users.partials.header', [
@@ -81,6 +81,16 @@
                                                 <strong>{{ $errors->first('telephone') }}</strong>
                                             </span>
                                         @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-8 col-sm-12">
+                                    <label class="form-control-label" for="input-send">{{ __('Active') }}</label>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input name="active" class="custom-control-input" id="Active" type="checkbox"
+                                            value="1">
+                                        <label class="custom-control-label" for="Active">Active</label>
                                     </div>
                                 </div>
                             </div>

@@ -238,14 +238,14 @@ class JobOrderController extends Controller
 
     public function listcustomer()
     {
-        $query = Client::all();
+        $query = Client::where('active', '1');
         return Datatables::of(
             $query
-        )->addColumn('COMPANY_NAME', function ($row) {
+        )->editColumn('COMPANY_NAME', function ($row) {
             return $row->COMPANY_NAME;
-        })->addColumn('NPWP', function ($row) {
+        })->editColumn('NPWP', function ($row) {
             return $row->NPWP;
-        })->addColumn('Address', function ($row) {
+        })->editColumn('ADDRESS', function ($row) {
             return substr($row->ADDRESS, 0, 20);
         })->addColumn('Action', function ($row) {
             $data = [
