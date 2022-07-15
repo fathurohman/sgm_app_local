@@ -77,10 +77,12 @@ class FinanceController extends Controller
         $total_pajak = $sum * $vat;
         $total_charge = $sum + $total_pajak;
         if ($curr == 'IDR') {
-            $terbilang = Terbilang::make($total_charge, ' rupiah');
+            $terbilang = ucwords(Terbilang::make($total_charge, ' rupiah'));
+            $terbilang_dn = ucwords(Terbilang::make($sum, ' rupiah'));
         } else {
             App::setLocale('en');
-            $terbilang = Terbilang::make($total_charge, ' dollars');
+            $terbilang = ucwords(Terbilang::make($total_charge, ' dollars#', '# '));
+            $terbilang_dn = ucwords(Terbilang::make($sum, ' dollars#', '# '));
         }
         $name = Auth::user()->name;
         // $terbilang = Terbilang::make(2858250, ' rupiah');
@@ -94,6 +96,7 @@ class FinanceController extends Controller
             'ETA' => $x_eta,
             'customer' => $list_customer,
             'terbilang' => $terbilang,
+            'terbilang_dn' => $terbilang_dn,
             'sum' => $sum,
             'nilai_pajak' => $nilai_pajak,
             'total_pajak' => $total_pajak,

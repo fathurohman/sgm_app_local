@@ -122,7 +122,14 @@
             <td class="last-empty-value"></td>
         </tr>
         <tr>
-            <td rowspan="3" colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
+            <td rowspan="3" colspan="2" style="text-align:left">
+                @if ($data['curr'] == 'IDR')
+                    Terbilang :
+                @else
+                    IN WORDS :
+                @endif
+                {{ $data['terbilang'] }}
+            </td>
             <td>Total:</td>
             <td class="terbilang-value">{{ $data['curr'] }}
                 {{ number_format($data['sum']) }}
