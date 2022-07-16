@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
 	return view('welcome');
@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'UserController');
 	Route::resource('permission', 'PermissionController');
 	Route::resource('role', 'RoleController');
+	Route::resource('items', 'ItemsController');
 	//job order routes
 	Route::resource('job_order', 'JobOrderController');
 	Route::resource('sales_order', 'SalesOrderController');
@@ -47,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('search/autocomplete/', 'SalesOrderController@autocomplete_desc');
 	Route::get('search/autocomplete_remark/', 'SalesOrderController@autocomplete_remark');
 	Route::get('search/autocomplete_client/', 'SalesOrderController@autocomplete_client');
+	Route::put('send/{id}', 'SalesOrderController@sendtofinance')->name('sales_order.send');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
@@ -57,7 +59,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//finance routes
 	Route::get('/finance', 'FinanceController@index')->name('finance.index');
 	Route::get('/listinvoiceshow', 'FinanceController@listinvoiceshow')->name('listinvoiceshow');
+	Route::get('/modal_cetak_invoice/{id}/{tipe}', 'FinanceController@modal_cetak_invoice');
 	Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
+	Route::post('/cetak_invoice_dua', 'FinanceController@cetak_invoice_dua')->name('cetak_invoice_dua');
 	//end
 	Route::put('profile/password', 'ProfileController@password')->name('profile.password');
 });

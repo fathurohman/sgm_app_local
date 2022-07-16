@@ -56,12 +56,13 @@ class SalesOrderController extends Controller
             }
         })->addColumn('More', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id
             ];
             return view('sales_order.dt.act_list_more', compact('data'));
         })->addColumn('Action', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id,
+                'status' => $row->published,
             ];
             return view('sales_order.dt.act_list_crud', compact('data'));
         })->rawColumns(['action', 'More'])->toJson();
@@ -99,11 +100,11 @@ class SalesOrderController extends Controller
         $sales_order->job_order_id = $request->order_id;
         $sales_order->tipe = $tipe_order;
         $sales_order->notes = $request->notes;
-        if (empty($request->published)) {
-            $sales_order->published = 0;
-        } else {
-            $sales_order->published = $request->published;
-        }
+        // if (empty($request->published)) {
+        //     $sales_order->published = 0;
+        // } else {
+        //     $sales_order->published = $request->published;
+        // }
         $sales_order->created_by = Auth::id();
         $sales_order->save();
         if (!empty($request->description_b[0])) {
@@ -234,11 +235,11 @@ class SalesOrderController extends Controller
         $sales_order->nomor_invoice = $request->no_inv;
         $sales_order->job_order_id = $request->order_id;
         $sales_order->notes = $request->notes;
-        if (empty($request->published)) {
-            $sales_order->published = 0;
-        } else {
-            $sales_order->published = $request->published;
-        }
+        // if (empty($request->published)) {
+        //     $sales_order->published = 0;
+        // } else {
+        //     $sales_order->published = $request->published;
+        // }
         $sales_order->save();
         //down_payments
         $down_payment = Down_Payment::find($request->dp_id);
@@ -281,10 +282,11 @@ class SalesOrderController extends Controller
             );
         }
         //profit
-        Profit::where('sales_order_id', $sales_order->id)->delete();
+        // Profit::where('sales_order_id', $sales_order->id)->delete();
+        // dd($request->id_profit);
         foreach ($request->currency_prof as $a => $v) {
             Profit::updateOrCreate(
-                ['id' => $request->id_profit[$a]],
+                ['sales_order_id' => $sales_order->id],
                 [
                     'sales_order_id' => $sales_order->id,
                     'currency' => $v,
@@ -343,7 +345,7 @@ class SalesOrderController extends Controller
             return $row->pol_pod;
         })->addColumn('Action', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id
             ];
             return view('job_order.dt.act_order_pilih', compact('data'));
         })->rawColumns(['action'])->toJson();
@@ -434,25 +436,31 @@ class SalesOrderController extends Controller
 
     public function showDetailSelling($id)
     {
-        $selling_orders  = SellingOrder::where('sales_order_id', $id)->get();
+        $selling_orders = SellingOrder::where('sales_order_id', $id)->get();
         return view('sales_order.sales_selling', compact('selling_orders'));
     }
 
     public function showDetailBuying($id)
     {
-        $buying_orders  = BuyingOrder::where('sales_order_id', $id)->get();
+        $buying_orders = BuyingOrder::where('sales_order_id', $id)->get();
         return view('sales_order.sales_buying', compact('buying_orders'));
     }
 
     public function showDetailDP($id)
     {
-        $dp_orders  = Down_Payment::where('sales_order_id', $id)->first();
+        $dp_orders = Down_Payment::where('sales_order_id', $id)->first();
         return view('sales_order.sales_dp', compact('dp_orders'));
     }
 
     public function showDetailProfit($id)
     {
-        $profit_orders  = Profit::where('sales_order_id', $id)->get();
+        $profit_orders = Profit::where('sales_order_id', $id)->get();
         return view('sales_order.sales_profit', compact('profit_orders'));
+    }
+
+    public function sendtofinance($id)
+    {
+        SalesOrder::where('id', $id)->update(['published' => '1']);
+        return redirect()->back();
     }
 }
