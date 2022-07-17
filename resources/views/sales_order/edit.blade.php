@@ -320,10 +320,10 @@
                                                 <td><input value="{{ $x->currency }}" type="text" class="curr_prof" id="currency_prof"
                                                         name="currency_prof[]" readonly></td>
                                                 <td><input value="{{ $x->total_selling }}" type="text" id="total_selling_prof"
-                                                        name="selling_prof[]" readonly>
+                                                        name="total_selling_prof[]" readonly>
                                                 </td>
                                                 <td><input value="{{ $x->total_buying }}" type="text" id="total_buying_prof"
-                                                        name="buying_prof[]" readonly>
+                                                        name="total_buying_prof[]" readonly>
                                                 </td>
                                                 <td><input value="{{ $x->profit }}" type="text" id="profit_buy" name="profit[]"
                                                         readonly>
@@ -615,6 +615,7 @@
         });
 
 </script>
+
 
 
 
