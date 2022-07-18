@@ -3,6 +3,23 @@ var a = 1;
 var nextid_b = 2;
 var nextid_s = 2;
 // var curr = (data.currency);
+$(document).on('click', '#refreshkolom', function (e) {
+    e.preventDefault();
+    var tr = $(this).parent().parent();
+    tr.find('.autosuggest').val("");
+    tr.find('.qty').val("");
+    tr.find('.curr_b').val("");
+    tr.find('.curr_s').val("");
+    tr.find('.price').val("");
+    tr.find('.price_real').val("");
+    tr.find('.sub_total_b').val("");
+    tr.find('.sub_total_s').val("");
+    tr.find('.name_b').val("");
+    tr.find('.name_s').val("");
+    tr.find('.remark_b').val("");
+    tr.find('.remark_s').val("");
+    // console.log(curr);
+});
 $(document).on('click', '#addkolom_b', function (e) {
     e.preventDefault();
     addkolom_b();
@@ -21,12 +38,16 @@ function addkolom_b() {
         '<option>USD</option>' +
         '<option>EUR</option>' +
         '</select></td>' +
-        '<td><input class="price" type="text" id="price_b ' + nextid_b + '" name="price_b[]"></td>' +
+        '<td><input class="price" type="text" id="price_b ' + nextid_b + '">' +
+        '<input class="price_real" type="text" id="price_b_r ' + nextid_b + '" name="price_b[]" hidden>' +
+        '</td>' +
         '<td><input class="sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]" readonly></td>' +
         '<td><input class="name_b" type="text" id="name_b ' + nextid_b + '" name="name_b[]"></td>' +
         '<td><input class="remark_b ui-widget" type="text" id="remark_b ' + nextid_b + '" name="remark_b[]"></td>' +
         '<td></td>' +
-        '<td><a href="#" id="removekolom_b" class="btn btn-danger remove_b"><i class="fa fa-times"></i></a></td>' +
+        '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
+        '<a href="#" id="removekolom_b" class="btn btn-danger btn-sm remove_b"><i class="fa fa-times"></i></a>' +
+        '</td>' +
         '</tr>';
     $('.buying').append(kolom);
     nextid_b++;
@@ -59,12 +80,16 @@ function addkolom_s() {
         '<option>USD</option>' +
         '<option>EUR</option>' +
         '</select></td>' +
-        '<td><input class="price" type="text" id="price_s ' + nextid_s + '" name="price_s[]"></td>' +
+        '<td><input class="price" type="text" id="price_s ' + nextid_s + '">' +
+        '<input class="price_real" type="text" id="price_s_r ' + nextid_s + '" name="price_s[]" hidden>' +
+        '</td>' +
         '<td><input class="sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]" readonly></td>' +
         '<td><input class="name_s" type="text" id="name_s ' + nextid_s + '" name="name_s[]"></td>' +
         '<td><input class="remark_s ui-widget" type="text" id="remark_s ' + nextid_s + '" name="remark_s[]"></td>' +
         '<td></td>' +
-        '<td><a href="#" id="removekolom_s" class="btn btn-danger remove_s"><i class="fa fa-times"></i></a></td>' +
+        '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
+        '<a href="#" id="removekolom_s" class="btn btn-danger btn-sm remove_s"><i class="fa fa-times"></i></a>' +
+        '</td>' +
         '</tr>';
     $('.selling').append(kolom);
     nextid_s++;
@@ -80,32 +105,34 @@ $(document).on('click', '.remove_s', function (e) {
     }
 });
 $('tbody').on('keyup', ".price", function () {
-    // var format = function (num) {
-    //      var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
-    //      if (str.indexOf(".") > 0) {
-    //           parts = str.split(".");
-    //           str = parts[0];
-    //      }
-    //      str = str.split("").reverse();
-    //      for (var j = 0, len = str.length; j < len; j++) {
-    //           if (str[j] != ",") {
-    //                output.push(str[j]);
-    //                if (i % 3 == 0 && j < (len - 1)) {
-    //                     output.push(",");
-    //                }
-    //                i++;
-    //           }
-    //      }
-    //      formatted = output.reverse().join("");
-    //      return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-    // };
-    // $(this).val(format($(this).val()));
+    var format = function (num) {
+        var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
+        if (str.indexOf(".") > 0) {
+            parts = str.split(".");
+            str = parts[0];
+        }
+        str = str.split("").reverse();
+        for (var j = 0, len = str.length; j < len; j++) {
+            if (str[j] != ",") {
+                output.push(str[j]);
+                if (i % 3 == 0 && j < (len - 1)) {
+                    output.push(",");
+                }
+                i++;
+            }
+        }
+        formatted = output.reverse().join("");
+        return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+    };
+    $(this).val(format($(this).val()));
     var tr = $(this).parent().parent();
     var qty = tr.find('.qty').val();
     var price = tr.find('.price').val();
-    // var polos_price = price.replace(/\D/g, '');
+    var clone = $(this).val();
+    var cloned = clone.replace(/[A-Za-z$. ,-]/g, "");
+    tr.find('.price_real').val(cloned);
     // console.log(polos_price);
-    var total = qty * price;
+    var total = qty * cloned;
     // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
     tr.find('.sub_total_s').val(total);
     tr.find('.sub_total_b').val(total);
@@ -114,10 +141,10 @@ $('tbody').on('keyup', ".price", function () {
 })
 $('tbody').on('change', ".qty", function () {
     var tr = $(this).parent().parent();
-    // var $this = $(this);
-    // $this.val(parseFloat($this.val()).toFixed(3));
+    var $this = $(this);
+    $this.val(parseFloat($this.val()).toFixed(3));
     var qty = tr.find('.qty').val();
-    var price = tr.find('.price').val();
+    var price = tr.find('.price_real').val();
     var total = qty * price;
     tr.find('.sub_total_s').val(total);
     tr.find('.sub_total_b').val(total);

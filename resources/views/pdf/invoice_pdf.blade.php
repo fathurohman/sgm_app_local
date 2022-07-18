@@ -109,7 +109,7 @@
         @foreach ($data['selling'] as $x)
             <tr>
                 <td class="selling-value" style="text-align:left">{{ $x->description }}</td>
-                <td class="selling-value" style="text-align:center">{{ $x->qty }},000</td>
+                <td class="selling-value" style="text-align:center">{{ $x->qty }}</td>
                 <td class="selling-value" style="text-align:center">{{ number_format($x->price) }}</td>
                 <td style="text-align:center">{{ $x->curr }}
                     {{ number_format($x->sub_total) }}</td>
