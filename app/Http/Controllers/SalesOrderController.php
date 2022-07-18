@@ -37,7 +37,7 @@ class SalesOrderController extends Controller
     {
         // $query = SalesOrder::all();
         $auth = Auth::id();
-        $query = SalesOrder::where('created_by', $auth);
+        $query = SalesOrder::where('created_by', $auth)->orderBy('created_at', 'desc');
         return Datatables::of(
             $query
         )->editColumn('nomor_invoice', function ($row) {
