@@ -8,3 +8,11 @@
      border: none;
      /* if you want no box around the input field */
 }
+
+table .w-10 {
+     width: 10%;
+}
+
+table .w-30 {
+     width: 30%;
+}

@@ -282,11 +282,14 @@ class SalesOrderController extends Controller
             );
         }
         //profit
-        // Profit::where('sales_order_id', $sales_order->id)->delete();
-        // dd($request->id_profit);
+        if (empty($request->id_prof)) {
+            Profit::where('sales_order_id', $sales_order->id)->delete();
+        }
+        // dd($request->id_prof);
         foreach ($request->currency_prof as $a => $v) {
             Profit::updateOrCreate(
-                ['sales_order_id' => $sales_order->id],
+                // ['sales_order_id' => $sales_order->id],
+                ['id' => $request->id_prof[$a]],
                 [
                     'sales_order_id' => $sales_order->id,
                     'currency' => $v,

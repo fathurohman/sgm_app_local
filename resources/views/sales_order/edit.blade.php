@@ -378,7 +378,10 @@
                                                     <tr class="profit_tr">
                                                         <td><input value="{{ $x->currency }}" type="text"
                                                                 class="curr_prof" id="currency_prof"
-                                                                name="currency_prof[]" readonly></td>
+                                                                name="currency_prof[]" readonly>
+                                                            <input value="{{ $x->id }}" type="text"
+                                                                class="id_prof" id="id_prof" name="id_prof[]" hidden>
+                                                        </td>
                                                         <td><input value="{{ $x->total_selling }}" type="text"
                                                                 id="total_selling_prof" name="total_selling_prof[]"
                                                                 readonly>
@@ -491,7 +494,10 @@
                     var tb = '<tr>' +
                         '<td><input type="text" id="currency_prof' +
                         curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
+                        '" name="currency_prof[]" readonly>' +
+                        '<input type="text"' +
+                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
+                        '</td>' +
                         '<td><input type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
@@ -517,7 +523,10 @@
                     var tb = '<tr>' +
                         '<td><input type="text" id="currency_prof' +
                         curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
+                        '" name="currency_prof[]" readonly>' +
+                        '<input type="text"' +
+                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
+                        '</td>' +
                         '<td><input type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
@@ -543,7 +552,10 @@
                     var tb = '<tr>' +
                         '<td><input type="text" id="currency_prof' +
                         curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
+                        '" name="currency_prof[]" readonly>' +
+                        '<input type="text"' +
+                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
+                        '</td>' +
                         '<td><input type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
@@ -569,7 +581,10 @@
                     var tb = '<tr>' +
                         '<td><input type="text" id="currency_prof' +
                         curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
+                        '" name="currency_prof[]" readonly>' +
+                        '<input type="text"' +
+                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
+                        '</td>' +
                         '<td><input type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
