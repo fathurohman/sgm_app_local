@@ -327,7 +327,7 @@ class SalesOrderController extends Controller
     {
         // $query = SalesOrder::all();
         $auth = Auth::id();
-        $query = job_order::where('created_by', $auth);
+        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
         // $query = job_order::all();
         return Datatables::of(
             $query

@@ -46,6 +46,9 @@
                                     </div>
                                     <input id="order-id-hide" type="text" class="form-control"
                                         value="{{ $data['order_id'] }}" hidden>
+                                    <input id="row-id-hide" type="text" class="form-control"
+                                        value="{{ $data['order_month'] }}" hidden>
+                                    <input id="row-id-field" type="text" class="form-control" name="order_month" hidden>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3">
                                     <label class="form-control-label" for="input-for"></label>
@@ -86,8 +89,8 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <input id="customer-field-id" type="text" class="form-control" placeholder="Customer"
-                                        name="client_id" hidden>
+                                    <input id="customer-field-id" type="text" class="form-control"
+                                        placeholder="Customer" name="client_id" hidden>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
@@ -315,34 +318,6 @@
         // $('#customer').DataTable();
         // $('#order').DataTable();
         //list orders
-        $('.infoO').click(function() {
-            $currID = $(this).attr("data-id");
-            $('#order_id-field').val('');
-            // alert($currID);
-            $.get('/job_data?pid=' + $currID, function(data) {
-                $('#order_id-field').val(data['jobs'].order_id);
-                $('#tipe_order').val(data['jobs'].tipe_order);
-                $('#customer-field').val(data['name_client']);
-                $('#customer-field-id').val(data['jobs'].client_id);
-                $('#sales_id').val(data['jobs'].sales_id);
-                $('#service_id').val(data['jobs'].service_id);
-                $('#via_id').val(data['jobs'].via_id);
-                $('#ETD').val(data['jobs'].ETD);
-                $('#ETA').val(data['jobs'].ETA);
-                $('#input-pol_pod').val(data['jobs'].pol_pod);
-                $('#input-party').val(data['jobs'].party);
-                $('#input-hbl').val(data['jobs'].HBL);
-                $('#input-gwt_meas').val(data['jobs'].GWT_MEAS);
-                $('#input-mbl').val(data['jobs'].MBL);
-                $('#input-vessel1').val(data['jobs'].vessel1);
-                $('#input-vessel2').val(data['jobs'].vessel2);
-                $('#input-consignee').val(data['jobs'].consignee);
-                $('#input-agent_overseas').val(data['jobs'].agent_overseas);
-                // console.log(data);
-            });
-            $('#orderList').modal('toggle');
-            // $('#customer-field').val($currID);
-        });
         $('.neword').click(function() {
             $('#order_id-field').val('');
             $('#tipe_order').val('');
@@ -364,7 +339,9 @@
             $('#input-agent_overseas').val('');
             $('input[name="tipe_order"]').prop('checked', false);
             var order_num = $('#order-id-hide').val();
+            var row_num = $('#row-id-hide').val();
             $('#order_id-field').val(order_num);
+            $('#row-id-field').val(row_num);
         });
 
         $('#form-order input').on('change', function() {
@@ -403,6 +380,7 @@
                         // alert($currID);
                         $.get('/job_data?pid=' + $currID, function(data) {
                             $('#order_id-field').val(data['jobs'].order_id);
+                            $('#row-id-field').val(data['jobs'].order_row);
                             $('#tipe_order_full').val(data['jobs'].tipe_order);
                             $('#customer-field').val(data['name_client']);
                             $('#customer-field-id').val(data['jobs'].client_id);

@@ -37,8 +37,19 @@ class JobOrderController extends Controller
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
         $jml_by_month = job_order::whereMonth('created_at', $month)->count();
-        // dd($jml_by_month);
-        $order_month = $jml_by_month + 1;
+        $urutan = job_order::select('order_row')->whereMonth('created_at', $month)->get();
+        $results = array();
+        foreach ($urutan as $query) {
+            $order_row = $query->order_row;
+            array_push($results, $order_row);
+        }
+        $max = max($results);
+        if ($jml_by_month == '0') {
+            $order_month = '1';
+        } else {
+            //ini ambil nilai max di kolom
+            $order_month = $max + 1;
+        }
         $sprint_order = sprintf('%03d', $order_month);
         $order_id = "$year$month$sprint_order";
         $service = Service::all();
@@ -53,6 +64,7 @@ class JobOrderController extends Controller
             'sales' => $sales,
             'order_id' => $order_id,
             // 'clients' => $clients,
+            'order_month' => $order_month,
             'job_order' => $job_order,
         );
         return view('job_order.create', compact('data'));
@@ -72,6 +84,7 @@ class JobOrderController extends Controller
         $request->ETA = date("Y-m-d");
         $job_order = new job_order;
         $job_order->order_id = $request->order_id;
+        $job_order->order_row = $request->order_month;
         $job_order->tipe_order = $request->tipe_order_text;
         $job_order->client_id = $request->client_id;
         $job_order->sales_id = $request->sales_id;
@@ -152,6 +165,7 @@ class JobOrderController extends Controller
         $request->ETA = date("Y-m-d");
         $job_order = job_order::find($id);
         $job_order->order_id = $request->order_id;
+        $job_order->order_row = $request->order_month;
         $job_order->tipe_order = $request->tipe_order_text;
         $job_order->client_id = $request->client_id;
         $job_order->sales_id = $request->sales_id;
@@ -261,7 +275,7 @@ class JobOrderController extends Controller
     public function listorder()
     {
         $auth = Auth::id();
-        $query = job_order::where('created_by', $auth);
+        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
         // $query = job_order::all();
         return Datatables::of(
             $query
@@ -291,7 +305,7 @@ class JobOrderController extends Controller
     public function listordershow()
     {
         $auth = Auth::id();
-        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');;
+        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
         // $query = job_order::all();
         return Datatables::of(
             $query
