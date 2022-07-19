@@ -1,18 +1,35 @@
-.input-full {
-     display: inline;
+.table-selling {
      width: 100%;
-     height: 100%;
+     border-collapse: collapse;
+     margin: auto;
+     table-layout: fixed;
+     font-size: 12pt;
+}
+
+.table-selling th {
+     background: #2493BF;
+     color: white
+}
+
+.table-selling td input {
+     width: 100%;
      box-sizing: border-box;
-     -moz-box-sizing: border-box;
-     -webkit-box-sizing: border-box;
-     border: none;
-     /* if you want no box around the input field */
 }
 
-table .w-10 {
-     width: 10%;
+.table-buying {
+     width: 100%;
+     border-collapse: collapse;
+     margin: auto;
+     table-layout: fixed;
+     font-size: 12pt;
 }
 
-table .w-30 {
-     width: 30%;
+.table-buying th {
+     background: #BF2455;
+     color: white
+}
+
+.table-buying td input {
+     width: 100%;
+     box-sizing: border-box;
 }

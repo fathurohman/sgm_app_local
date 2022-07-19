@@ -212,32 +212,32 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
                                     <div class="table-responsive">
-                                        <table id="selling" class="table align-items-center table-flush">
+                                        <table id="selling" class="table-selling align-items-center table-flush">
                                             <thead class="thead-light">
-                                                <th style="background: #2493BF; color:white">Description</th>
-                                                <th style="background: #2493BF; color:white">Qty</th>
-                                                <th style="background: #2493BF; color:white">Curr</th>
-                                                <th style="background: #2493BF; color:white">Price</th>
-                                                <th style="background: #2493BF; color:white">Sub Total</th>
-                                                <th style="background: #2493BF; color:white">Name</th>
-                                                <th style="background: #2493BF; color:white">Remark</th>
-                                                <th><a href="#" id="addkolom_s"><i class="fa fa-plus"></i>Add</a>
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Curr</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Name</th>
+                                                <th>Remark</th>
+                                                <th><a style="color: white" href="#" id="addkolom_s"><i
+                                                            class="fa fa-plus"></i>Add Column</a>
                                                 </th>
-                                                <th style="background: #2493BF; color:white">Remove</th>
                                             </thead>
                                             <tbody class="selling">
                                                 @foreach ($selling as $x)
                                                     <tr class="row-selling">
-                                                        <td><input class="autosuggest ui-widget" type="text"
-                                                                id="description_s" value="{{ $x->description }}"
-                                                                name="description_s[]">
+                                                        <td><input class="form-control autosuggest ui-widget"
+                                                                type="text" id="description_s"
+                                                                value="{{ $x->description }}" name="description_s[]">
                                                             <input type="text" name="id_selling[]"
                                                                 value="{{ $x->id }}" hidden>
                                                         </td>
-                                                        <td><input class="qty" type="number" id="qty_s"
+                                                        <td><input class="form-control qty" type="number" id="qty_s"
                                                                 name="qty_s[]" value="{{ $x->qty }}"></td>
                                                         <td><select id="curr_s" name="curr_s[]"
-                                                                class="form-select curr_s"
+                                                                class="form-control form-select curr_s"
                                                                 aria-label="Default select example">
                                                                 <option selected>{{ $x->curr }}</option>
                                                                 <option>IDR</option>
@@ -245,20 +245,23 @@
                                                                 <option>USD</option>
                                                                 <option>EUR</option>
                                                             </select></td>
-                                                        <td><input value="{{ $x->price }}" class="price"
+                                                        <td><input value="{{ $x->price }}" class="form-control price"
                                                                 type="number" id="price_s">
-                                                            <input value="{{ $x->price }}" class="price_real"
-                                                                type="text" id="price_s_r" name="price_s[]" hidden>
+                                                            <input value="{{ $x->price }}"
+                                                                class="form-control price_real" type="text"
+                                                                id="price_s_r" name="price_s[]" hidden>
                                                         </td>
-                                                        <td><input value="{{ $x->sub_total }}" class="sub_total_s"
-                                                                id="sub_total_s" name="sub_total_s[]">
+                                                        <td><input value="{{ $x->sub_total }}"
+                                                                class="form-control sub_total_s" id="sub_total_s"
+                                                                name="sub_total_s[]" readonly>
                                                         </td>
                                                         <td><input value="{{ $x->name }}" type="text"
-                                                                id="name_s" class="name_s ui-widget" name="name_s[]">
+                                                                id="name_s" class="form-control name_s ui-widget"
+                                                                name="name_s[]">
                                                         </td>
                                                         <td><input value="{{ $x->remark }}" type="text"
-                                                                id="remark_s" class="remark_s" name="remark_s[]"></td>
-                                                        <td></td>
+                                                                id="remark_s" class="form-control remark_s"
+                                                                name="remark_s[]"></td>
                                                         <td></td>
                                                         {{-- <td><a href="#" id="removekolom_s" class="btn btn-danger remove_s"><i
                                                                     class="fa fa-times"></i></a>
@@ -273,34 +276,35 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
-                                    <div class="table-responsive">
-                                        <table id="buying" class="table align-items-center table-flush">
+                                    <div>
+                                        <table id="buying" class="table-buying align-items-center table-flush">
                                             <thead class="thead-light">
-                                                <th style="background: #BF2455; color:white">Description</th>
-                                                <th style="background: #BF2455; color:white">Qty</th>
-                                                <th style="background: #BF2455; color:white">Curr</th>
-                                                <th style="background: #BF2455; color:white">Price</th>
-                                                <th style="background: #BF2455; color:white">Sub Total</th>
-                                                <th style="background: #BF2455; color:white">Name</th>
-                                                <th style="background: #BF2455; color:white">Remark</th>
-                                                <th><a href="#" id="addkolom_b"><i class="fa fa-plus"></i>Add</a>
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Curr</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Name</th>
+                                                <th>Remark</th>
+                                                <th><a style="color:white" href="#" id="addkolom_b"><i
+                                                            class="fa fa-plus"></i>Add Column</a>
                                                 </th>
-                                                <th style="background: #BF2455; color:white">Remove</th>
                                             </thead>
                                             <tbody class="buying">
                                                 @foreach ($buying as $x)
                                                     <tr class="row-buying">
-                                                        <td><input type="text" class="autosuggest ui-widget"
+                                                        <td><input type="text"
+                                                                class="form-control autosuggest ui-widget"
                                                                 id="description_b" name="description_b[]"
                                                                 value="{{ $x->description }}">
                                                             <input type="text" name="id_buying[]"
                                                                 value="{{ $x->id }}" hidden>
                                                         </td>
-                                                        <td><input class="qty" type="text" id="qty_b"
+                                                        <td><input class="form-control qty" type="text" id="qty_b"
                                                                 name="qty_b[]" value="{{ $x->qty }}"></td>
                                                         {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
                                                         <td><select id="curr_b" name="curr_b[]"
-                                                                class="form-select curr_b"
+                                                                class="form-control form-select curr_b"
                                                                 aria-label="Default select example">
                                                                 <option selected>{{ $x->curr }}</option>
                                                                 <option>IDR</option>
@@ -308,20 +312,22 @@
                                                                 <option>USD</option>
                                                                 <option>EUR</option>
                                                             </select></td>
-                                                        <td><input type="text" class="price" id="price_b"
-                                                                value="{{ $x->price }}">
-                                                            <input type="text" class="price_real" id="price_b_r"
-                                                                name="price_b[]" value="{{ $x->price }}" hidden>
+                                                        <td><input type="text" class="form-control price"
+                                                                id="price_b" value="{{ $x->price }}">
+                                                            <input type="text" class="form-control price_real"
+                                                                id="price_b_r" name="price_b[]"
+                                                                value="{{ $x->price }}" hidden>
                                                         </td>
-                                                        <td><input type="text" class="sub_total_b" id="sub_total_b"
-                                                                name="sub_total_b[]" value="{{ $x->sub_total }}"></td>
+                                                        <td><input type="text" class="form-control sub_total_b"
+                                                                id="sub_total_b" name="sub_total_b[]"
+                                                                value="{{ $x->sub_total }}" readonly></td>
                                                         <td><input type="text" value="{{ $x->name }}"
-                                                                class="name_b ui-widget" id="name_b" name="name_b[]">
+                                                                class="form-control name_b ui-widget" id="name_b"
+                                                                name="name_b[]">
                                                         </td>
-                                                        <td><input type="text" class="remark_b"
+                                                        <td><input type="text" class="form-control remark_b"
                                                                 value="{{ $x->remark }}" id="remark_b"
                                                                 name="remark_b[]"></td>
-                                                        <td></td>
                                                         <td></td>
                                                         {{-- <td><a href="#" id="removekolom_b" class="btn btn-danger remove_b"><i
                                                                     class="fa fa-times"></i></a>

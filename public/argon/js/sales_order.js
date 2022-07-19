@@ -27,24 +27,23 @@ $(document).on('click', '#addkolom_b', function (e) {
 });
 function addkolom_b() {
     var kolom = '<tr class="row-buying">' +
-        '<td><input class="autosuggest ui-widget" type="text" id="description_b' + nextid_b + '" name="description_b[]">' +
+        '<td><input class="form-control autosuggest ui-widget" type="text" id="description_b' + nextid_b + '" name="description_b[]">' +
         '<input type="text" name="id_buying[]" hidden></td>' +
-        '<td><input class="qty" type="text" id="qty_b' + nextid_b + '" name="qty_b[]"></td>' +
+        '<td><input class="form-control qty" type="text" id="qty_b' + nextid_b + '" name="qty_b[]"></td>' +
         // '<td><input type="text" id="curr_b' + nextid_b + '" name="curr_b[]"></td>' +
-        '<td><select class="curr_b" id="curr_b' + nextid_b + '" name="curr_b[]" class="form-select" aria-label="Default select example">' +
-        '<option selected>Open this select menu</option>' +
+        '<td><select id="curr_b' + nextid_b + '" name="curr_b[]" class="form-control curr_b form-select" aria-label="Default select example">' +
+        '<option selected>Open</option>' +
         '<option>IDR</option>' +
         '<option>SGD</option>' +
         '<option>USD</option>' +
         '<option>EUR</option>' +
         '</select></td>' +
-        '<td><input class="price" type="text" id="price_b ' + nextid_b + '">' +
-        '<input class="price_real" type="text" id="price_b_r ' + nextid_b + '" name="price_b[]" hidden>' +
+        '<td><input class="form-control price" type="text" id="price_b ' + nextid_b + '">' +
+        '<input class="form-control price_real" type="text" id="price_b_r ' + nextid_b + '" name="price_b[]" hidden>' +
         '</td>' +
-        '<td><input class="sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]" readonly></td>' +
-        '<td><input class="name_b" type="text" id="name_b ' + nextid_b + '" name="name_b[]"></td>' +
-        '<td><input class="remark_b ui-widget" type="text" id="remark_b ' + nextid_b + '" name="remark_b[]"></td>' +
-        '<td></td>' +
+        '<td><input class="form-control sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]" readonly></td>' +
+        '<td><input class="form-control name_b" type="text" id="name_b ' + nextid_b + '" name="name_b[]"></td>' +
+        '<td><input class="form-control remark_b ui-widget" type="text" id="remark_b ' + nextid_b + '" name="remark_b[]"></td>' +
         '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
         '<a href="#" id="removekolom_b" class="btn btn-danger btn-sm remove_b"><i class="fa fa-times"></i></a>' +
         '</td>' +
@@ -69,24 +68,23 @@ $(document).on('click', '#addkolom_s', function (e) {
 });
 function addkolom_s() {
     var kolom = '<tr class="row-selling">' +
-        '<td><input class="autosuggest ui-widget" type="text" id="description_s' + nextid_s + '" name="description_s[]">' +
+        '<td><input class="form-control autosuggest ui-widget" type="text" id="description_s' + nextid_s + '" name="description_s[]">' +
         '<input type="text" name="id_buying[]" hidden></td>' +
-        '<td><input class="qty" type="number" id="qty_s' + nextid_s + '" name="qty_s[]"></td>' +
+        '<td><input class="form-control qty" type="number" id="qty_s' + nextid_s + '" name="qty_s[]"></td>' +
         // '<td><input type="number" id="curr_s' + nextid_s + '" name="curr_s[]"></td>' +
-        '<td><select id="curr_s' + nextid_s + '" name="curr_s[]" class="form-select curr_s" aria-label="Default select example">' +
-        '<option selected>Open this select menu</option>' +
+        '<td><select id="curr_s' + nextid_s + '" name="curr_s[]" class="form-control form-select curr_s" aria-label="Default select example">' +
+        '<option selected>Open</option>' +
         '<option>IDR</option>' +
         '<option>SGD</option>' +
         '<option>USD</option>' +
         '<option>EUR</option>' +
         '</select></td>' +
-        '<td><input class="price" type="text" id="price_s ' + nextid_s + '">' +
-        '<input class="price_real" type="text" id="price_s_r ' + nextid_s + '" name="price_s[]" hidden>' +
+        '<td><input class="form-control price" type="text" id="price_s ' + nextid_s + '">' +
+        '<input class="form-control price_real" type="text" id="price_s_r ' + nextid_s + '" name="price_s[]" hidden>' +
         '</td>' +
-        '<td><input class="sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]" readonly></td>' +
-        '<td><input class="name_s" type="text" id="name_s ' + nextid_s + '" name="name_s[]"></td>' +
-        '<td><input class="remark_s ui-widget" type="text" id="remark_s ' + nextid_s + '" name="remark_s[]"></td>' +
-        '<td></td>' +
+        '<td><input class="form-control sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]" readonly></td>' +
+        '<td><input class="form-control name_s" type="text" id="name_s ' + nextid_s + '" name="name_s[]"></td>' +
+        '<td><input class="form-control remark_s ui-widget" type="text" id="remark_s ' + nextid_s + '" name="remark_s[]"></td>' +
         '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
         '<a href="#" id="removekolom_s" class="btn btn-danger btn-sm remove_s"><i class="fa fa-times"></i></a>' +
         '</td>' +
