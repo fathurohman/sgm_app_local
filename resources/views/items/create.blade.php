@@ -23,6 +23,21 @@
                                     </button>
                                 </div>
                             @endif
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group{{ $errors->has('ITEM') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-ITEM">{{ __('ITEM') }}</label>
+                                        <input type="text" name="ITEM" id="input-ITEM"
+                                            class="form-control form-control-alternative{{ $errors->has('ITEM') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('ITEM') }}" required>
+                                        @if ($errors->has('ITEM'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('ITEM') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 <a href="{{ route('items.index') }}" type="button"

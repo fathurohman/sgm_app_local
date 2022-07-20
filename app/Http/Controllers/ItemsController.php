@@ -37,7 +37,7 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $items = new Items;
-        $items->ITEM = $request->item;
+        $items->ITEM = $request->ITEM;
         $items->save();
         return redirect(route('items.index'));
     }
@@ -75,7 +75,7 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         $items = Items::find($id);
-        $items->ITEM = $request->item;
+        $items->ITEM = $request->ITEM;
         $items->save();
         return redirect(route('items.index'));
     }
