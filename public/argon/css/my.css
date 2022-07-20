@@ -33,3 +33,29 @@
      width: 100%;
      box-sizing: border-box;
 }
+
+.table-dp {
+     width: 100%;
+     border-collapse: collapse;
+     margin: auto;
+     table-layout: fixed;
+     font-size: 12pt;
+}
+
+.table-dp td input {
+     width: 100%;
+     box-sizing: border-box;
+}
+
+.table-profit {
+     width: 100%;
+     border-collapse: collapse;
+     margin: auto;
+     table-layout: fixed;
+     font-size: 12pt;
+}
+
+.table-profit td input {
+     width: 100%;
+     box-sizing: border-box;
+}

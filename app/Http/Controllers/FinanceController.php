@@ -21,7 +21,7 @@ class FinanceController extends Controller
 
     public function listinvoiceshow()
     {
-        $query = SalesOrder::where('published', '1');
+        $query = SalesOrder::where('published', '1')->where('printed', '0')->orderBy('created_at', 'desc');
         return Datatables::of(
             $query
         )->editColumn('nomor_invoice', function ($row) {
@@ -126,6 +126,7 @@ class FinanceController extends Controller
     public function cetak_invoice_dua(Request $request)
     {
         $id = $request->id_sales;
+        SalesOrder::where('id', $id)->update(['printed' => '1']);
         $tipe = $request->tipe_cetak;
         $pajak = $request->tipe_pajak;
         $sum = 0;
@@ -193,5 +194,11 @@ class FinanceController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view->render())->setPaper('a4', 'portrait');
         return $pdf->stream();
+    }
+
+    public function returntosales($id)
+    {
+        SalesOrder::where('id', $id)->update(['published' => '0']);
+        return redirect()->back();
     }
 }

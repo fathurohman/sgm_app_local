@@ -13,7 +13,7 @@
     <div class="table-request">
         <table style="table-layout:fixed;">
             <tr>
-                <th style="width: 20%; text-align:left">Debit No</th>
+                <th style="width: 20%; text-align:left">Invoice</th>
                 <th style="width: 5%">:</th>
                 <th style="width: 30%; text-align:left">{{ $data['inv'] }}</th>
                 <th style="width: 20%; text-align:left">Date</th>
@@ -108,10 +108,11 @@
         </tr>
         @foreach ($data['selling'] as $x)
             <tr>
-                <td class="selling-value" style="text-align:left">{{ $x->description }}</td>
-                <td class="selling-value" style="text-align:center">{{ $x->qty }}</td>
-                <td class="selling-value" style="text-align:center">{{ number_format($x->price) }}</td>
-                <td style="text-align:center">{{ $x->curr }}
+                <td class="selling-value" style="padding-left:2px;text-align:left">{{ $x->description }}</td>
+                <td class="selling-value" style="padding-left:2px;text-align:center">{{ $x->qty }}</td>
+                <td class="selling-value" style="padding-left:2px;text-align:left">{{ number_format($x->price) }}
+                </td>
+                <td style="text-align:left">{{ $x->curr }}
                     {{ number_format($x->sub_total) }}</td>
             </tr>
         @endforeach
@@ -130,19 +131,19 @@
                 @endif
                 {{ $data['terbilang'] }}
             </td>
-            <td>Total:</td>
+            <td style="padding-left:2px;">Total:</td>
             <td class="terbilang-value">{{ $data['curr'] }}
                 {{ number_format($data['sum']) }}
             </td>
         </tr>
         <tr>
-            <td>VAT {{ $data['nilai_pajak'] }} % :</td>
+            <td style="padding-left:2px;">VAT {{ $data['nilai_pajak'] }} % :</td>
             <td class="terbilang-value">{{ $data['curr'] }}
                 {{ number_format($data['total_pajak']) }}
             </td>
         </tr>
         <tr>
-            <td>Total Charges :</td>
+            <td style="padding-left:2px;">Total Charges :</td>
             <td class="last-terbilang-value">{{ $data['curr'] }}
                 {{ number_format($data['total_charge']) }}
             </td>

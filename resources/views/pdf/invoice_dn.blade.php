@@ -116,8 +116,9 @@
             <tr>
                 <td class="selling-value" style="text-align:left">{{ $x->description }}</td>
                 <td class="selling-value" style="text-align:center">{{ $x->qty }}</td>
-                <td class="selling-value" style="text-align:center">{{ number_format($x->price) }}</td>
-                <td style="text-align:center">{{ $x->curr }}
+                <td class="selling-value" style="padding-left:2px;text-align:left">{{ number_format($x->price) }}
+                </td>
+                <td style="padding-left:2px;text-align:left">{{ $x->curr }}
                     {{ number_format($x->sub_total) }}</td>
             </tr>
         @endforeach

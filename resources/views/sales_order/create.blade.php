@@ -332,8 +332,8 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label"
                                         for="input-Profit">{{ __('Down Payment') }}</label>
-                                    <div class="table-responsive">
-                                        <table id="dp" class="table align-items-center table-flush">
+                                    <div>
+                                        <table id="dp" class="table-dp align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <th>Customer</th>
                                                 <th>Currency</th>
@@ -342,12 +342,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><input type="text" id="customer_dp" name="customer_dp"
+                                                    <td><input class="form-control" type="text" id="customer_dp"
+                                                            name="customer_dp" readonly required></td>
+                                                    <td><input class="form-control" type="text" id="currency_dp"
+                                                            name="currency_dp" readonly required></td>
+                                                    <td><input class="form-control" id="total_dp" name="total_dp"
                                                             readonly required></td>
-                                                    <td><input type="text" id="currency_dp" name="currency_dp"
-                                                            readonly required></td>
-                                                    <td><input id="total_dp" name="total_dp" readonly required></td>
-                                                    <td><input id="d_payment" name="dp" required></td>
+                                                    <td><input class="form-control" id="d_payment" name="dp"
+                                                            required></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -356,7 +358,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
                                     <div class="table-responsive">
-                                        <table id="profit" class="table align-items-center table-flush">
+                                        <table id="profit" class="table-profit align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <th>Currency</th>
                                                 <th>Total Selling</th>
@@ -548,16 +550,16 @@
                     var profit = sum_idr_s - sum_idr;
                     // console.log(profit);
                     var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
+                        '<td><input class="form-control" type="text" id="currency_prof' +
                         curr_beli +
                         '" name="currency_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_selling' +
+                        '<td><input class="form-control" type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
+                        '<td><input class="form-control" type="text" id="total_buying' +
                         curr_beli +
                         '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
+                        '<td><input class="form-control" type="text" id="profit_buy' +
                         curr_beli +
                         '" name="profit[]" readonly></td>' +
                         '</tr>';
@@ -574,16 +576,16 @@
                     var curr_beli = 'USD';
                     var profit = sum_usd_s - sum_usd;
                     var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
+                        '<td><input class="form-control" type="text" id="currency_prof' +
                         curr_beli +
                         '" name="currency_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_selling' +
+                        '<td><input class="form-control" type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
+                        '<td><input class="form-control" type="text" id="total_buying' +
                         curr_beli +
                         '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
+                        '<td><input class="form-control" type="text" id="profit_buy' +
                         curr_beli +
                         '" name="profit[]" readonly></td>' +
                         '</tr>';
@@ -600,16 +602,16 @@
                     var curr_beli = 'SGD';
                     var profit = sum_sgd_s - sum_sgd;
                     var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
+                        '<td><input class="form-control" type="text" id="currency_prof' +
                         curr_beli +
                         '" name="currency_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_selling' +
+                        '<td><input class="form-control" type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
+                        '<td><input class="form-control" type="text" id="total_buying' +
                         curr_beli +
                         '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
+                        '<td><input class="form-control" type="text" id="profit_buy' +
                         curr_beli +
                         '" name="profit[]" readonly></td>' +
                         '</tr>';
@@ -626,16 +628,16 @@
                     var curr_beli = 'EUR';
                     var profit = sum_eur_s - sum_eur;
                     var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
+                        '<td><input class="form-control" type="text" id="currency_prof' +
                         curr_beli +
                         '" name="currency_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_selling' +
+                        '<td><input class="form-control" type="text" id="total_selling' +
                         curr_beli +
                         '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
+                        '<td><input class="form-control" type="text" id="total_buying' +
                         curr_beli +
                         '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
+                        '<td><input class="form-control" type="text" id="profit_buy' +
                         curr_beli +
                         '" name="profit[]" readonly></td>' +
                         '</tr>';
