@@ -431,7 +431,7 @@
                             $('#order-id-hide').val(data['jobs'].id);
                             $('#tipe_order').val(data['jobs'].tipe_order);
                             $('#Tanggal').val(data['tanggal']);
-                            $('#no_inv').val(data['inv']);
+                            $('#no_inv').val('-');
                             $('#input-customer').val(data['name_client']);
                             // $('#customer-field-id').val(data['jobs'].client_id);
                             $('#sales_id').val(data['sales_name']);
@@ -545,7 +545,7 @@
                 // console.log(sum_usd);
                 // console.log(sum_sgd);
                 // console.log(sum_eur);
-                if (sum_idr > 0) {
+                if (sum_idr > 0 || sum_idr_s > 0) {
                     var curr_beli = 'IDR';
                     var profit = sum_idr_s - sum_idr;
                     // console.log(profit);
@@ -572,7 +572,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_idr);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_usd > 0) {
+                if (sum_usd > 0 || sum_usd_s > 0) {
                     var curr_beli = 'USD';
                     var profit = sum_usd_s - sum_usd;
                     var tb = '<tr>' +
@@ -598,7 +598,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_usd);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_sgd > 0) {
+                if (sum_sgd > 0 || sum_sgd_s > 0) {
                     var curr_beli = 'SGD';
                     var profit = sum_sgd_s - sum_sgd;
                     var tb = '<tr>' +
@@ -624,7 +624,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_sgd);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_eur > 0) {
+                if (sum_eur > 0 || sum_eur_s > 0) {
                     var curr_beli = 'EUR';
                     var profit = sum_eur_s - sum_eur;
                     var tb = '<tr>' +

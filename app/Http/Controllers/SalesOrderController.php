@@ -40,9 +40,7 @@ class SalesOrderController extends Controller
         $query = SalesOrder::where('created_by', $auth)->orderBy('created_at', 'desc');
         return Datatables::of(
             $query
-        )->editColumn('nomor_invoice', function ($row) {
-            return $row->nomor_invoice;
-        })->editColumn('job_order_id', function ($row) {
+        )->editColumn('job_order_id', function ($row) {
             return $row->job_orders->order_id;
         })->editColumn('tipe', function ($row) {
             return $row->job_orders->tipe_order;
@@ -370,21 +368,11 @@ class SalesOrderController extends Controller
         $tipe_order = strtok($jobs->tipe_order, '-');
         // $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
         // print_r($jenis_order);
-        //no invoice
-        $year = Carbon::now()->format('y');
-        $month = Carbon::now()->format('m');
-        $jml_by_month = SalesOrder::withTrashed()->whereMonth('created_at', $month)
-            ->where([
-                ['tipe', '=', $tipe_order],
-            ])
-            ->count();
-        $order_month = $jml_by_month + 1;
-        $inv = "$order_month/SGM/$tipe_order/$month/$year";
         //end
         $data = array(
             'jobs' => $jobs,
             'name_client' => $client_name,
-            'inv' => $inv,
+            // 'inv' => $inv,
             'tanggal' => $tanggal,
             'sales_name' => $sales_name,
         );

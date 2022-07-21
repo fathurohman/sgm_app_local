@@ -29,7 +29,6 @@
                         <table id="myTable" class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Invoice Number</th>
                                     <th scope="col">Job Order_ID</th>
                                     <th scope="col">Tipe Order</th>
                                     <th scope="col">Notes</th>
@@ -88,10 +87,6 @@
             },
             ajax: '{!! route('listsalesshow') !!}',
             columns: [{
-                    data: 'nomor_invoice',
-                    name: 'nomor_invoice'
-                },
-                {
                     data: 'job_order_id',
                     name: 'job_order_id'
                 },

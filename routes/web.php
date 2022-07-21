@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/finance', 'FinanceController@index')->name('finance.index');
 	Route::get('/listinvoiceshow', 'FinanceController@listinvoiceshow')->name('listinvoiceshow');
 	Route::get('/modal_cetak_invoice/{id}/{tipe}', 'FinanceController@modal_cetak_invoice');
-	Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
+	// Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
 	Route::post('/cetak_invoice_dua', 'FinanceController@cetak_invoice_dua')->name('cetak_invoice_dua');
 	Route::put('return/{id}', 'FinanceController@returntosales')->name('finance.return');
 	//end
