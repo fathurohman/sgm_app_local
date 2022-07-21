@@ -64,6 +64,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/cetak_invoice_dua', 'FinanceController@cetak_invoice_dua')->name('cetak_invoice_dua');
 	Route::put('return/{id}', 'FinanceController@returntosales')->name('finance.return');
 	//end
+	//history routes
+	Route::get('/history_orders', 'HistoryController@history_index')->name('history_orders');
+	Route::get('/historyinvoiceshow', 'HistoryController@historyinvoiceshow')->name('historyinvoiceshow');
+	//end
 	Route::put('profile/password', 'ProfileController@password')->name('profile.password');
 });
 
