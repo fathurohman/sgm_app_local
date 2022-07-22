@@ -79,6 +79,7 @@ class FinanceController extends Controller
 
     public function cetak_invoice_dua(Request $request)
     {
+        $now = Carbon::now()->format('Y-m-d');
         $id = $request->id_sales;
         $tipe = $request->tipe_cetak;
         $pajak = $request->tipe_pajak;
@@ -96,8 +97,10 @@ class FinanceController extends Controller
         //update invoice dan status
         SalesOrder::where('id', $id)->update([
             'printed' => '1',
+            'vat' => $pajak,
             'order_row' => $order_month,
-            'nomor_invoice' => $inv
+            'nomor_invoice' => $inv,
+            'inv_date' => $now
         ]);
         //end update
         $ptng = sprintf('%03d', $inv);

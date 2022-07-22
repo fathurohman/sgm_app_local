@@ -15,6 +15,11 @@ class SalesOrder extends Model
         return $this->belongsTo('App\Model\job_order', 'job_order_id');
     }
 
+    public function sales()
+    {
+        return $this->belongsTo('App\User', 'created_by');
+    }
+
     public function sellings()
     {
         return $this->hasMany('App\Model\SellingOrder', 'sales_order_id');

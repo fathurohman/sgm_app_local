@@ -116,8 +116,7 @@
                         </div>
                     </li>
                     @endcan @can('admin.transaksi', Auth::user())
-                    <li
-                        class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
+                    <li class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
                         <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse"
                             role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
                             <i class="ni ni-credit-card"></i>
@@ -168,6 +167,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('history_orders') }}">
                                     {{ __('History') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
+                    <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="navbar-crud-report">
+                        <i class="ni ni-world-2"></i>
+                        <span class="nav-link-text">{{ __('report Invoice') }}</span>
+                    </a>
+
+                    <div class="collapse" id="navbar-crud-report">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('report') }}">
+                                    {{ __('Report Monthly') }}
                                 </a>
                             </li>
                         </ul>

@@ -68,6 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/history_orders', 'HistoryController@history_index')->name('history_orders');
 	Route::get('/historyinvoiceshow', 'HistoryController@historyinvoiceshow')->name('historyinvoiceshow');
 	//end
+	//reports
+	Route::post('/datamonthly', 'HistoryController@export')->name('export');
+	Route::get('/daily_home', 'HistoryController@daily_home')->name('report');
 	Route::put('profile/password', 'ProfileController@password')->name('profile.password');
 });
 
