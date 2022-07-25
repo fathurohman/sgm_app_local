@@ -58,7 +58,8 @@ class HistoryController extends Controller
     public function narikdata($month)
     {
         reports::query()->truncate();
-        $sum = 0;
+        $sum_idr = 0;
+        $sum_usd = 0;
         $tahun = Carbon::now()->format('Y');
         $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
             ->where([
@@ -73,6 +74,9 @@ class HistoryController extends Controller
                 $pajak = $x->vat;
             }
             $no_inv = $x->nomor_invoice;
+            $ptng = sprintf('%03d', $no_inv);
+            $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
+            $inv_fix = "$ptng/$sub_string";
             $inv_date = $x->inv_date;
             $job_orders = $x->job_orders->order_id;
             if ($x->tipe == 'I') {
@@ -83,29 +87,46 @@ class HistoryController extends Controller
             $sales_name = $x->sales->name;
             // $dop = '0000-00-00';
             $selling = SalesOrder::find($id)->sellings;
-            foreach ($selling as $x) {
-                $sub_total = $x->sub_total;
-                $sum += $sub_total;
-                $curr = $x->curr;
-                $customer = $x->name;
+            foreach ($selling as $y) {
+                $curr = $y->curr;
+                $sub_total = $y->sub_total;
+                if ($curr == 'IDR') {
+                    $sum_usd = 0;
+                    $sum_idr += $sub_total;
+                } elseif ($curr == 'USD') {
+                    $sum_idr = 0;
+                    $sum_usd += $sub_total;
+                } else {
+                    $sum_idr = 0;
+                    $sum_usd = 0;
+                }
+                $customer = $y->name;
             }
             // $pajak = Settings::where('name', 'Pajak')->first();
             // $nilai_pajak = $pajak->value;
-            $pph = $sum * (2 / 100);
-            $vat = $pajak / 100;
-            $total_pajak = $sum * $vat;
-            $total_charge = $sum + $total_pajak;
-            $amount_ar = $total_charge - $pph;
+            if ($x->tipe == 'I') {
+                $pph = $sum_idr * (2 / 100);
+                $vat = $pajak / 100;
+                $total_pajak = $sum_idr * $vat;
+                $total_charge = $sum_idr + $total_pajak;
+                $amount_ar = $total_charge - $pph;
+            } else {
+                $pph = 0;
+                $vat = 0;
+                $total_pajak = 0;
+                $total_charge = $sum_idr;
+                $amount_ar = $total_charge;
+            }
             $payment = 0;
-            $sales_usd = 0;
             $kurs_bi = 0;
 
             $reports = new reports;
-            $reports->no_inv = $no_inv;
+            $reports->no_inv = $inv_fix;
             $reports->inv_date = $inv_date;
             $reports->seri_faktur = $faktur;
             $reports->cust_name = $customer;
-            $reports->nilai_inv = $sum;
+            $reports->nilai_inv_idr = $sum_idr;
+            $reports->nilai_inv_usd = $sum_usd;
             $reports->ppn = $total_pajak;
             $reports->grand_total = $total_charge;
             $reports->vat = $pajak;
@@ -116,9 +137,11 @@ class HistoryController extends Controller
             $reports->amount = $amount_ar;
             $reports->payment = $payment;
             $reports->AR = $amount_ar;
-            $reports->sales_usd = $sales_usd;
+            $reports->sales_usd = $sum_usd;
             $reports->kurs_bi = $kurs_bi;
             $reports->save();
+            $sum_idr = 0;
+            $sum_usd = 0;
         }
     }
 }

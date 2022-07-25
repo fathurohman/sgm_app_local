@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Model\reports;
 use Carbon\Carbon;
+use DateTime;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -22,6 +23,8 @@ class SalesExport implements FromView, ShouldAutoSize, WithStrictNullComparison
     {
         $year = Carbon::now()->format('Y');
         $bulan = $this->month;
+        $dateObj   = DateTime::createFromFormat('!m', $bulan);
+        $monthName = $dateObj->format('F'); // March
         $reports = reports::all();
         // foreach ($reports as $x) {
         //     $ptng = sprintf('%03d', $x->no_inv);
@@ -30,7 +33,7 @@ class SalesExport implements FromView, ShouldAutoSize, WithStrictNullComparison
         // }
         return view('reports.monthly', [
             'reports' => $reports,
-            'bulan' => $bulan,
+            'bulan' => $monthName,
             'tahun' => $year,
             // 'inv_fix' => $inv_fix,
         ]);

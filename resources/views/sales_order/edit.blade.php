@@ -13,8 +13,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('sales_order.update', $sales_order->id) }}"
-                            autocomplete="off" id="form-order">
+                        <form method="post" action="{{ route('sales_order.update', $sales_order->id) }}" autocomplete="off"
+                            id="form-order">
                             @csrf @method('PUT')
                             <h6 class="heading-small text-muted mb-4">{{ __('Fill this form') }}</h6>
 
@@ -88,19 +88,18 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
-                                        <input name="sales_id" type="text" id="sales_id"
-                                            value="{{ $data['sales'] }}" class="form-control form-control-alternative"
-                                            required name="tipe_order_text" readonly>
+                                        <input name="sales_id" type="text" id="sales_id" value="{{ $data['sales'] }}"
+                                            class="form-control form-control-alternative" required name="tipe_order_text"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel1">{{ __('vessel1') }}</label>
+                                        <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
                                         <input type="text" name="vessel1" id="input-vessel1"
                                             class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('vessel1') }}" value="{{ $data_job->vessel1 }}"
-                                            required readonly>
+                                            placeholder="{{ __('vessel1') }}" value="{{ $data_job->vessel1 }}" required
+                                            readonly>
                                         @if ($errors->has('vessel1'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel1') }}</strong>
@@ -140,8 +139,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel2">{{ __('vessel2') }}</label>
+                                        <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
                                         <input type="text" name="vessel2" id="input-vessel2"
                                             class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
                                             value="{{ $data_job->vessel2 }}" required readonly>
@@ -169,8 +167,7 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-pol_pod">{{ __('pol_pod') }}</label>
+                                        <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
                                         <input type="text" name="pol_pod" id="input-pol_pod"
                                             class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
                                             value="{{ $data_job->pol_pod }}" required readonly>
@@ -341,8 +338,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="form-control-label"
-                                        for="input-Profit">{{ __('Down Payment') }}</label>
+                                    <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
                                     <div class="table-responsive">
                                         <table id="dp" class="table align-items-center table-flush">
                                             <thead class="thead-light">
@@ -493,7 +489,7 @@
                 // console.log(sum_usd);
                 // console.log(sum_sgd);
                 // console.log(sum_eur);
-                if (sum_idr > 0) {
+                if (sum_idr > 0 || sum_idr_s > 0) {
                     var curr_beli = 'IDR';
                     var profit = sum_idr_s - sum_idr;
                     // console.log(profit);
@@ -523,7 +519,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_idr);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_usd > 0) {
+                if (sum_usd > 0 || sum_usd_s > 0) {
                     var curr_beli = 'USD';
                     var profit = sum_usd_s - sum_usd;
                     var tb = '<tr>' +
@@ -552,7 +548,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_usd);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_sgd > 0) {
+                if (sum_sgd > 0 || sum_sgd_s > 0) {
                     var curr_beli = 'SGD';
                     var profit = sum_sgd_s - sum_sgd;
                     var tb = '<tr>' +
@@ -581,7 +577,7 @@
                     $('#total_buying' + curr_beli + '').val(sum_sgd);
                     $('#profit_buy' + curr_beli + '').val(profit);
                 }
-                if (sum_eur > 0) {
+                if (sum_eur > 0 || sum_eur_s > 0) {
                     var curr_beli = 'EUR';
                     var profit = sum_eur_s - sum_eur;
                     var tb = '<tr>' +

@@ -43,7 +43,13 @@
                 <td>{{ $x->inv_date }}</td>
                 <td>{{ $x->seri_faktur }}</td>
                 <td>{{ $x->cust_name }}</td>
-                <td>{{ number_format($x->nilai_inv, 2) }}</td>
+                <td>
+                    @if ($x->nilai_inv_idr != 0)
+                        {{ number_format($x->nilai_inv_idr, 2) }}
+                    @else
+                        0
+                    @endif
+                </td>
                 <td>{{ number_format($x->ppn, 2) }}</td>
                 <td>{{ number_format($x->grand_total, 2) }}</td>
                 <td>{{ number_format($x->vat, 2) }}</td>
@@ -55,7 +61,13 @@
                 <td>{{ $x->payment }}</td>
                 <td>{{ number_format($x->AR, 2) }}</td>
                 <td></td>
-                <td>{{ $x->sales_usd }}</td>
+                <td>
+                    @if ($x->sales_usd != 0)
+                        {{ $x->sales_usd }}
+                    @else
+                        0
+                    @endif
+                </td>
                 <td>{{ $x->kurs_bi }}</td>
             </tr>
         @endforeach
