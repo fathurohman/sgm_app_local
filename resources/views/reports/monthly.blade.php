@@ -52,7 +52,7 @@
                 </td>
                 <td>{{ number_format($x->ppn, 2) }}</td>
                 <td>{{ number_format($x->grand_total, 2) }}</td>
-                <td>{{ number_format($x->vat, 2) }}</td>
+                <td>{{ number_format($x->vat, 2) }} %</td>
                 <td>{{ $x->job_no }}</td>
                 <td>{{ $x->sales_name }}</td>
                 <td>{{ $x->dop }}</td>

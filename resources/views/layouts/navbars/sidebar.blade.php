@@ -175,8 +175,8 @@
                 <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
                     <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="navbar-crud-report">
-                        <i class="ni ni-world-2"></i>
-                        <span class="nav-link-text">{{ __('report Invoice') }}</span>
+                        <i class="ni ni-paper-diploma"></i>
+                        <span class="nav-link-text">{{ __('Report Monthly') }}</span>
                     </a>
 
                     <div class="collapse" id="navbar-crud-report">
