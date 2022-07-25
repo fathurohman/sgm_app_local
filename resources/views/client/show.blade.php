@@ -24,63 +24,66 @@
                     <div class="col-12">
                     </div>
 
-                    <div class="table-responsive">
-                        <table id="myTable" class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">NPWP</th>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">Telephone</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Action</th>
-                                    {{-- <th scope="col">Delete</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($client as $x)
+                    <div class="mx-3">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table align-items-center table-flush">
+                                <thead class="thead-light">
                                     <tr>
-                                        <td>{{ $x->NPWP }}</td>
-                                        <td>
-                                            {{ $x->COMPANY_NAME }}
-                                        </td>
-                                        <td>{{ $x->TELEPHONE }}</td>
-                                        <td>
-                                            <button type="button" data-id="{{ $x->id }}"
-                                                data-dept="{{ $x->dept_id }}" class="btn btn-round btn-info infoU"
-                                                data-toggle="modal" data-target="#alamat">
-                                                Detail </button>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('client.edit', $x->id) }}">Edit</a>
-                                                    <form method="post" id="delete-form-{{ $x->id }}"
-                                                        action="{{ route('client.destroy', $x->id) }}"
-                                                        style="display: none">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('DELETE') }}
-                                                    </form>
-                                                    <a class="dropdown-item" href=""
-                                                        onclick="if(confirm('Are you sure?'))
-                                                        {
-                                                            event.preventDefault();document.getElementById('delete-form-{{ $x->id }}').submit();
-                                                        }
-                                                        else{
-                                                            event.preventDefault();
-                                                        }">Hapus
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th scope="col">NPWP</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Telephone</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Delete</th> --}}
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($client as $x)
+                                        <tr>
+                                            <td>{{ $x->NPWP }}</td>
+                                            <td>
+                                                {{ $x->COMPANY_NAME }}
+                                            </td>
+                                            <td>{{ $x->TELEPHONE }}</td>
+                                            <td>
+                                                <button type="button" data-id="{{ $x->id }}"
+                                                    data-dept="{{ $x->dept_id }}" class="btn btn-round btn-info infoU"
+                                                    data-toggle="modal" data-target="#alamat">
+                                                    Detail </button>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('client.edit', $x->id) }}">Edit</a>
+                                                        <form method="post" id="delete-form-{{ $x->id }}"
+                                                            action="{{ route('client.destroy', $x->id) }}"
+                                                            style="display: none">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('DELETE') }}
+                                                        </form>
+                                                        <a class="dropdown-item" href=""
+                                                            onclick="if(confirm('Are you sure?'))
+                                                            {
+                                                                event.preventDefault();document.getElementById('delete-form-{{ $x->id }}').submit();
+                                                            }
+                                                            else{
+                                                                event.preventDefault();
+                                                            }">Hapus
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">

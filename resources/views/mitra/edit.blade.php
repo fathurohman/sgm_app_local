@@ -75,8 +75,7 @@
                                             for="input-telephone">{{ __('telephone') }}</label>
                                         <input type="number" name="telephone" id="input-telephone"
                                             class="form-control form-control-alternative{{ $errors->has('telephone') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('telephone') }}" value="{{ $vendor->TELEPHONE }}"
-                                            required>
+                                            placeholder="{{ __('telephone') }}" value="{{ $vendor->TELEPHONE }}" required>
 
                                         @if ($errors->has('telephone'))
                                             <span class="invalid-feedback" role="alert">
@@ -98,7 +97,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                                <a href="{{ route('client.index') }}" type="button"
+                                <a href="{{ route('vendor.index') }}" type="button"
                                     class="btn btn-info mt-4">{{ __('Back') }}</a>
                             </div>
                     </div>

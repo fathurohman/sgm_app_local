@@ -248,20 +248,22 @@ class SalesOrderController extends Controller
         $down_payment->dp = $request->dp;
         $down_payment->save();
         //buying
-        foreach ($request->description_b as $a => $v) {
-            BuyingOrder::updateorCreate(
-                ['id' => $request->id_buying[$a]],
-                [
-                    'sales_order_id' => $sales_order->id,
-                    'description' => $v,
-                    'qty' => $request->qty_b[$a],
-                    'curr' => $request->curr_b[$a],
-                    'price' => $request->price_b[$a],
-                    'sub_total' => $request->sub_total_b[$a],
-                    'remark' => $request->remark_b[$a],
-                    'name' => $request->name_b[$a],
-                ]
-            );
+        if (!empty($request->description_b)) {
+            foreach ($request->description_b as $a => $v) {
+                BuyingOrder::updateorCreate(
+                    ['id' => $request->id_buying[$a]],
+                    [
+                        'sales_order_id' => $sales_order->id,
+                        'description' => $v,
+                        'qty' => $request->qty_b[$a],
+                        'curr' => $request->curr_b[$a],
+                        'price' => $request->price_b[$a],
+                        'sub_total' => $request->sub_total_b[$a],
+                        'remark' => $request->remark_b[$a],
+                        'name' => $request->name_b[$a],
+                    ]
+                );
+            }
         }
         //selling
         foreach ($request->description_s as $a => $v) {

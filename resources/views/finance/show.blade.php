@@ -16,22 +16,23 @@
                     </div>
                     <div class="col-12">
                     </div>
-
-                    <div class="table-responsive">
-                        <table id="myTable" class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Job Order_ID</th>
-                                    <th scope="col">Tipe Order</th>
-                                    <th scope="col">Notes</th>
-                                    <th scope="col">More</th>
-                                    <th scope="col">Action</th>
-                                    {{-- <th scope="col">Delete</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="mx-3">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Job Order_ID</th>
+                                        <th scope="col">Tipe Order</th>
+                                        <th scope="col">Notes</th>
+                                        <th scope="col">More</th>
+                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Delete</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">

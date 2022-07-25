@@ -21,51 +21,53 @@
 
                     <div class="col-12">
                     </div>
-
-                    <div class="table-responsive">
-                        <table id="myTable" class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Action</th>
-                                    {{-- <th scope="col">Delete</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($items as $x)
+                    <div class="mx-3">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table align-items-center table-flush">
+                                <thead class="thead-light">
                                     <tr>
-                                        <td>
-                                            {{ $x->ITEM }}
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-primary" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('items.edit', $x->id) }}">Edit</a>
-                                                    <form method="post" id="delete-form-{{ $x->id }}"
-                                                        action="{{ route('items.destroy', $x->id) }}"
-                                                        style="display: none">
-                                                        {{ csrf_field() }} {{ method_field('DELETE') }}
-                                                    </form>
-                                                    <a class="dropdown-item" href=""
-                                                        onclick="if(confirm('Are you sure?'))
-                                                        {
-                                                            event.preventDefault();document.getElementById('delete-form-{{ $x->id }}').submit();
-                                                        }
-                                                        else{
-                                                            event.preventDefault();
-                                                        }">Hapus
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Delete</th> --}}
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($items as $x)
+                                        <tr>
+                                            <td>
+                                                {{ $x->ITEM }}
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-primary btn-sm" href="#" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">Action
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('items.edit', $x->id) }}">Edit</a>
+                                                        <form method="post" id="delete-form-{{ $x->id }}"
+                                                            action="{{ route('items.destroy', $x->id) }}"
+                                                            style="display: none">
+                                                            {{ csrf_field() }} {{ method_field('DELETE') }}
+                                                        </form>
+                                                        <a class="dropdown-item" href=""
+                                                            onclick="if(confirm('Are you sure?'))
+                                                            {
+                                                                event.preventDefault();document.getElementById('delete-form-{{ $x->id }}').submit();
+                                                            }
+                                                            else{
+                                                                event.preventDefault();
+                                                            }">Hapus
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
