@@ -2,6 +2,12 @@
 var a = 1;
 var nextid_b = 2;
 var nextid_s = 2;
+//prevent enter
+$(document).on("keydown", ":input:not(textarea):not(:submit)", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+    }
+});
 // var curr = (data.currency);
 $(document).on('click', '#refreshkolom', function (e) {
     e.preventDefault();
