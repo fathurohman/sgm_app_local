@@ -155,40 +155,44 @@
                         </div>
                     </li>
                 @endcan
-                <li class="nav-hist {{ $activePage == 'history' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-history" data-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="navbar-crud-history">
-                        <i class="ni ni-world-2"></i>
-                        <span class="nav-link-text">{{ __('History Invoice') }}</span>
-                    </a>
+                @can('admin.history', Auth::user())
+                    <li class="nav-hist {{ $activePage == 'history' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-history" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-history">
+                            <i class="ni ni-world-2"></i>
+                            <span class="nav-link-text">{{ __('History Invoice') }}</span>
+                        </a>
 
-                    <div class="collapse" id="navbar-crud-history">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('history_orders') }}">
-                                    {{ __('History') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="navbar-crud-report">
-                        <i class="ni ni-paper-diploma"></i>
-                        <span class="nav-link-text">{{ __('Report Monthly') }}</span>
-                    </a>
+                        <div class="collapse" id="navbar-crud-history">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('history_orders') }}">
+                                        {{ __('History') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+                @can('admin.report', Auth::user())
+                    <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-report">
+                            <i class="ni ni-paper-diploma"></i>
+                            <span class="nav-link-text">{{ __('Report Monthly') }}</span>
+                        </a>
 
-                    <div class="collapse" id="navbar-crud-report">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('report') }}">
-                                    {{ __('Report Monthly') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                        <div class="collapse" id="navbar-crud-report">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('report') }}">
+                                        {{ __('Report Monthly') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
             </ul>
             <!-- Divider -->
             <hr class="my-3">

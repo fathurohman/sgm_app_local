@@ -28,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin.crud-vendor-client', 'App\Policies\UserPolicy@CRUD_Vendor_Client');
         Gate::define('admin.cetakinv', 'App\Policies\UserPolicy@Cetak_INV');
         Gate::define('admin.hakakses', 'App\Policies\UserPolicy@Hak_Akses');
+        Gate::define('admin.history', 'App\Policies\UserPolicy@History');
+        Gate::define('admin.report', 'App\Policies\UserPolicy@Report');
         //
     }
 }

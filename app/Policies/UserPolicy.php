@@ -29,6 +29,15 @@ class UserPolicy
         return $this->getPermission($user, 4);
     }
 
+    public function History(User $user)
+    {
+        return $this->getPermission($user, 5);
+    }
+
+    public function Report(User $user)
+    {
+        return $this->getPermission($user, 6);
+    }
     protected function getPermission($user, $p_id)
     {
         foreach ($user->roles as $role) {

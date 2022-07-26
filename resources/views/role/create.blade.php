@@ -128,7 +128,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                                <a href="{{ route('permission.index') }}" type="button"
+                                <a href="{{ route('role.index') }}" type="button"
                                     class="btn btn-info mt-4">{{ __('Back') }}</a>
                             </div>
                         </form>
