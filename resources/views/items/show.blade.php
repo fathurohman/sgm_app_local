@@ -27,7 +27,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Action</th>
+                                        <th class="text-center" scope="col">Action</th>
                                         {{-- <th scope="col">Delete</th> --}}
                                     </tr>
                                 </thead>
@@ -37,7 +37,7 @@
                                             <td>
                                                 {{ $x->ITEM }}
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="dropdown">
                                                     <a class="btn btn-primary btn-sm" href="#" role="button"
                                                         data-toggle="dropdown" aria-haspopup="true"

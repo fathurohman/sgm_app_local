@@ -12,9 +12,11 @@
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
                             @if (empty($data['foto']))
-                                <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+                                <img style="border-radius: 50%;" height="auto" width="60px" alt="Image placeholder"
+                                    src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
                             @else
-                                <img alt="Image placeholder" src="{{ url('storage/foto/' . $data['foto']) }}">
+                                <img style="border-radius: 50%;" height="52px" width="60px" alt="Image placeholder"
+                                    src="{{ url('storage/foto/' . $data['foto']) }}">
                             @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
