@@ -10,7 +10,7 @@
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
+                        <span class="avatar">
                             @if (empty($data['foto']))
                                 <img style="border-radius: 50%;" height="auto" width="60px" alt="Image placeholder"
                                     src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
