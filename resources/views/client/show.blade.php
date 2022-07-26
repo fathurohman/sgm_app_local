@@ -47,8 +47,9 @@
                                             <td>{{ $x->TELEPHONE }}</td>
                                             <td>
                                                 <button type="button" data-id="{{ $x->id }}"
-                                                    data-dept="{{ $x->dept_id }}" class="btn btn-round btn-info infoU"
-                                                    data-toggle="modal" data-target="#alamat">
+                                                    data-dept="{{ $x->dept_id }}"
+                                                    class="btn btn-sm btn-round btn-info infoU" data-toggle="modal"
+                                                    data-target="#alamat">
                                                     Detail </button>
                                             </td>
                                             <td class="text-right">

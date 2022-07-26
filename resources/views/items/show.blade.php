@@ -37,7 +37,7 @@
                                             <td>
                                                 {{ $x->ITEM }}
                                             </td>
-                                            <td class="text-right">
+                                            <td>
                                                 <div class="dropdown">
                                                     <a class="btn btn-primary btn-sm" href="#" role="button"
                                                         data-toggle="dropdown" aria-haspopup="true"
