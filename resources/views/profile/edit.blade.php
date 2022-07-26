@@ -19,7 +19,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                        <form method="post" action="{{ route('profile.update') }}" autocomplete="off"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('put')
 
@@ -33,7 +34,6 @@
                                     </button>
                                 </div>
                             @endif
-
 
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -62,7 +62,11 @@
                                         </span>
                                     @endif
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-foto">{{ __('Upload Foto') }}</label>
+                                    <input name="foto" type="file" class="form-control form-control-alternative"
+                                        id="customFile">
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>
@@ -99,8 +103,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label"
-                                        for="input-password">{{ __('New Password') }}</label>
+                                    <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
                                     <input type="password" name="password" id="input-password"
                                         class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                         placeholder="{{ __('New Password') }}" value="" required>

@@ -10,7 +10,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class HistoryController extends Controller
+class HistoryController extends BaseController
 {
     public function history_index()
     {

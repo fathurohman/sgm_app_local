@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
     /**
      * Show the form for editing the profile.
@@ -30,7 +33,23 @@ class ProfileController extends Controller
             return back()->withErrors(['not_allow_profile' => __('You are not allowed to change data for a default user.')]);
         }
 
-        auth()->user()->update($request->all());
+        $id = Auth::id();
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $image = $request->file('foto');
+        if (empty($image)) {
+            $user->foto = null;
+        } else {
+            $input['imagename'] = time() . '.' . $image->extension();
+            $target = storage_path() . '/app/public/foto/' . $input['imagename'];
+            $img = Image::make($image->path());
+            $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($target);
+            $user->foto = $input['imagename'];
+        }
+        $user->save();
 
         return back()->withStatus(__('Profile successfully updated.'));
     }

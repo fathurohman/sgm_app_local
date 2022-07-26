@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class JobOrderController extends Controller
+class JobOrderController extends BaseController
 {
     /**
      * Display a listing of the resource.

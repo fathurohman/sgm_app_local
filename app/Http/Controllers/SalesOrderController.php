@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 
-class SalesOrderController extends Controller
+class SalesOrderController extends BaseController
 {
     /**
      * Display a listing of the resource.

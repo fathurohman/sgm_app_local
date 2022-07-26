@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Terbilang;
 
-class FinanceController extends Controller
+class FinanceController extends BaseController
 {
     public function index()
     {

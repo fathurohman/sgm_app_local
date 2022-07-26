@@ -6,7 +6,7 @@ use App\Model\permission;
 use App\Model\role;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
     /**
      * Display a listing of the resource.

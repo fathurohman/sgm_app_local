@@ -1,7 +1,9 @@
 @extends('layouts.app', ['activePage' => 'home'])
 
 @section('content')
-    @include('layouts.headers.cards')
+    @include('users.partials.header', [
+        'class' => 'col-lg-7',
+    ])
 
     <div class="container-fluid mt--7">
         <div class="row mt-5">
