@@ -2,11 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\BuyingOrder;
-use App\Model\SellingOrder;
-use App\User;
-use Carbon\Carbon;
-
 class HomeController extends BaseController
 {
     /**
@@ -14,10 +9,6 @@ class HomeController extends BaseController
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
