@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('search/autocomplete_remark/', 'SalesOrderController@autocomplete_remark');
 	Route::get('search/autocomplete_client/', 'SalesOrderController@autocomplete_client');
 	Route::put('send/{id}', 'SalesOrderController@sendtofinance')->name('sales_order.send');
+	Route::get('datasales', 'SalesOrderController@data_sales')->name('data_sales');
+	Route::get('/listojobrdersalesshow', 'SalesOrderController@listojobrdersalesshow')->name('listojobrdersalesshow');
+	Route::get('pickup/{id}', 'SalesOrderController@pickup')->name('pickup');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
 	Route::resource('vendor', 'VendorController');
@@ -63,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::get('/cetak_invoice/{id}/{tipe}', 'FinanceController@cetak_invoice');
 	Route::post('/cetak_invoice_dua', 'FinanceController@cetak_invoice_dua')->name('cetak_invoice_dua');
 	Route::put('return/{id}', 'FinanceController@returntosales')->name('finance.return');
+	Route::put('pembukuan/{id}', 'FinanceController@pembukuan')->name('finance.pembukuan');
 	//end
 	//history routes
 	Route::get('/history_orders', 'HistoryController@history_index')->name('history_orders');

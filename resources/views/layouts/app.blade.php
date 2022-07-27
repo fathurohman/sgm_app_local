@@ -25,6 +25,7 @@
 </head>
 
 <body class="{{ $class ?? '' }}">
+    @include('sweetalert::alert')
     @auth()
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf

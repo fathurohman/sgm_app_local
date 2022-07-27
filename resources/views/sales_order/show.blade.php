@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'sales_orders'])
+@extends('layouts.app', ['activePage' => 'job_orders'])
 @push('css')
     <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
 @endpush
@@ -13,11 +13,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Sales Orders</h3>
-                            </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('sales_order.create') }}" class="btn btn-sm btn-primary">Add Sales
-                                    Orders</a>
+                                <h3 class="mb-0">Pickup Job Orders</h3>
                             </div>
                         </div>
                     </div>
@@ -29,17 +25,18 @@
                             <table id="myTable" class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Job Order_ID</th>
+                                        <th scope="col">Order_ID</th>
                                         <th scope="col">Tipe Order</th>
-                                        <th scope="col">Notes</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">More</th>
+                                        <th scope="col">Client</th>\
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Via</th>
+                                        <th scope="col">Pol_Pod</th>
+                                        <th scope="col">ETD</th>
+                                        <th scope="col">ETA</th>
                                         <th scope="col">Action</th>
                                         {{-- <th scope="col">Delete</th> --}}
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -52,99 +49,96 @@
             </div>
         </div>
     </div>
-    @include('sales_order.modal_sales')
+    <div class="modal fade" id="job_order" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Detail job</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="job_data">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 @push('js')
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
+    {{-- <script type="text/javascript">
+        $(".infoU").click(function(e) {
+            $currID = $(this).attr("data-id");
+            $.get("job_detail/" + $currID, function(data) {
+                $('#job_data').html(data);
+                // console.log(data);
+                // For debugging purposes you can add : console.log(data); to see the output of your request
+            });
+        });
+        $('#myTable').DataTable();
+    </script> --}}
     <script type="text/javascript">
-        $('#myTable').DataTable({
-            processing: true,
-            serverSide: true,
-            drawCallback: function(settings) {
-                $(".infoS").click(function(e) {
-                    $currID = $(this).attr("data-id");
-                    $.get("sales_selling_detail/" + $currID, function(data) {
-                        $('#sales_selling_data').html(data);
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                processing: true,
+                serverSide: true,
+                drawCallback: function(settings) {
+                    $(".infoU").click(function(e) {
+                        $currID = $(this).attr("data-id");
+                        $.get("job_detail/" + $currID, function(data) {
+                            $('#job_data').html(data);
+                            // console.log(data);
+                            // For debugging purposes you can add : console.log(data); to see the output of your request
+                        });
                     });
-                });
-                $(".infoB").click(function(e) {
-                    $currID = $(this).attr("data-id");
-                    $.get("sales_buying_detail/" + $currID, function(data) {
-                        $('#sales_buying_data').html(data);
-                    });
-                });
-                $(".infoDP").click(function(e) {
-                    $currID = $(this).attr("data-id");
-                    $.get("sales_dp_detail/" + $currID, function(data) {
-                        $('#sales_dp_data').html(data);
-                    });
-                });
-                $(".infoP").click(function(e) {
-                    $currID = $(this).attr("data-id");
-                    $.get("sales_profit_detail/" + $currID, function(data) {
-                        $('#sales_profit_data').html(data);
-                    });
-                });
-            },
-            ajax: '{!! route('listsalesshow') !!}',
-            columns: [{
-                    data: 'job_order_id',
-                    name: 'job_order_id'
                 },
-                {
-                    data: 'tipe',
-                    name: 'tipe'
-                },
-                {
-                    data: 'notes',
-                    name: 'notes'
-                },
-                {
-                    data: 'published',
-                    name: 'published'
-                },
-                {
-                    data: 'More',
-                    name: 'More',
-                    searchable: false,
-                    orderable: false
-                },
-                {
-                    data: 'Action',
-                    name: 'Action',
-                    searchable: false,
-                    orderable: false
-                },
-            ]
+                ajax: '{!! route('listojobrdersalesshow') !!}',
+                columns: [{
+                        data: 'order_id',
+                        name: 'order_id',
+                    },
+                    {
+                        data: 'tipe_order',
+                        name: 'tipe_order',
+                    },
+                    {
+                        data: 'client_id',
+                        name: 'client_id',
+                    },
+                    {
+                        data: 'service_id',
+                        name: 'service_id',
+                    },
+                    {
+                        data: 'via_id',
+                        name: 'via_id',
+                    },
+                    {
+                        data: 'pol_pod',
+                        name: 'pol_pod',
+                    },
+                    {
+                        data: 'ETD',
+                        name: 'ETD',
+                    },
+                    {
+                        data: 'ETA',
+                        name: 'ETA',
+                    },
+                    {
+                        data: 'Action',
+                        name: 'Action',
+                        searchable: false,
+                        orderable: false
+                    },
+                ]
+            });
         });
     </script>
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-            $(".infoS").click(function(e) {
-                $currID = $(this).attr("data-id");
-                $.get("sales_selling_detail/" + $currID, function(data) {
-                    $('#sales_selling_data').html(data);
-                });
-            });
-            $(".infoB").click(function(e) {
-                $currID = $(this).attr("data-id");
-                $.get("sales_buying_detail/" + $currID, function(data) {
-                    $('#sales_buying_data').html(data);
-                });
-            });
-            $(".infoDP").click(function(e) {
-                $currID = $(this).attr("data-id");
-                $.get("sales_dp_detail/" + $currID, function(data) {
-                    $('#sales_dp_data').html(data);
-                });
-            });
-            $(".infoP").click(function(e) {
-                $currID = $(this).attr("data-id");
-                $.get("sales_profit_detail/" + $currID, function(data) {
-                    $('#sales_profit_data').html(data);
-                });
-            });
-        });
-    </script> --}}
 @endpush

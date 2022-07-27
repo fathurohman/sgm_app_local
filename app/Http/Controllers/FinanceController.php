@@ -21,7 +21,7 @@ class FinanceController extends BaseController
 
     public function listinvoiceshow()
     {
-        $query = SalesOrder::where('published', '1')->where('printed', '0')->orderBy('created_at', 'desc');
+        $query = SalesOrder::where('published', '1')->where('booked', '0')->orderBy('created_at', 'desc');
         return Datatables::of(
             $query
         )->editColumn('job_order_id', function ($row) {
@@ -92,7 +92,12 @@ class FinanceController extends BaseController
         $month = Carbon::now()->format('m');
         // $order_month = $jml_by_month + 1;
         $order_month = $this->order_row($tipe, $month, $year);
-        $inv = "$order_month/SGM/$tipe/$month/$tahun";
+        //check inv
+        if ($sales_order->nomor_invoice == '-') {
+            $inv = "$order_month/SGM/$tipe/$month/$tahun";
+        } else {
+            $inv = $sales_order->nomor_invoice;
+        }
         //end no invoice
         //update invoice dan status
         SalesOrder::where('id', $id)->update([
@@ -170,6 +175,12 @@ class FinanceController extends BaseController
     public function returntosales($id)
     {
         SalesOrder::where('id', $id)->update(['published' => '0']);
+        return redirect()->back();
+    }
+
+    public function pembukuan($id)
+    {
+        SalesOrder::where('id', $id)->update(['booked' => '1']);
         return redirect()->back();
     }
 }

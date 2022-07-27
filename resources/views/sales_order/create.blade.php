@@ -16,38 +16,32 @@
                         <form method="post" action="{{ route('sales_order.store') }}" autocomplete="off" id="form-order">
                             @csrf
                             <h6 class="heading-small text-muted mb-4">{{ __('Fill this form') }}</h6>
-
-                            @if (session('status'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ session('status') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
                                     <div class="input-group">
                                         <input id="order_id-field" type="text" class="form-control"
-                                            placeholder="order_id" aria-label="order_id" required readonly>
-                                        <div class="input-group-append">
+                                            placeholder="order_id" name="order_id" aria-label="order_id"
+                                            value="{{ $job_data->order_id }}" required readonly>
+                                        {{-- <div class="input-group-append">
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#orderList">
                                                 Find
                                             </button>
-                                        </div>
+                                        </div> --}}
                                     </div>
-                                    <input id="order-id-hide" name="order_id" type="text" class="form-control" hidden>
+                                    <input id="order-id-hide" value="{{ $job_data->id }}" name="job_order_id" type="text"
+                                        class="form-control" hidden>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6">
                                     <label class="form-control-label" for="input-tipe_order">{{ __('IDN/INV') }}</label>
                                     <input type="text" id="tipe_order" class="form-control form-control-alternative"
-                                        required name="tipe_order_text" required readonly>
+                                        required name="tipe_order_text" value="{{ $job_data->tipe_order }}" required
+                                        readonly>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-6">
                                     <label class="form-control-label" for="input-no_inv">{{ __('No. INV') }}</label>
-                                    <input name="no_inv" type="text" id="no_inv"
+                                    <input name="no_inv" type="text" id="no_inv" value="-"
                                         class="form-control form-control-alternative" required readonly>
                                 </div>
                             </div>
@@ -59,8 +53,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input id="Tanggal" name="Tanggal" class="form-control"
-                                                placeholder="Select date" type="text" readonly>
+                                            <input id="Tanggal" name="Tanggal" value="{{ $tanggal }}"
+                                                class="form-control" placeholder="Select date" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +66,8 @@
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
                                             <input id="ETD" name="ETD" class="form-control"
-                                                placeholder="Select date" type="text" readonly>
+                                                placeholder="Select date" type="text" value="{{ $job_data->ETD }}"
+                                                readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -83,8 +78,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input id="ETA" name="ETA" class="form-control"
-                                                placeholder="Select date" type="text" readonly>
+                                            <input id="ETA" name="ETA" value="{{ $job_data->ETA }}"
+                                                class="form-control" placeholder="Select date" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -93,18 +88,18 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
-                                        <input name="sales_id" type="text" id="sales_id"
+                                        <input name="sales_id" type="text" id="sales_id" value="{{ $sales }}"
                                             class="form-control form-control-alternative" required name="tipe_order_text"
                                             readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel1">{{ __('vessel1') }}</label>
+                                        <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
                                         <input type="text" name="vessel1" id="input-vessel1"
                                             class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('vessel1') }}" required readonly>
+                                            placeholder="{{ __('vessel1') }}" value="{{ $job_data->vessel1 }}" required
+                                            readonly>
                                         @if ($errors->has('vessel1'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel1') }}</strong>
@@ -118,7 +113,8 @@
                                             for="input-gwt_meas">{{ __('gwt_meas') }}</label>
                                         <input type="text" name="gwt_meas" id="input-gwt_meas"
                                             class="form-control form-control-alternative{{ $errors->has('gwt_meas') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('gwt_meas') }}" required readonly>
+                                            placeholder="{{ __('gwt_meas') }}" value="{{ $job_data->GWT_MEAS }}"
+                                            required readonly>
                                         @if ($errors->has('gwt_meas'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('gwt_meas') }}</strong>
@@ -134,7 +130,7 @@
                                             for="input-customer">{{ __('shipper') }}</label>
                                         <input type="text" name="customer" id="input-customer"
                                             class="form-control form-control-alternative{{ $errors->has('customer') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('customer') }}" required readonly>
+                                            value="{{ $shipper }}" required readonly>
                                         @if ($errors->has('customer'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('customer') }}</strong>
@@ -144,11 +140,11 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel2">{{ __('vessel2') }}</label>
+                                        <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
                                         <input type="text" name="vessel2" id="input-vessel2"
                                             class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('vessel2') }}" required readonly>
+                                            placeholder="{{ __('vessel2') }}" value="{{ $job_data->vessel2 }}" required
+                                            readonly>
                                         @if ($errors->has('vessel2'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel2') }}</strong>
@@ -161,7 +157,8 @@
                                         <label class="form-control-label" for="input-hbl">{{ __('hbl') }}</label>
                                         <input type="text" name="hbl" id="input-hbl"
                                             class="form-control form-control-alternative{{ $errors->has('hbl') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('hbl') }}" required readonly>
+                                            placeholder="{{ __('hbl') }}" value="{{ $job_data->HBL }}" required
+                                            readonly>
                                         @if ($errors->has('hbl'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('hbl') }}</strong>
@@ -173,11 +170,11 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-pol_pod">{{ __('pol_pod') }}</label>
+                                        <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
                                         <input type="text" name="pol_pod" id="input-pol_pod"
                                             class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('pol_pod') }}" required readonly>
+                                            placeholder="{{ __('pol_pod') }}" value="{{ $job_data->pol_pod }}" required
+                                            readonly>
                                         @if ($errors->has('pol_pod'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('pol_pod') }}</strong>
@@ -190,7 +187,8 @@
                                         <label class="form-control-label" for="input-party">{{ __('party') }}</label>
                                         <input type="text" name="party" id="input-party"
                                             class="form-control form-control-alternative{{ $errors->has('party') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('party') }}" required readonly>
+                                            placeholder="{{ __('party') }}" value="{{ $job_data->party }}" required
+                                            readonly>
                                         @if ($errors->has('party'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('party') }}</strong>
@@ -203,7 +201,8 @@
                                         <label class="form-control-label" for="input-mbl">{{ __('mbl') }}</label>
                                         <input type="text" name="mbl" id="input-mbl"
                                             class="form-control form-control-alternative{{ $errors->has('mbl') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('mbl') }}" required readonly>
+                                            placeholder="{{ __('mbl') }}" value="{{ $job_data->MBL }}" required
+                                            readonly>
                                         @if ($errors->has('mbl'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('mbl') }}</strong>
@@ -330,8 +329,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="form-control-label"
-                                        for="input-Profit">{{ __('Down Payment') }}</label>
+                                    <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
                                     <div>
                                         <table id="dp" class="table-dp align-items-center table-flush">
                                             <thead class="thead-light">
@@ -413,81 +411,72 @@
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        // var data = {
-        //     currency: @json($curr)
-        // };
-        $(document).ready(function() {
-            $('#order').DataTable({
-                processing: true,
-                serverSide: true,
-                drawCallback: function(settings) {
-                    $('.infoO').click(function() {
-                        $currID = $(this).attr("data-id");
-                        $('#order_id-field').val('');
-                        // alert($currID);
-                        $.get('/job_data_sales?pid=' + $currID, function(data) {
-                            //    console.log(data['jobs'].order_id);
-                            $('#order_id-field').val(data['jobs'].order_id);
-                            $('#order-id-hide').val(data['jobs'].id);
-                            $('#tipe_order').val(data['jobs'].tipe_order);
-                            $('#Tanggal').val(data['tanggal']);
-                            $('#no_inv').val('-');
-                            $('#input-customer').val(data['name_client']);
-                            // $('#customer-field-id').val(data['jobs'].client_id);
-                            $('#sales_id').val(data['sales_name']);
-                            // $('#service_id').val(data['jobs'].sales_id);
-                            $('#via_id').val(data['jobs'].via_id);
-                            $('#ETD').val(data['jobs'].ETD);
-                            $('#ETA').val(data['jobs'].ETA);
-                            $('#input-pol_pod').val(data['jobs'].pol_pod);
-                            $('#input-party').val(data['jobs'].party);
-                            $('#input-hbl').val(data['jobs'].HBL);
-                            $('#input-gwt_meas').val(data['jobs'].GWT_MEAS);
-                            $('#input-mbl').val(data['jobs'].MBL);
-                            $('#input-vessel1').val(data['jobs'].vessel1);
-                            $('#input-vessel2').val(data['jobs'].vessel2);
-                            $('#input-consignee').val(data['jobs'].consignee);
-                            $('#input-agent_overseas').val(data['jobs'].agent_overseas);
-                            // console.log(data);
-                        });
-                        $('#orderList').modal('toggle');
-                        // $('#customer-field').val($currID);
-                    });
-                },
-                ajax: '{!! route('listordersales') !!}',
-                columns: [{
-                        data: 'order_id',
-                        name: 'order_id'
-                    },
-                    {
-                        data: 'tipe_order',
-                        name: 'tipe_order'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'client_id',
-                        name: 'client_id'
-                    },
-                    {
-                        data: 'party',
-                        name: 'party'
-                    },
-                    {
-                        data: 'pol_pod',
-                        name: 'pol_pod'
-                    },
-                    {
-                        data: 'Action',
-                        name: 'Action',
-                        searchable: false,
-                        orderable: false
-                    },
-                ]
-            });
-        });
+        // $(document).ready(function() {
+        //     $('#order').DataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         drawCallback: function(settings) {
+        //             $('.infoO').click(function() {
+        //                 $currID = $(this).attr("data-id");
+        //                 $('#order_id-field').val('');
+        //                 $.get('/job_data_sales?pid=' + $currID, function(data) {
+        //                     $('#order_id-field').val(data['jobs'].order_id);
+        //                     $('#order-id-hide').val(data['jobs'].id);
+        //                     $('#tipe_order').val(data['jobs'].tipe_order);
+        //                     $('#Tanggal').val(data['tanggal']);
+        //                     $('#no_inv').val('-');
+        //                     $('#input-customer').val(data['name_client']);
+        //                     $('#sales_id').val(data['sales_name']);
+        //                     $('#via_id').val(data['jobs'].via_id);
+        //                     $('#ETD').val(data['jobs'].ETD);
+        //                     $('#ETA').val(data['jobs'].ETA);
+        //                     $('#input-pol_pod').val(data['jobs'].pol_pod);
+        //                     $('#input-party').val(data['jobs'].party);
+        //                     $('#input-hbl').val(data['jobs'].HBL);
+        //                     $('#input-gwt_meas').val(data['jobs'].GWT_MEAS);
+        //                     $('#input-mbl').val(data['jobs'].MBL);
+        //                     $('#input-vessel1').val(data['jobs'].vessel1);
+        //                     $('#input-vessel2').val(data['jobs'].vessel2);
+        //                     $('#input-consignee').val(data['jobs'].consignee);
+        //                     $('#input-agent_overseas').val(data['jobs'].agent_overseas);
+        //                 });
+        //                 $('#orderList').modal('toggle');
+        //             });
+        //         },
+        //         ajax: '{!! route('listordersales') !!}',
+        //         columns: [{
+        //                 data: 'order_id',
+        //                 name: 'order_id'
+        //             },
+        //             {
+        //                 data: 'tipe_order',
+        //                 name: 'tipe_order'
+        //             },
+        //             {
+        //                 data: 'created_at',
+        //                 name: 'created_at'
+        //             },
+        //             {
+        //                 data: 'client_id',
+        //                 name: 'client_id'
+        //             },
+        //             {
+        //                 data: 'party',
+        //                 name: 'party'
+        //             },
+        //             {
+        //                 data: 'pol_pod',
+        //                 name: 'pol_pod'
+        //             },
+        //             {
+        //                 data: 'Action',
+        //                 name: 'Action',
+        //                 searchable: false,
+        //                 orderable: false
+        //             },
+        //         ]
+        //     });
+        // });
     </script>
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">

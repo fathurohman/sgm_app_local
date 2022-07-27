@@ -43,7 +43,11 @@ class JobOrderController extends BaseController
             $order_row = $query->order_row;
             array_push($results, $order_row);
         }
-        $max = max($results);
+        if (empty($results)) {
+            $max = 0;
+        } else {
+            $max = max($results);
+        }
         if ($jml_by_month == '0') {
             $order_month = '1';
         } else {

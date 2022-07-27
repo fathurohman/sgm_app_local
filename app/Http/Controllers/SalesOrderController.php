@@ -33,11 +33,16 @@ class SalesOrderController extends BaseController
         return view('sales_order.show');
     }
 
+    public function data_sales()
+    {
+        return view('sales_order.data_sales');
+    }
+
     public function listsalesshow()
     {
         // $query = SalesOrder::all();
         $auth = Auth::id();
-        $query = SalesOrder::where('created_by', $auth)->orderBy('created_at', 'desc');
+        $query = SalesOrder::where('created_by', $auth)->where('published', 0)->orderBy('created_at', 'desc');
         return Datatables::of(
             $query
         )->editColumn('job_order_id', function ($row) {
@@ -82,6 +87,17 @@ class SalesOrderController extends BaseController
         return view('sales_order.create', compact('curr'));
     }
 
+    public function pickup($id)
+    {
+        $curr = Curr::all();
+        $job_data = job_order::find($id);
+        $createdAt = Carbon::parse($job_data->created_at);
+        $tanggal = $createdAt->format('Y-m-d');
+        $sales = $job_data->sales->name;
+        $shipper = $job_data->clients->COMPANY_NAME;
+        return view('sales_order.create', compact('curr', 'job_data', 'tanggal', 'sales', 'shipper'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -91,11 +107,12 @@ class SalesOrderController extends BaseController
     public function store(Request $request)
     {
         $i = 0;
+        job_order::where('id', $request->job_order_id)->update(['pickup' => '1']);
         $sales_order = new SalesOrder;
         $tipe = $request->tipe_order_text;
         $tipe_order = strtok($tipe, '-');
         $sales_order->nomor_invoice = $request->no_inv;
-        $sales_order->job_order_id = $request->order_id;
+        $sales_order->job_order_id = $request->job_order_id;
         $sales_order->tipe = $tipe_order;
         $sales_order->notes = $request->notes;
         // if (empty($request->published)) {
@@ -103,6 +120,7 @@ class SalesOrderController extends BaseController
         // } else {
         //     $sales_order->published = $request->published;
         // }
+        // job_order::where('id', $id)->update(['booked' => '1']);
         $sales_order->created_by = Auth::id();
         $sales_order->save();
         if (!empty($request->description_b[0])) {
@@ -326,62 +344,58 @@ class SalesOrderController extends BaseController
         return redirect()->back();
     }
 
-    public function listordersales()
-    {
-        // $query = SalesOrder::all();
-        $auth = Auth::id();
-        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
-        // $query = job_order::all();
-        return Datatables::of(
-            $query
-        )->editColumn('order_id', function ($row) {
-            return $row->order_id;
-        })->editColumn('tipe_order', function ($row) {
-            return $row->tipe_order;
-        })->editColumn('created_at', function ($row) {
-            return $row->created_at;
-        })->editColumn('client_id', function ($row) {
-            return $row->clients->COMPANY_NAME;
-        })->editColumn('party', function ($row) {
-            return $row->party;
-        })->editColumn('pol_pod', function ($row) {
-            return $row->pol_pod;
-        })->addColumn('Action', function ($row) {
-            $data = [
-                'id' => $row->id
-            ];
-            return view('job_order.dt.act_order_pilih', compact('data'));
-        })->rawColumns(['action'])->toJson();
-        // $users = User::where('department', $dept)->where('active', 1)->get();
-        // return view('ticket.history', compact('data'));
-    }
+    // public function listordersales()
+    // {
+    //     // $query = SalesOrder::all();
+    //     $auth = Auth::id();
+    //     $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
+    //     // $query = job_order::all();
+    //     return Datatables::of(
+    //         $query
+    //     )->editColumn('order_id', function ($row) {
+    //         return $row->order_id;
+    //     })->editColumn('tipe_order', function ($row) {
+    //         return $row->tipe_order;
+    //     })->editColumn('created_at', function ($row) {
+    //         return $row->created_at;
+    //     })->editColumn('client_id', function ($row) {
+    //         return $row->clients->COMPANY_NAME;
+    //     })->editColumn('party', function ($row) {
+    //         return $row->party;
+    //     })->editColumn('pol_pod', function ($row) {
+    //         return $row->pol_pod;
+    //     })->addColumn('Action', function ($row) {
+    //         $data = [
+    //             'id' => $row->id
+    //         ];
+    //         return view('job_order.dt.act_order_pilih', compact('data'));
+    //     })->rawColumns(['action'])->toJson();
+    // }
 
-    public function getdataordersales(Request $request)
-    {
-        $pid = $request->get('pid');
-        $jobs = job_order::where('id', $pid)->first();
-        $client_name = $jobs->clients->COMPANY_NAME;
-        $sales_name = $jobs->sales->name;
-        // $jobs->created_at = date("Y-m-d");
-        // $tanggal = $jobs->created_at;
-        $createdAt = Carbon::parse($jobs->created_at);
-        $tanggal = $createdAt->format('Y-m-d');
-        // $order_id = $jobs->order_id;
-        $tipe_order = strtok($jobs->tipe_order, '-');
-        // $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
-        // print_r($jenis_order);
-        //end
-        $data = array(
-            'jobs' => $jobs,
-            'name_client' => $client_name,
-            // 'inv' => $inv,
-            'tanggal' => $tanggal,
-            'sales_name' => $sales_name,
-        );
-        return Response::json($data);
-        // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
-        // $tipe_name = $data = job_order::find($)->artk;
-    }
+    // public function getdataordersales(Request $request)
+    // {
+    //     $pid = $request->get('pid');
+    //     $jobs = job_order::where('id', $pid)->first();
+    //     $client_name = $jobs->clients->COMPANY_NAME;
+    //     $sales_name = $jobs->sales->name;
+    //     // $jobs->created_at = date("Y-m-d");
+    //     // $tanggal = $jobs->created_at;
+    //     $createdAt = Carbon::parse($jobs->created_at);
+    //     $tanggal = $createdAt->format('Y-m-d');
+    //     // $order_id = $jobs->order_id;
+    //     $tipe_order = strtok($jobs->tipe_order, '-');
+    //     // $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
+    //     // print_r($jenis_order);
+    //     //end
+    //     $data = array(
+    //         'jobs' => $jobs,
+    //         'name_client' => $client_name,
+    //         // 'inv' => $inv,
+    //         'tanggal' => $tanggal,
+    //         'sales_name' => $sales_name,
+    //     );
+    //     return Response::json($data);
+    // }
 
     public function autocomplete_desc(Request $request)
     {
@@ -455,5 +469,38 @@ class SalesOrderController extends BaseController
     {
         SalesOrder::where('id', $id)->update(['published' => '1']);
         return redirect()->back();
+    }
+
+    public function listojobrdersalesshow()
+    {
+        $auth = Auth::id();
+        $query = job_order::where('sales_id', $auth)->where('pickup', 0)->orderBy('created_at', 'desc');
+        // $query = job_order::all();
+        return Datatables::of(
+            $query
+        )->editColumn('order_id', function ($row) {
+            return $row->order_id;
+        })->editColumn('tipe_order', function ($row) {
+            return $row->tipe_order;
+        })->editColumn('client_id', function ($row) {
+            return $row->clients->COMPANY_NAME;
+        })->editColumn('service_id', function ($row) {
+            return $row->service->service_name;
+        })->editColumn('via_id', function ($row) {
+            return $row->via->via_name;
+        })->editColumn('pol_pod', function ($row) {
+            return $row->pol_pod;
+        })->editColumn('ETD', function ($row) {
+            return $row->ETD;
+        })->editColumn('ETA', function ($row) {
+            return $row->ETA;
+        })->addColumn('Action', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('sales_order.dt_sales.act_list_order', compact('data'));
+        })->rawColumns(['action'])->toJson();
+        // $users = User::where('department', $dept)->where('active', 1)->get();
+        // return view('ticket.history', compact('data'));
     }
 }

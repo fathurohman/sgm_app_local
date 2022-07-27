@@ -39,7 +39,7 @@ class ItemsController extends BaseController
         $items = new Items;
         $items->ITEM = $request->ITEM;
         $items->save();
-        return redirect(route('items.index'));
+        return redirect(route('items.index'))->withSuccessMessage(__('global.data_saved_successfully!'));
     }
 
     /**

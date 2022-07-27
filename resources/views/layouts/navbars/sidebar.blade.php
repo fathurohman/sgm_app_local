@@ -130,7 +130,10 @@
                                         {{ __('Job Order') }}
                                     </a>
                                     <a class="nav-link" href="{{ route('sales_order.index') }}">
-                                        {{ __('Sales Order') }}
+                                        {{ __('Pickup Job') }}
+                                    </a>
+                                    <a class="nav-link" href="{{ route('data_sales') }}">
+                                        {{ __('Sales Order Data') }}
                                     </a>
                                 </li>
                             </ul>

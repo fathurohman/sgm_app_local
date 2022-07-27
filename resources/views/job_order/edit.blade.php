@@ -32,12 +32,11 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('order_id') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-order_id">{{ __('order_id') }}</label>
+                                        <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
                                         <input type="text" name="order_id" id="input-order_id"
                                             class="form-control form-control-alternative{{ $errors->has('order_id') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('order_id') }}" value="{{ $job_order->order_id }}"
-                                            required readonly>
+                                            placeholder="{{ __('order_id') }}" value="{{ $job_order->order_id }}" required
+                                            readonly>
                                         @if ($errors->has('order_id'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('order_id') }}</strong>
@@ -51,8 +50,7 @@
                                         class="form-control form-control-alternative" required name="tipe_order_text">
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-9">
-                                    <label class="form-control-label"
-                                        for="input-for">{{ __('Untuk Transaksi:') }}</label>
+                                    <label class="form-control-label" for="input-for">{{ __('Untuk Transaksi:') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="tipe_order"
@@ -111,8 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('Service') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-Service">{{ __('Service') }}</label>
+                                        <label class="form-control-label" for="input-Service">{{ __('Service') }}</label>
                                         <select name="service_id" id="service_id"
                                             class="form-control form-control-alternative{{ $errors->has('Service') ? ' is-invalid' : '' }}"
                                             aria-label="Service:">
@@ -151,8 +148,7 @@
                                                         class="ni ni-calendar-grid-58"></i></span>
                                             </div>
                                             <input id="ETD" name="ETD" class="form-control datepicker"
-                                                placeholder="Select date" type="text"
-                                                value="{{ $job_order->ETD }}">
+                                                placeholder="Select date" type="text" value="{{ $job_order->ETD }}">
                                         </div>
                                     </div>
                                 </div>
@@ -165,8 +161,7 @@
                                                         class="ni ni-calendar-grid-58"></i></span>
                                             </div>
                                             <input id="ETA" name="ETA" class="form-control datepicker"
-                                                placeholder="Select date" type="text"
-                                                value="{{ $job_order->ETA }}">
+                                                placeholder="Select date" type="text" value="{{ $job_order->ETA }}">
                                         </div>
                                     </div>
                                 </div>
@@ -174,8 +169,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-pol_pod">{{ __('pol_pod') }}</label>
+                                        <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
                                         <input type="text" name="pol_pod" id="input-pol_pod"
                                             class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('pol_pod') }}" value="{{ $job_order->pol_pod }}"
@@ -192,8 +186,7 @@
                                         <label class="form-control-label" for="input-party">{{ __('party') }}</label>
                                         <input type="text" name="party" id="input-party"
                                             class="form-control form-control-alternative{{ $errors->has('party') ? ' is-invalid' : '' }}"
-                                            placeholder="{{ __('party') }}" value="{{ $job_order->party }}"
-                                            required>
+                                            placeholder="{{ __('party') }}" value="{{ $job_order->party }}" required>
                                         @if ($errors->has('party'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('party') }}</strong>
@@ -248,8 +241,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel1">{{ __('vessel1') }}</label>
+                                        <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
                                         <input type="text" name="vessel1" id="input-vessel1"
                                             class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('vessel1') }}" value="{{ $job_order->vessel1 }}"
@@ -280,8 +272,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel2">{{ __('vessel2') }}</label>
+                                        <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
                                         <input type="text" name="vessel2" id="input-vessel2"
                                             class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('vessel2') }}" value="{{ $job_order->vessel2 }}"
@@ -313,7 +304,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                                <a href="{{ route('permission.index') }}" type="button"
+                                <a href="{{ route('job_order.index') }}" type="button"
                                     class="btn btn-info mt-4">{{ __('Back') }}</a>
                             </div>
                         </form>
