@@ -9,7 +9,7 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function Transaksi(User $user)
+    public function Job_Order(User $user)
     {
         return $this->getPermission($user, 1);
     }
@@ -37,6 +37,18 @@ class UserPolicy
     public function Report(User $user)
     {
         return $this->getPermission($user, 6);
+    }
+    public function Sales_Order_Data(User $user)
+    {
+        return $this->getPermission($user, 7);
+    }
+    public function History_Sales_Data(User $user)
+    {
+        return $this->getPermission($user, 8);
+    }
+    public function Pickup_Job(User $user)
+    {
+        return $this->getPermission($user, 9);
     }
     protected function getPermission($user, $p_id)
     {

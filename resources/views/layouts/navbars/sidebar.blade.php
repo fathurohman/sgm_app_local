@@ -115,34 +115,42 @@
                             </ul>
                         </div>
                     </li>
-                    @endcan @can('admin.transaksi', Auth::user())
-                    <li class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
-                        <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse"
-                            role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
-                            <i class="ni ni-credit-card"></i>
-                            <span class="nav-link-text">{{ __('Transaksi') }}</span>
-                        </a>
+                @endcan
+                <li class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
+                    <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
+                        <i class="ni ni-credit-card"></i>
+                        <span class="nav-link-text">{{ __('Transaksi') }}</span>
+                    </a>
 
-                        <div class="collapse" id="navbar-crud-Transaksi">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
+                    <div class="collapse" id="navbar-crud-Transaksi">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                @can('admin.job-order', Auth::user())
                                     <a class="nav-link" href="{{ route('job_order.index') }}">
                                         {{ __('Job Order') }}
                                     </a>
+                                @endcan
+                                @can('admin.pickup-job', Auth::user())
                                     <a class="nav-link" href="{{ route('sales_order.index') }}">
                                         {{ __('Pickup Job') }}
                                     </a>
+                                @endcan
+                                @can('admin.sales-order-data', Auth::user())
                                     <a class="nav-link" href="{{ route('data_sales') }}">
                                         {{ __('Sales Order Data') }}
                                     </a>
+                                @endcan
+                                @can('admin.history-sales-data', Auth::user())
                                     <a class="nav-link" href="{{ route('history_sales') }}">
                                         {{ __('History Sales Data') }}
                                     </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    @endcan @can('admin.cetakinv', Auth::user())
+                                @endcan
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                @can('admin.cetakinv', Auth::user())
                     <li class="nav-inv {{ $activePage == 'invoice' ? ' active' : '' }}">
                         <a class="nav-link collapsed" href="#navbar-crud-cetak" data-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="navbar-crud-cetak">
@@ -154,7 +162,7 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('finance.index') }}">
-                                        {{ __('finance') }}
+                                        {{ __('Cetak Invoice') }}
                                     </a>
                                 </li>
                             </ul>
