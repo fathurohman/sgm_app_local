@@ -46,10 +46,11 @@
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3">
                                     <label class="form-control-label" for="input-for"></label>
-                                    <input value="{{ $job_order->tipe_order }}" type="text" id="tipe_order"
-                                        class="form-control form-control-alternative" required name="tipe_order_text">
+                                    <input value="{{ $job_order->tipe_order }}" type="text" id="tipe_order_full"
+                                        class="form-control form-control-alternative" required name="tipe_order_text"
+                                        readonly>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-9">
+                                {{-- <div class="col-lg-4 col-md-4 col-sm-9">
                                     <label class="form-control-label" for="input-for">{{ __('Untuk Transaksi:') }}</label>
                                     <div class="col-sm-7">
                                         <div class="form-check">
@@ -71,7 +72,7 @@
                                             <label class="form-check-label">INV</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -300,6 +301,8 @@
                                             </span>
                                         @endif
                                     </div>
+                                    <input id="row-id-hide" type="text" class="form-control" name="order_row"
+                                        value="{{ $job_order->order_row }}" hidden>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -337,20 +340,23 @@
             $('#CustomerList').modal('toggle');
             // $('#customer-field').val($currID);
         });
-
-        $('#form-order input').on('change', function() {
-            $('#tipe_order').val('');
-            var nama_tipe = '';
-            var order_id = $('#order_id-field').val();
-            var tipe = ($('input[name=tipe_order]:checked', '#form-order').val());
-            if (tipe == 'I') {
-                nama_tipe = 'I-1'
-            } else if (tipe == 'DN') {
-                nama_tipe = 'DN-1';
-            } else {
-                nama_tipe = 'INV-1';
-            }
-            $('#tipe_order').val(nama_tipe);
-        });
+        // $('#form-order input').on('change', function() {
+        //     $('#tipe_order').val('');
+        //     var nama_tipe = '';
+        //     var order_id = $('#input-order_id').val();
+        //     var tipe = ($('input[name=tipe_order]:checked', '#form-order').val());
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "/set_tipe",
+        //         data: {
+        //             pid: order_id,
+        //             tipe: tipe
+        //         },
+        //         datatype: "html",
+        //         success: function(result) {
+        //             $('#tipe_order_full').val(result.tipe + '-' + result.row);
+        //         }
+        //     })
+        // });
     </script>
 @endpush

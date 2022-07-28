@@ -184,7 +184,7 @@ class SalesOrderController extends BaseController
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
         );
         Down_Payment::insert($details_dp);
-        return redirect(route('sales_order.index'));
+        return redirect(route('data_sales'));
     }
 
     /**
@@ -317,7 +317,7 @@ class SalesOrderController extends BaseController
                 ]
             );
         }
-        return redirect(route('sales_order.index'));
+        return redirect(route('data_sales'));
     }
 
     /**

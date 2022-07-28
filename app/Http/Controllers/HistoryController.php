@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\SalesExport;
 use App\Model\reports;
 use App\Model\SalesOrder;
+use App\User;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
@@ -44,28 +45,70 @@ class HistoryController extends BaseController
             $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
             return $rslt;
         });
-        return view('reports.daily', compact('month'));
+        $sales_name = User::where('department', 'sales')->get();
+        return view('reports.daily', compact('month', 'sales_name'));
     }
 
     public function export(Request $request)
     {
+        $tipe = $request->tipe;
         $month = $request->month;
-        $this->narikdata($month);
+        $sales_id = $request->sales;
+        $this->narikdata($month, $tipe, $sales_id);
         $download = Excel::download(new SalesExport($month), 'ReportMonthly.xlsx');
         return $download;
     }
 
-    public function narikdata($month)
+    public function narikdata($month, $tipe, $sales_id)
     {
         reports::query()->truncate();
         $sum_idr = 0;
         $sum_usd = 0;
         $tahun = Carbon::now()->format('Y');
-        $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
-            ->where([
-                ['printed', '=', '1'],
-                ['published', '=', '1'],
-            ])->get();
+        switch ($tipe) {
+            case 'All':
+                if ($sales_id == "All") {
+                    $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                        ])->get();
+                } else {
+                    $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['created_by', '=', $sales_id]
+                        ])->get();
+                }
+                break;
+            case  'I':
+            case 'DN':
+                if ($sales_id == "All") {
+                    $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['tipe', '=', $tipe],
+                        ])->get();
+                } else {
+                    $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['tipe', '=', $tipe],
+                            ['created_by', '=', $sales_id]
+                        ])->get();
+                }
+                break;
+            default:
+                echo "HHMMMMM!";
+        }
+        // dd($sales);
         foreach ($sales as $x) {
             $id = $x->id;
             if (empty($x->vat)) {

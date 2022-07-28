@@ -186,6 +186,7 @@ class JobOrderController extends BaseController
         $job_order->vessel2 = $request->vessel2;
         $job_order->consignee = $request->consignee;
         $job_order->agent_overseas = $request->agent_overseas;
+        $job_order->order_row = $request->order_row;
         $job_order->save();
         return redirect(route('job_order.index'));
     }
