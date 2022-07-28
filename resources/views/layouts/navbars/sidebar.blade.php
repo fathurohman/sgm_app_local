@@ -135,6 +135,9 @@
                                     <a class="nav-link" href="{{ route('data_sales') }}">
                                         {{ __('Sales Order Data') }}
                                     </a>
+                                    <a class="nav-link" href="{{ route('history_sales') }}">
+                                        {{ __('History Sales Data') }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
