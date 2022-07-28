@@ -107,18 +107,19 @@
             <th style="width: 19%; text-align:center">Value</th>
         </tr>
         <tr>
-            <td style="text-decoration: underline" class="selling-value">Reimbursment :</td>
+            <td style="text-decoration: underline;font-weight:bold" class="selling-value">Reimbursment :</td>
             <td class="selling-value"></td>
             <td class="selling-value"></td>
             <td></td>
         </tr>
         @foreach ($data['selling'] as $x)
             <tr>
-                <td class="selling-value" style="text-align:left">{{ $x->description }}</td>
-                <td class="selling-value" style="text-align:center">{{ $x->qty }}</td>
-                <td class="selling-value" style="padding-left:2px;text-align:left">{{ number_format($x->price) }}
+                <td class="selling-value" style="text-align:left;font-weight:bold">{{ $x->description }}</td>
+                <td class="selling-value" style="text-align:center;font-weight:bold">{{ $x->qty }}</td>
+                <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
+                    {{ number_format($x->price) }}
                 </td>
-                <td style="padding-left:2px;text-align:left">{{ $x->curr }}
+                <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}
                     {{ number_format($x->sub_total) }}</td>
             </tr>
         @endforeach
@@ -129,7 +130,7 @@
             <td class="last-empty-value"></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align:left">
+            <td colspan="2" style="text-align:left;font-weight:bold">
                 @if ($data['curr'] == 'IDR')
                     Terbilang :
                 @else
@@ -137,8 +138,8 @@
                 @endif
                 {{ $data['terbilang_dn'] }}
             </td>
-            <td style="text-align:center">Total Charges:</td>
-            <td class="last-terbilang-value" style="text-align:center">{{ $data['curr'] }}
+            <td style="text-align:center;font-weight:bold">Total Charges:</td>
+            <td class="last-terbilang-value" style="text-align:center;font-weight:bold">{{ $data['curr'] }}
                 {{ number_format($data['sum']) }}
             </td>
         </tr>
