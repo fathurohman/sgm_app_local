@@ -104,18 +104,20 @@
             <th class="kanan" style="width: 48%; text-align:center">Description</th>
             <th class="kanan" style="width: 11%">Volume</th>
             <th class="kanan" style="width: 22%; text-align:center">Price / Unit</th>
-            <th style="width: 19%; text-align:center">Value</th>
+            <th style="width: 5%; text-align:center"></th>
+            <th style="width: 14%; text-align:center">Value</th>
         </tr>
         @foreach ($data['selling'] as $x)
             <tr>
                 <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
                     {{ $x->description }}</td>
-                <td class="selling-value" style="padding-left:2px;text-align:center;font-weight:bold">
+                <td class="selling-value" style="padding-right:2px;text-align:right;font-weight:bold">
                     {{ $x->qty }}</td>
-                <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
+                <td class="selling-value" style="padding-right:2px;text-align:right;font-weight:bold">
                     {{ number_format($x->price) }}
                 </td>
-                <td style="text-align:left;font-weight:bold">{{ $x->curr }}
+                <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>
+                <td style="padding-right:2px;text-align:right;font-weight:bold">
                     {{ number_format($x->sub_total) }}</td>
             </tr>
         @endforeach
@@ -123,6 +125,7 @@
             <td class="empty-td empty-value"></td>
             <td class="empty-value"></td>
             <td class="empty-value"></td>
+            <td class="last-empty-value"></td>
             <td class="last-empty-value"></td>
         </tr>
         <tr>
@@ -135,19 +138,22 @@
                 {{ $data['terbilang'] }}
             </td>
             <td style="padding-left:2px;font-weight:bold">Total:</td>
-            <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}
+            <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
+            <td style="text-align:right;font-weight:bold">
                 {{ number_format($data['sum']) }}
             </td>
         </tr>
         <tr>
             <td style="padding-left:2px;font-weight:bold">VAT {{ $data['nilai_pajak'] }} % :</td>
-            <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}
+            <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
+            <td style="text-align:right;font-weight:bold">
                 {{ number_format($data['total_pajak']) }}
             </td>
         </tr>
         <tr>
             <td style="padding-left:2px;font-weight:bold">Total Charges :</td>
-            <td class="last-terbilang-value" style="text-align:center;font-weight:bold">{{ $data['curr'] }}
+            <td class="last-terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
+            <td class="last-empty-value" style="text-align:right;font-weight:bold">
                 {{ number_format($data['total_charge']) }}
             </td>
         </tr>

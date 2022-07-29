@@ -1,8 +1,8 @@
 @page {
      margin-top: 180px;
-     margin-left: 80px;
-     margin-right: 80px;
-     font-size: 8pt;
+     margin-left: 70px;
+     margin-right: 70px;
+     font-size: 10pt;
      font-family: 'Courier New', Courier, monospace;
 }
 
@@ -20,7 +20,7 @@
 .table-customer table {
      width: 100%;
      /* text-decoration: underline; */
-     margin-top: 46px;
+     margin-top: 28px;
      border-collapse: collapse;
 }
 
@@ -30,7 +30,7 @@
      font-family: 'Courier New', Courier, monospace;
      border-collapse: collapse;
      width: 100%;
-     margin-top: 34px;
+     margin-top: 32px;
 }
 
 .selling-judul th {
