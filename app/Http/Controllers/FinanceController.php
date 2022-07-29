@@ -37,9 +37,11 @@ class FinanceController extends BaseController
             return view('finance.dt.act_list_more', compact('data'));
         })->addColumn('Action', function ($row) {
             $tipe = $row->tipe;
+            $printed = $row->printed;
             $data = [
                 'id' => $row->id,
                 'tipe' => $tipe,
+                'printed' => $printed,
             ];
             return view('finance.dt.act_list_cetak', compact('data'));
         })->rawColumns(['action', 'More'])->toJson();
@@ -91,7 +93,11 @@ class FinanceController extends BaseController
         $tahun = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
         // $order_month = $jml_by_month + 1;
-        $order_month = $this->order_row($tipe, $month, $year);
+        if ($sales_order->printed == '1') {
+            $order_month = $sales_order->order_row;
+        } else {
+            $order_month = $this->order_row($tipe, $month, $year);
+        }
         //check inv
         if ($sales_order->nomor_invoice == '-') {
             $inv = "$order_month/SGM/$tipe/$month/$tahun";

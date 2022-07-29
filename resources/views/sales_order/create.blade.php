@@ -665,12 +665,13 @@
                         select: function(event, ui) {
                             tr.find('.name_b').val(ui.item.value);
                             tr.find('.remark_b').val(ui.item.nick);
-                            var remark = tr.find('.remark_b').val();
-                            var name = tr.find('.name_b').val();
                             calculate();
                         }
                     })
                 })
+                $('tbody.buying').on('blur', ".name_b", function() {
+                    calculate();
+                });
                 $('tbody.selling').on('focus', ".name_s", function() {
                     var tr = $(this).parent().parent();
                     // console.log(tipeatk);
@@ -679,13 +680,13 @@
                         // source: "{{ URL('search/autocompletenama') }}",
                         minLength: 1,
                         select: function(event, ui) {
+                            tr.find('.name_s').val(ui.item.value);
+                            tr.find('.remark_s').val(ui.item.nick);
                             $('#total_dp').val('');
                             $('#d_payment').val('');
                             $('#total_selling').val('');
                             $('#total_buying').val('');
                             $('#profit_buy').val('');
-                            tr.find('.name_s').val(ui.item.value);
-                            tr.find('.remark_s').val(ui.item.nick);
                             var remark = tr.find('.remark_s').val();
                             var name = tr.find('.name_s').val();
                             var curr_sell = tr.find('.curr_s').val();
@@ -708,6 +709,34 @@
                             $('#d_payment').val('0');
                         }
                     })
+                })
+                $('tbody.selling').on('blur', ".name_s", function() {
+                    var tr = $(this).parent().parent();
+                    $('#total_dp').val('');
+                    $('#d_payment').val('');
+                    $('#total_selling').val('');
+                    $('#total_buying').val('');
+                    $('#profit_buy').val('');
+                    var remark = tr.find('.remark_s').val();
+                    var name = tr.find('.name_s').val();
+                    var curr_sell = tr.find('.curr_s').val();
+                    // var sub_total = $('.sub_total_s').val();
+                    // var curr_buy = $('.curr_b').val();
+                    var sub_total_buy = $('.sub_total_b').val();
+                    var sum_s = 0;
+                    $('.sub_total_s').each(function() {
+                        sum_s += +$(this).val();
+                    });
+
+                    //ambil buying per mata uang
+                    calculate();
+                    //end
+                    // var total = parseInt(sum_s, 10);
+                    // var description = tr.find('.autosuggest').val();
+                    $('#customer_dp').val(name);
+                    $('#currency_dp').val(curr_sell);
+                    $('#total_dp').val(sum_s);
+                    $('#d_payment').val('0');
                 })
             })
         });
