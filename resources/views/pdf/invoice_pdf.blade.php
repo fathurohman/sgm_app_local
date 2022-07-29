@@ -111,9 +111,9 @@
             <tr>
                 <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
                     {{ $x->description }}</td>
-                <td class="selling-value" style="padding-right:2px;text-align:right;font-weight:bold">
+                <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
                     {{ $x->qty }}</td>
-                <td class="selling-value" style="padding-right:2px;text-align:right;font-weight:bold">
+                <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
                     {{ number_format($x->price) }}
                 </td>
                 <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>

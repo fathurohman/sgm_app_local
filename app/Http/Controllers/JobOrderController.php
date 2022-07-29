@@ -82,10 +82,10 @@ class JobOrderController extends BaseController
      */
     public function store(Request $request)
     {
-        // dd($request->tipe_order_text);
-        // dd($request->tipe_order);
-        $request->ETD = date("Y-m-d");
-        $request->ETA = date("Y-m-d");
+        $ETD = Carbon::createFromFormat('m/d/Y', $request->ETD)->format('Y-m-d');
+        $ETA = Carbon::createFromFormat('m/d/Y', $request->ETA)->format('Y-m-d');
+        // $request->ETD = date("Y-m-d");
+        // $request->ETA = date("Y-m-d");
         $job_order = new job_order;
         $job_order->order_id = $request->order_id;
         $job_order->order_row = $request->order_month;
@@ -94,8 +94,8 @@ class JobOrderController extends BaseController
         $job_order->sales_id = $request->sales_id;
         $job_order->service_id = $request->service_id;
         $job_order->via_id = $request->via_id;
-        $job_order->ETD = $request->ETD;
-        $job_order->ETA = $request->ETA;
+        $job_order->ETD = $ETD;
+        $job_order->ETA = $ETA;
         $job_order->pol_pod = $request->pol_pod;
         $job_order->party = $request->party;
         $job_order->HBL = $request->hbl;
@@ -165,8 +165,8 @@ class JobOrderController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $request->ETD = date("Y-m-d");
-        $request->ETA = date("Y-m-d");
+        $ETD = Carbon::createFromFormat('m/d/Y', $request->ETD)->format('Y-m-d');
+        $ETA = Carbon::createFromFormat('m/d/Y', $request->ETA)->format('Y-m-d');
         $job_order = job_order::find($id);
         $job_order->order_id = $request->order_id;
         $job_order->order_row = $request->order_month;
@@ -175,8 +175,8 @@ class JobOrderController extends BaseController
         $job_order->sales_id = $request->sales_id;
         $job_order->service_id = $request->service_id;
         $job_order->via_id = $request->via_id;
-        $job_order->ETD = $request->ETD;
-        $job_order->ETA = $request->ETA;
+        $job_order->ETD = $ETD;
+        $job_order->ETA = $ETA;
         $job_order->pol_pod = $request->pol_pod;
         $job_order->party = $request->party;
         $job_order->HBL = $request->hbl;
