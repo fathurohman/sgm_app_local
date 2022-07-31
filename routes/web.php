@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('pickup/{id}', 'SalesOrderController@pickup')->name('pickup');
 	//vendor client routes
 	Route::resource('client', 'ClientController');
-	Route::resource('vendor', 'VendorController');
+	Route::resource('vendor_data', 'VendorController');
 	Route::get('/vendor_detail/{id}', 'VendorController@showTracking');
 	Route::get('/client_detail/{id}', 'ClientController@showTracking');
 	Route::get('profile', 'ProfileController@edit')->name('profile.edit');

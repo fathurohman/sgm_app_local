@@ -128,6 +128,7 @@ class FinanceController extends BaseController
         // $customer = $sales_job->client_id;
         // $list_customer = Client::find($customer);
         $selling = SalesOrder::find($id)->sellings;
+        $jumlah_penjualan = count($selling);
         foreach ($selling as $x) {
             $sub_total = $x->sub_total;
             $sum += $sub_total;
@@ -167,6 +168,7 @@ class FinanceController extends BaseController
             'total_charge' => $total_charge,
             'curr' => $curr,
             'name' => $name,
+            'jumlah_penjualan' => $jumlah_penjualan,
         );
         if ($tipe == 'I') {
             $view = View('pdf.invoice_pdf', ['data' => $data]);

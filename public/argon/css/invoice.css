@@ -47,8 +47,16 @@
      border-right: 1px solid;
 }
 
-.empty-td {
+.empty-td-5 {
      height: 150px;
+}
+
+.empty-td-10 {
+    height: 100px;
+}
+
+.empty-td-15 {
+    height: 50px;
 }
 
 .empty-value {
