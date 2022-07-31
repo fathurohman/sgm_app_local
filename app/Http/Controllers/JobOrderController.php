@@ -82,8 +82,8 @@ class JobOrderController extends BaseController
      */
     public function store(Request $request)
     {
-        $ETD = Carbon::createFromFormat('m/d/Y', $request->ETD)->format('Y-m-d');
-        $ETA = Carbon::createFromFormat('m/d/Y', $request->ETA)->format('Y-m-d');
+        $ETD = Carbon::parse($request->ETD)->format('Y-m-d');
+        $ETA = Carbon::parse($request->ETA)->format('Y-m-d');
         // $request->ETD = date("Y-m-d");
         // $request->ETA = date("Y-m-d");
         $job_order = new job_order;
@@ -165,8 +165,8 @@ class JobOrderController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $ETD = Carbon::createFromFormat('m/d/Y', $request->ETD)->format('Y-m-d');
-        $ETA = Carbon::createFromFormat('m/d/Y', $request->ETA)->format('Y-m-d');
+        $ETD = Carbon::parse($request->ETD)->format('Y-m-d');
+        $ETA = Carbon::parse($request->ETA)->format('Y-m-d');
         $job_order = job_order::find($id);
         $job_order->order_id = $request->order_id;
         $job_order->order_row = $request->order_month;
@@ -239,7 +239,7 @@ class JobOrderController extends BaseController
     {
         $pid = $request->get('pid');
         $tipe = $request->get('tipe');
-        $jobs = job_order::where('order_id', $pid)->where('tipe_order', 'like', '%' .  $tipe . '%')->count();
+        $jobs = job_order::where('order_id', $pid)->where('tipe_order', 'like', '%' . $tipe . '%')->count();
         $row = $jobs + 1;
         $data = array(
             'tipe' => $tipe,
@@ -269,7 +269,7 @@ class JobOrderController extends BaseController
             return substr($row->ADDRESS, 0, 20);
         })->addColumn('Action', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id
             ];
             return view('job_order.dt.act_pilih', compact('data'));
         })->rawColumns(['action'])->toJson();
@@ -298,7 +298,7 @@ class JobOrderController extends BaseController
             return $row->pol_pod;
         })->addColumn('Action', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id
             ];
             return view('job_order.dt.act_order_pilih', compact('data'));
         })->rawColumns(['action'])->toJson();
@@ -334,7 +334,7 @@ class JobOrderController extends BaseController
             return $row->ETA;
         })->addColumn('Action', function ($row) {
             $data = [
-                'id'  => $row->id
+                'id' => $row->id
             ];
             return view('job_order.dt.act_list_order', compact('data'));
         })->rawColumns(['action'])->toJson();
