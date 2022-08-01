@@ -203,7 +203,8 @@
                                                                 value="{{ $x->id }}" hidden>
                                                         </td>
                                                         <td><input class="form-control qty" type="number" id="qty_s"
-                                                                name="qty_s[]" value="{{ $x->qty }}"></td>
+                                                                name="qty_s[]" value="{{ $x->qty }}"
+                                                                step="any"></td>
                                                         <td><select id="curr_s" name="curr_s[]"
                                                                 class="form-control form-select curr_s"
                                                                 aria-label="Default select example">
@@ -213,8 +214,8 @@
                                                                 <option>USD</option>
                                                                 <option>EUR</option>
                                                             </select></td>
-                                                        <td><input value="{{ $x->price }}" class="form-control price"
-                                                                type="number" id="price_s">
+                                                        <td><input value="{{ number_format($x->price) }}"
+                                                                class="form-control price" type="text" id="price_s">
                                                             <input value="{{ $x->price }}"
                                                                 class="form-control price_real" type="text"
                                                                 id="price_s_r" name="price_s[]" hidden>
@@ -269,7 +270,8 @@
                                                                 value="{{ $x->id }}" hidden>
                                                         </td>
                                                         <td><input class="form-control qty" type="text" id="qty_b"
-                                                                name="qty_b[]" value="{{ $x->qty }}"></td>
+                                                                name="qty_b[]" value="{{ $x->qty }}"
+                                                                step="any"></td>
                                                         {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
                                                         <td><select id="curr_b" name="curr_b[]"
                                                                 class="form-control form-select curr_b"
@@ -281,7 +283,7 @@
                                                                 <option>EUR</option>
                                                             </select></td>
                                                         <td><input type="text" class="form-control price"
-                                                                id="price_b" value="{{ $x->price }}">
+                                                                id="price_b" value="{{ number_format($x->price) }}">
                                                             <input type="text" class="form-control price_real"
                                                                 id="price_b_r" name="price_b[]"
                                                                 value="{{ $x->price }}" hidden>

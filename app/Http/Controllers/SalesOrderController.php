@@ -300,7 +300,8 @@ class SalesOrderController extends BaseController
             );
         }
         //profit
-        if (empty($request->id_prof)) {
+        // dd($request->id_prof['0']);
+        if (empty($request->id_prof['0']) || empty($request->id_prof)) {
             Profit::where('sales_order_id', $sales_order->id)->delete();
         }
         // dd($request->id_prof);
