@@ -109,8 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('Service') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-Service">{{ __('Service') }}</label>
+                                        <label class="form-control-label" for="input-Service">{{ __('Service') }}</label>
                                         <select name="service_id" id="service_id"
                                             class="form-control form-control-alternative{{ $errors->has('Service') ? ' is-invalid' : '' }}"
                                             aria-label="Service:">
@@ -166,8 +165,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-pol_pod">{{ __('pol_pod') }}</label>
+                                        <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
                                         <input type="text" name="pol_pod" id="input-pol_pod"
                                             class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('pol_pod') }}" required>
@@ -237,8 +235,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel1">{{ __('vessel1') }}</label>
+                                        <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
                                         <input type="text" name="vessel1" id="input-vessel1"
                                             class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('vessel1') }}" required>
@@ -267,8 +264,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label"
-                                            for="input-vessel2">{{ __('vessel2') }}</label>
+                                        <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
                                         <input type="text" name="vessel2" id="input-vessel2"
                                             class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
                                             placeholder="{{ __('vessel2') }}" required>

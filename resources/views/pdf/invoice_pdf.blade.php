@@ -108,35 +108,39 @@
             <th style="width: 14%; text-align:center">Value</th>
         </tr>
         @foreach ($data['selling'] as $x)
-        <tr>
-            <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
-                {{ $x->description }}</td>
-            <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
-                {{ $x->qty }}</td>
-            <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
-                {{ number_format($x->price) }}
-            </td>
-            <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>
-            <td style="padding-right:2px;text-align:right;font-weight:bold">
-                {{ number_format($x->sub_total) }}</td>
-        </tr>
+            <tr>
+                <td class="selling-value" style="padding-left:2px;text-align:left;font-weight:bold">
+                    {{ $x->description }}</td>
+                <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
+                    {{ $x->qty }}</td>
+                <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
+                    {{ number_format($x->price) }}
+                </td>
+                <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>
+                <td style="padding-right:2px;text-align:right;font-weight:bold">
+                    {{ number_format($x->sub_total) }}</td>
+            </tr>
         @endforeach
         <tr>
-            @if($data['jumlah_penjualan']
-            <='5' ) <td class="empty-td-5 empty-value"></td>
-                @elseif($data['jumlah_penjualan'] > '5' && $data['jumlah_penjualan']
-                <='10' ) <td class="empty-td-10 empty-value"></td>
-                    @else
-                    <td class="empty-td-15 empty-value"></td>
-                    @endif
-                    <td class="empty-value"></td>
-                    <td class="empty-value"></td>
-                    <td class="last-empty-value"></td>
-                    <td class="last-empty-value"></td>
+            @if ($data['jumlah_penjualan'] <= '5')
+                <td class="empty-td-5 empty-value"></td>
+            @elseif($data['jumlah_penjualan'] > '5' && $data['jumlah_penjualan'] <= '10')
+                <td class="empty-td-10 empty-value"></td>
+            @else
+                <td class="empty-td-15 empty-value"></td>
+            @endif
+            <td class="empty-value"></td>
+            <td class="empty-value"></td>
+            <td class="last-empty-value"></td>
+            <td class="last-empty-value"></td>
         </tr>
         <tr>
             <td rowspan="3" colspan="2" style="text-align:left;font-weight:bold">
-                @if ($data['curr'] == 'IDR') Terbilang : @else IN WORDS : @endif {{ $data['terbilang'] }}
+                @if ($data['curr'] == 'IDR')
+                    Terbilang :
+                @else
+                    IN WORDS :
+                @endif {{ $data['terbilang'] }}
             </td>
             <td style="padding-left:2px;font-weight:bold">Total:</td>
             <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
@@ -158,15 +162,13 @@
                 {{ number_format($data['total_charge']) }}
             </td>
         </tr>
-        {{--
-        <tr>
+        {{-- <tr>
             <td colspan="2" style="text-align:left">Terbilang : {{ $data['terbilang'] }}</td>
             <td style="text-align:left">Total :</td>
             <td style="text-align:left">{{ $data['curr'] }} {{ number_format($data['sum']) }}</td>
         </tr> --}}
     </table>
-    {{--
-    <div class="table-terbilang">
+    {{-- <div class="table-terbilang">
         <table>
             <tr>
                 <th rowspan="3" style="width: 18%;text-align:left">Terbilang :</th>

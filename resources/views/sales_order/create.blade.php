@@ -1,300 +1,349 @@
 @extends('layouts.app', ['activePage' => 'sales_orders']) @push('css')
-<link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
-<link href="{{ asset('argon') }}/css/dt.css" rel="stylesheet"> 
-@endpush 
+    <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
+    <link href="{{ asset('argon') }}/css/dt.css" rel="stylesheet">
+@endpush
 @section('content')
     @include('users.partials.header', ['class' => 'col-lg-7'])
-<div class="container-fluid mt--7">
-    <div class="row">
-        <div class="col-xl-12 order-xl-1">
-            <div class="card bg-secondary shadow">
-                <div class="card-header bg-white border-0">
-                    <div class="row align-items-center">
-                        <h3 class="mb-0">{{ __('Add Sales Orders') }}</h3>
+    <div class="container-fluid mt--7">
+        <div class="row">
+            <div class="col-xl-12 order-xl-1">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="mb-0">{{ __('Add Sales Orders') }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{{ route('sales_order.store') }}" autocomplete="off" id="form-order">
-                        @csrf
-                        <h6 class="heading-small text-muted mb-4">{{ __('Fill this form') }}</h6>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
-                                <div class="input-group">
-                                    <input id="order_id-field" type="text" class="form-control" placeholder="order_id" name="order_id" aria-label="order_id"
-                                        value="{{ $job_data->order_id }}" required readonly>                                    {{--
-                                    <div class="input-group-append">
+                    <div class="card-body">
+                        <form method="post" action="{{ route('sales_order.store') }}" autocomplete="off" id="form-order">
+                            @csrf
+                            <h6 class="heading-small text-muted mb-4">{{ __('Fill this form') }}</h6>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-order_id">{{ __('order_id') }}</label>
+                                    <div class="input-group">
+                                        <input id="order_id-field" type="text" class="form-control"
+                                            placeholder="order_id" name="order_id" aria-label="order_id"
+                                            value="{{ $job_data->order_id }}" required readonly> {{-- <div class="input-group-append">
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#orderList">
                                                 Find
                                             </button>
                                     </div> --}}
+                                    </div>
+                                    <input id="order-id-hide" value="{{ $job_data->id }}" name="job_order_id" type="text"
+                                        class="form-control" hidden>
                                 </div>
-                                <input id="order-id-hide" value="{{ $job_data->id }}" name="job_order_id" type="text" class="form-control" hidden>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <label class="form-control-label" for="input-tipe_order">{{ __('IDN/INV') }}</label>
+                                    <input type="text" id="tipe_order" class="form-control form-control-alternative"
+                                        required name="tipe_order_text" value="{{ $job_data->tipe_order }}" required
+                                        readonly>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <label class="form-control-label" for="input-no_inv">{{ __('No. INV') }}</label>
+                                    <input name="no_inv" type="text" id="no_inv" value="-"
+                                        class="form-control form-control-alternative" required readonly>
+                                </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <label class="form-control-label" for="input-tipe_order">{{ __('IDN/INV') }}</label>
-                                <input type="text" id="tipe_order" class="form-control form-control-alternative" required name="tipe_order_text" value="{{ $job_data->tipe_order }}"
-                                    required readonly>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <label class="form-control-label" for="input-no_inv">{{ __('No. INV') }}</label>
-                                <input name="no_inv" type="text" id="no_inv" value="-" class="form-control form-control-alternative" required readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-Tanggal">{{ __('Tanggal') }}</label>
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-Tanggal">{{ __('Tanggal') }}</label>
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input id="Tanggal" name="Tanggal" value="{{ $tanggal }}"
+                                                class="form-control" placeholder="Select date" type="text" readonly>
                                         </div>
-                                        <input id="Tanggal" name="Tanggal" value="{{ $tanggal }}" class="form-control" placeholder="Select date" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-ETD">{{ __('ETD') }}</label>
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input id="ETD" name="ETD" class="form-control"
+                                                placeholder="Select date" type="text" value="{{ $job_data->ETD }}"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-ETA">{{ __('ETA') }}</label>
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input id="ETA" name="ETA" value="{{ $job_data->ETA }}"
+                                                class="form-control" placeholder="Select date" type="text" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-ETD">{{ __('ETD') }}</label>
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                        </div>
-                                        <input id="ETD" name="ETD" class="form-control" placeholder="Select date" type="text" value="{{ $job_data->ETD }}" readonly>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
+                                        <input name="sales_id" type="text" id="sales_id" value="{{ $sales }}"
+                                            class="form-control form-control-alternative" required name="tipe_order_text"
+                                            readonly>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-ETA">{{ __('ETA') }}</label>
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                        </div>
-                                        <input id="ETA" name="ETA" value="{{ $job_data->ETA }}" class="form-control" placeholder="Select date" type="text" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('sales') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-sales">{{ __('sales') }}</label>
-                                    <input name="sales_id" type="text" id="sales_id" value="{{ $sales }}" class="form-control form-control-alternative" required
-                                        name="tipe_order_text" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
-                                    <input type="text" name="vessel1" id="input-vessel1" class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('vessel1') }}" value="{{ $job_data->vessel1 }}" required readonly>                                    @if ($errors->has('vessel1'))
-                                    <span class="invalid-feedback" role="alert">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('vessel1') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-vessel1">{{ __('vessel1') }}</label>
+                                        <input type="text" name="vessel1" id="input-vessel1"
+                                            class="form-control form-control-alternative{{ $errors->has('vessel1') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('vessel1') }}" value="{{ $job_data->vessel1 }}" required
+                                            readonly>
+                                        @if ($errors->has('vessel1'))
+                                            <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel1') }}</strong>
-                                            </span> @endif
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('gwt_meas') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-gwt_meas">{{ __('gwt_meas') }}</label>
-                                    <input type="text" name="gwt_meas" id="input-gwt_meas" class="form-control form-control-alternative{{ $errors->has('gwt_meas') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('gwt_meas') }}" value="{{ $job_data->GWT_MEAS }}" required readonly>                                    @if ($errors->has('gwt_meas'))
-                                    <span class="invalid-feedback" role="alert">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('gwt_meas') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label"
+                                            for="input-gwt_meas">{{ __('gwt_meas') }}</label>
+                                        <input type="text" name="gwt_meas" id="input-gwt_meas"
+                                            class="form-control form-control-alternative{{ $errors->has('gwt_meas') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('gwt_meas') }}" value="{{ $job_data->GWT_MEAS }}"
+                                            required readonly>
+                                        @if ($errors->has('gwt_meas'))
+                                            <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('gwt_meas') }}</strong>
-                                            </span> @endif
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('customer') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-customer">{{ __('shipper') }}</label>
-                                    <input type="text" name="customer" id="input-customer" class="form-control form-control-alternative{{ $errors->has('customer') ? ' is-invalid' : '' }}"
-                                        value="{{ $shipper }}" required readonly> @if ($errors->has('customer'))
-                                    <span class="invalid-feedback" role="alert">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('customer') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label"
+                                            for="input-customer">{{ __('shipper') }}</label>
+                                        <input type="text" name="customer" id="input-customer"
+                                            class="form-control form-control-alternative{{ $errors->has('customer') ? ' is-invalid' : '' }}"
+                                            value="{{ $shipper }}" required readonly>
+                                        @if ($errors->has('customer'))
+                                            <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('customer') }}</strong>
-                                            </span> @endif
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
-                                    <input type="text" name="vessel2" id="input-vessel2" class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('vessel2') }}" value="{{ $job_data->vessel2 }}" required readonly>                                    @if ($errors->has('vessel2'))
-                                    <span class="invalid-feedback" role="alert">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('vessel2') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-vessel2">{{ __('vessel2') }}</label>
+                                        <input type="text" name="vessel2" id="input-vessel2"
+                                            class="form-control form-control-alternative{{ $errors->has('vessel2') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('vessel2') }}" value="{{ $job_data->vessel2 }}" required
+                                            readonly>
+                                        @if ($errors->has('vessel2'))
+                                            <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('vessel2') }}</strong>
-                                            </span> @endif
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('hbl') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-hbl">{{ __('hbl') }}</label>
+                                        <input type="text" name="hbl" id="input-hbl"
+                                            class="form-control form-control-alternative{{ $errors->has('hbl') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('hbl') }}" value="{{ $job_data->HBL }}" required
+                                            readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('hbl') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-hbl">{{ __('hbl') }}</label>
-                                    <input type="text" name="hbl" id="input-hbl" class="form-control form-control-alternative{{ $errors->has('hbl') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('hbl') }}" value="{{ $job_data->HBL }}" required readonly>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
+                                        <input type="text" name="pol_pod" id="input-pol_pod"
+                                            class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('pol_pod') }}" value="{{ $job_data->pol_pod }}" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('party') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-party">{{ __('party') }}</label>
+                                        <input type="text" name="party" id="input-party"
+                                            class="form-control form-control-alternative{{ $errors->has('party') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('party') }}" value="{{ $job_data->party }}" required
+                                            readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('mbl') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-mbl">{{ __('mbl') }}</label>
+                                        <input type="text" name="mbl" id="input-mbl"
+                                            class="form-control form-control-alternative{{ $errors->has('mbl') ? ' is-invalid' : '' }}"
+                                            placeholder="{{ __('mbl') }}" value="{{ $job_data->MBL }}" required
+                                            readonly>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('pol_pod') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-pol_pod">{{ __('pol_pod') }}</label>
-                                    <input type="text" name="pol_pod" id="input-pol_pod" class="form-control form-control-alternative{{ $errors->has('pol_pod') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('pol_pod') }}" value="{{ $job_data->pol_pod }}" required readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('party') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-party">{{ __('party') }}</label>
-                                    <input type="text" name="party" id="input-party" class="form-control form-control-alternative{{ $errors->has('party') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('party') }}" value="{{ $job_data->party }}" required readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="form-group{{ $errors->has('mbl') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-mbl">{{ __('mbl') }}</label>
-                                    <input type="text" name="mbl" id="input-mbl" class="form-control form-control-alternative{{ $errors->has('mbl') ? ' is-invalid' : '' }}"
-                                        placeholder="{{ __('mbl') }}" value="{{ $job_data->MBL }}" required readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
-                                <div>
-                                    <table id="selling" class="table-selling align-items-center table-flush">
-                                        <thead class="thead-light">
-                                            <th>Description</th>
-                                            <th>Qty</th>
-                                            <th>Curr</th>
-                                            <th>Price</th>
-                                            <th>Sub Total</th>
-                                            <th>Name</th>
-                                            <th>Remark</th>
-                                            <th>Action</th>
-                                        </thead>
-                                        <tbody class="selling">
-                                            <tr class="row-selling">
-                                                <td><input class="form-control autosuggest ui-widget" type="text" id="description_s"
-                                                        name="description_s[]">
-                                                </td>
-                                                <td><input class="form-control qty" step="any" type="number" id="qty_s" name="qty_s[]"></td>
-                                                <td><select id="curr_s" name="curr_s[]" class="form-control form-select curr_s"
-                                                        aria-label="Default select example">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
+                                    <div>
+                                        <table id="selling" class="table-selling align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Curr</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Name</th>
+                                                <th>Remark</th>
+                                                <th>Action</th>
+                                            </thead>
+                                            <tbody class="selling">
+                                                <tr class="row-selling">
+                                                    <td><input class="form-control autosuggest ui-widget" type="text"
+                                                            id="description_s" name="description_s[]">
+                                                    </td>
+                                                    <td><input class="form-control qty" step="any" type="number"
+                                                            id="qty_s" name="qty_s[]"></td>
+                                                    <td><select id="curr_s" name="curr_s[]"
+                                                            class="form-control form-select curr_s"
+                                                            aria-label="Default select example">
                                                             <option selected>Open</option>
                                                             <option>IDR</option>
                                                             <option>SGD</option>
                                                             <option>USD</option>
                                                             <option>EUR</option>
                                                         </select></td>
-                                                <td><input class="form-control price" type="text" id="price_s">
-                                                    <input class="form-control price_real" type="text" id="price_s_r" name="price_s[]" hidden>
-                                                </td>
-                                                <td><input class="form-control sub_total_s" id="sub_total_s" name="sub_total_s[]"
-                                                        readonly>
-                                                </td>
-                                                <td><input type="text" id="name_s" class="form-control name_s ui-widget" name="name_s[]"></td>
-                                                <td><input type="text" id="remark_s" class="form-control remark_s" name="remark_s[]"></td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary btn-sm" id="addkolom_s"><i class="fa fa-plus"></i></a>
-                                                    <a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i
+                                                    <td><input class="form-control price" type="text" id="price_s">
+                                                        <input class="form-control price_real" type="text"
+                                                            id="price_s_r" name="price_s[]" hidden>
+                                                    </td>
+                                                    <td><input class="form-control sub_total_s" id="sub_total_s"
+                                                            name="sub_total_s[]" readonly>
+                                                    </td>
+                                                    <td><input type="text" id="name_s"
+                                                            class="form-control name_s ui-widget" name="name_s[]"></td>
+                                                    <td><input type="text" id="remark_s"
+                                                            class="form-control remark_s" name="remark_s[]"></td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                            id="addkolom_s"><i class="fa fa-plus"></i></a>
+                                                        <a href="#" id="refreshkolom"
+                                                            class="btn btn-warning btn-sm refresh"><i
                                                                 class="fa fa-spinner"></i></a>
-                                                    <a href="#" id="removekolom_s" class="btn btn-danger btn-sm remove_s"><i
+                                                        <a href="#" id="removekolom_s"
+                                                            class="btn btn-danger btn-sm remove_s"><i
                                                                 class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
-                                <div class="table-responsive">
-                                    <table id="buying" class="table-buying align-items-center table-flush">
-                                        <thead class="thead-light">
-                                            <th>Description</th>
-                                            <th>Qty</th>
-                                            <th>Curr</th>
-                                            <th>Price</th>
-                                            <th>Sub Total</th>
-                                            <th>Name</th>
-                                            <th>Remark</th>
-                                            <th>Action</th>
-                                        </thead>
-                                        <tbody class="buying">
-                                            <tr class="row-buying">
-                                                <td><input type="text" class="form-control autosuggest ui-widget" id="description_b"
-                                                        name="description_b[]">
-                                                </td>
-                                                <td><input step="any" class="form-control qty" type="text" id="qty_b" name="qty_b[]"></td>
-                                                {{--
-                                                <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
-                                                <td><select id="curr_b" name="curr_b[]" class="form-control form-select curr_b"
-                                                        aria-label="Default select example">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="form-control-label" for="input-Buying">{{ __('Buying') }}</label>
+                                    <div class="table-responsive">
+                                        <table id="buying" class="table-buying align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Curr</th>
+                                                <th>Price</th>
+                                                <th>Sub Total</th>
+                                                <th>Name</th>
+                                                <th>Remark</th>
+                                                <th>Action</th>
+                                            </thead>
+                                            <tbody class="buying">
+                                                <tr class="row-buying">
+                                                    <td><input type="text" class="form-control autosuggest ui-widget"
+                                                            id="description_b" name="description_b[]">
+                                                    </td>
+                                                    <td><input step="any" class="form-control qty" type="text"
+                                                            id="qty_b" name="qty_b[]"></td>
+                                                    {{-- <td><input type="text" id="curr_b" name="curr_b[]"></td> --}}
+                                                    <td><select id="curr_b" name="curr_b[]"
+                                                            class="form-control form-select curr_b"
+                                                            aria-label="Default select example">
                                                             <option selected>Open</option>
                                                             <option>IDR</option>
                                                             <option>SGD</option>
                                                             <option>USD</option>
                                                             <option>EUR</option>
                                                         </select></td>
-                                                <td><input type="text" class="form-control price" id="price_b">
-                                                    <input type="text" class="form-control price_real" id="price_b_r" name="price_b[]" hidden>
-                                                </td>
-                                                <td><input type="text" class="form-control sub_total_b" id="sub_total_b" name="sub_total_b[]"
-                                                        readonly></td>
-                                                <td><input type="text" class="form-control name_b ui-widget" id="name_b" name="name_b[]"></td>
-                                                <td><input type="text" class="form-control remark_b" id="remark_b" name="remark_b[]"></td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary btn-sm" id="addkolom_b"><i class="fa fa-plus"></i></a>
-                                                    <a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i
+                                                    <td><input type="text" class="form-control price" id="price_b">
+                                                        <input type="text" class="form-control price_real"
+                                                            id="price_b_r" name="price_b[]" hidden>
+                                                    </td>
+                                                    <td><input type="text" class="form-control sub_total_b"
+                                                            id="sub_total_b" name="sub_total_b[]" readonly></td>
+                                                    <td><input type="text" class="form-control name_b ui-widget"
+                                                            id="name_b" name="name_b[]"></td>
+                                                    <td><input type="text" class="form-control remark_b"
+                                                            id="remark_b" name="remark_b[]"></td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                            id="addkolom_b"><i class="fa fa-plus"></i></a>
+                                                        <a href="#" id="refreshkolom"
+                                                            class="btn btn-warning btn-sm refresh"><i
                                                                 class="fa fa-spinner"></i></a>
-                                                    <a href="#" id="removekolom_b" class="btn btn-danger btn-sm remove_b"><i
+                                                        <a href="#" id="removekolom_b"
+                                                            class="btn btn-danger btn-sm remove_b"><i
                                                                 class="fa fa-times"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
-                                <div>
-                                    <table id="dp" class="table-dp align-items-center table-flush">
-                                        <thead class="thead-light">
-                                            <th>Customer</th>
-                                            <th>Currency</th>
-                                            <th>Total</th>
-                                            <th>DP</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input class="form-control" type="text" id="customer_dp" name="customer_dp"
-                                                        readonly required></td>
-                                                <td><input class="form-control" type="text" id="currency_dp" name="currency_dp"
-                                                        readonly required></td>
-                                                <td><input class="form-control" id="total_dp" name="total_dp" readonly required></td>
-                                                <td><input class="form-control" id="d_payment" name="dp" required></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
+                                    <div>
+                                        <table id="dp" class="table-dp align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Customer</th>
+                                                <th>Currency</th>
+                                                <th>Total</th>
+                                                <th>DP</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="form-control" type="text" id="customer_dp"
+                                                            name="customer_dp" readonly required></td>
+                                                    <td><input class="form-control" type="text" id="currency_dp"
+                                                            name="currency_dp" readonly required></td>
+                                                    <td><input class="form-control" id="total_dp" name="total_dp"
+                                                            readonly required></td>
+                                                    <td><input class="form-control" id="d_payment" name="dp"
+                                                            required></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
-                                <div class="table-responsive">
-                                    <table id="profit" class="table-profit align-items-center table-flush">
-                                        <thead class="thead-light">
-                                            <th>Currency</th>
-                                            <th>Total Selling</th>
-                                            <th>Total Buying</th>
-                                            <th>Profit</th>
-                                        </thead>
-                                        <tbody class="profit_tb">
-                                            {{--
-                                            <tr>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
+                                    <div class="table-responsive">
+                                        <table id="profit" class="table-profit align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Currency</th>
+                                                <th>Total Selling</th>
+                                                <th>Total Buying</th>
+                                                <th>Profit</th>
+                                            </thead>
+                                            <tbody class="profit_tb">
+                                                {{-- <tr>
                                                 <td><input type="text" class="curr_prof" id="currency_prof" name="currency[]"
                                                         readonly></td>
                                                 <td><input type="text" id="total_selling" name="total_selling[]" readonly>
@@ -304,45 +353,44 @@
                                                 <td><input type="text" id="profit_buy" name="profit[]" readonly>
                                                 </td>
                                             </tr> --}}
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <label class="form-control-label" for="input-Notes">{{ __('Notes') }}</label>
-                                <textarea name="notes" class="form-control" id="notes" rows="3" placeholder="Catatan tambahan..."></textarea>
-                            </div>
-                            {{--
-                            <div class="col-lg-4 col-md-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <label class="form-control-label" for="input-Notes">{{ __('Notes') }}</label>
+                                    <textarea name="notes" class="form-control" id="notes" rows="3" placeholder="Catatan tambahan..."></textarea>
+                                </div>
+                                {{-- <div class="col-lg-4 col-md-8 col-sm-12">
                                 <label class="form-control-label" for="input-send">{{ __('send') }}</label>
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input name="published" class="custom-control-input" id="send" type="checkbox" value="1">
                                     <label class="custom-control-label" for="send">Send</label>
                                 </div>
                             </div> --}}
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                            <a href="{{ route('sales_order.index') }}" type="button" class="btn btn-info mt-4">{{ __('Back') }}</a>
-                        </div>
-                    </form>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                <a href="{{ route('sales_order.index') }}" type="button"
+                                    class="btn btn-info mt-4">{{ __('Back') }}</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-    @include('job_order.order_list') {{--
-    @include('job_order.customerlist') --}}
+    @include('job_order.order_list') {{-- @include('job_order.customerlist') --}}
     @include('layouts.footers.auth')
 @endsection
 
 @push('js')
-<script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    // $(document).ready(function() {
+    <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // $(document).ready(function() {
         //     $('#order').DataTable({
         //         processing: true,
         //         serverSide: true,
@@ -408,11 +456,10 @@
         //         ]
         //     });
         // });
-
-</script>
-<script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
+    </script>
+    <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
             var appendidr = true;
             var appendusd = true;
             var appendsgd = true;
@@ -672,16 +719,5 @@
                 })
             })
         });
-
-</script>
-
-
-
-
-
-
-
-
-
-
+    </script>
 @endpush
