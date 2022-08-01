@@ -21,10 +21,12 @@ Auth::routes();
 // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::resource('roleuser', 'RoleUserController');
 	Route::resource('user', 'UserController');
 	Route::resource('permission', 'PermissionController');
 	Route::resource('role', 'RoleController');
 	Route::resource('items', 'ItemsController');
+	Route::get('search/autocomplete_username', 'RoleUserController@autocomplete_username')->name('autocomplete_username');
 	//job order routes
 	Route::resource('job_order', 'JobOrderController');
 	Route::resource('sales_order', 'SalesOrderController');
