@@ -7,10 +7,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                    <div class="card-header bg-transparent pb-5">
+                    <div class="card-header bg-transparent pb-3">
+                        <div class="text-center mt-2 mb-3">
+                            <p>{{ __('PT Sigma Global Makmur') }}</p>
+                        </div>
                         <div class="text-muted text-center mt-2 mb-3"><small>{{ __('Login') }}</small></div>
                     </div>
-                    <div class="card-body px-lg-5 py-lg-5">
+                    <div class="card-body px-lg-3 py-lg-3">
                         <form role="form" method="POST" action="{{ route('login') }}">
                             @csrf
 
