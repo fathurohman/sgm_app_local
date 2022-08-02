@@ -200,7 +200,7 @@
                                                                 type="text" id="description_s"
                                                                 value="{{ $x->description }}" name="description_s[]">
                                                             <input type="text" name="id_selling[]"
-                                                                value="{{ $x->id }}" hidden>
+                                                                value="{{ $x->id }}">
                                                         </td>
                                                         <td><input class="form-control qty" type="number" id="qty_s"
                                                                 name="qty_s[]" value="{{ $x->qty }}"
@@ -231,10 +231,10 @@
                                                         <td><input value="{{ $x->remark }}" type="text"
                                                                 id="remark_s" class="form-control remark_s"
                                                                 name="remark_s[]"></td>
-                                                        <td></td>
-                                                        {{-- <td><a href="#" id="removekolom_s" class="btn btn-danger remove_s"><i
-                                                                    class="fa fa-times"></i></a>
-                                                </td> --}}
+                                                        {{-- <td></td> --}}
+                                                        <td><a href="#" id="removekolom_s"
+                                                                class="btn btn-sm btn-danger remove_s"><i
+                                                                    class="fa fa-times"></i></a></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -267,7 +267,7 @@
                                                                 id="description_b" name="description_b[]"
                                                                 value="{{ $x->description }}">
                                                             <input type="text" name="id_buying[]"
-                                                                value="{{ $x->id }}" hidden>
+                                                                value="{{ $x->id }}">
                                                         </td>
                                                         <td><input class="form-control qty" type="text" id="qty_b"
                                                                 name="qty_b[]" value="{{ $x->qty }}"
@@ -298,10 +298,11 @@
                                                         <td><input type="text" class="form-control remark_b"
                                                                 value="{{ $x->remark }}" id="remark_b"
                                                                 name="remark_b[]"></td>
-                                                        <td></td>
-                                                        {{-- <td><a href="#" id="removekolom_b" class="btn btn-danger remove_b"><i
+                                                        {{-- <td></td> --}}
+                                                        <td><a href="#" id="removekolom_b"
+                                                                class="btn btn-sm btn-danger remove_b"><i
                                                                     class="fa fa-times"></i></a>
-                                                </td> --}}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
