@@ -15,68 +15,68 @@
             <tr>
                 <th style="width: 20%; text-align:left">Invoice</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['inv'] }}</th>
-                <th style="width: 20%; text-align:left">Date</th>
+                <th style="width: 40%; text-align:left">{{ $data['inv'] }}</th>
+                <th style="width: 10%; text-align:left">Date</th>
                 <th style="width: 5%">:</th>
                 <th style="width: 20%; text-align:left">{{ $data['tanggal'] }}</th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">POL/POD</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['sales_job']['pol_pod'] }}</th>
-                <th style="width: 20%; text-align:left">JOB ORDER</th>
+                <th style="width: 40%; text-align:left">{{ $data['sales_job']['pol_pod'] }}</th>
+                <th style="width: 15%; text-align:left">JOB ORDER</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 20%; text-align:left">{{ $data['sales_job']['order_id'] }}</th>
+                <th style="width: 15%; text-align:left">{{ $data['sales_job']['order_id'] }}</th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">VESSEL/ VOY</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['sales_job']['vessel1'] }}</th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 40%; text-align:left">{{ $data['sales_job']['vessel1'] }}</th>
+                <th style="width: 10%; text-align:left"></th>
                 <th style="width: 5%"></th>
                 <th style="width: 20%; text-align:left"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">ETD</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['ETD'] }}</th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 40%; text-align:left">{{ $data['ETD'] }}</th>
+                <th style="width: 10%; text-align:left"></th>
                 <th style="width: 5%"></th>
                 <th style="width: 20%; text-align:left"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">ETA</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['ETA'] }}</th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 40%; text-align:left">{{ $data['ETA'] }}</th>
+                <th style="width: 10%; text-align:left"></th>
                 <th style="width: 5%"></th>
                 <th style="width: 20%; text-align:left"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">PARTY</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['sales_job']['party'] }}</th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 60%; text-align:left">{{ $data['sales_job']['party'] }}</th>
+                <th style="width: 5%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">HBL / MBL</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">
+                <th style="width: 60%; text-align:left">
                     {{ $data['sales_job']['HBL'] }} {{ $data['sales_job']['MBL'] }}
                 </th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 5%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">GWT / MEAS</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 30%; text-align:left">{{ $data['sales_job']['GWT_MEAS'] }}</th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 60%; text-align:left">{{ $data['sales_job']['GWT_MEAS'] }}</th>
+                <th style="width: 5%; text-align:left"></th>
                 <th style="width: 5%"></th>
-                <th style="width: 20%; text-align:left"></th>
+                <th style="width: 5%; text-align:left"></th>
             </tr>
         </table>
     </div>
@@ -90,7 +90,11 @@
             <tr>
                 <th style="width: 20%; text-align:left">Address</th>
                 <th style="width: 5%">:</th>
-                <th style="width: 75%; text-align:left">{{ $data['customer']['ADDRESS'] }}</th>
+                <th rowspan="2" style="width: 75%; text-align:left">{{ $data['customer']['ADDRESS'] }}</th>
+            </tr>
+            <tr>
+                <th style="width: 20%;"></th>
+                <th style="width: 5%;"></th>
             </tr>
             <tr>
                 <th style="width: 20%; text-align:left">Telephone</th>
