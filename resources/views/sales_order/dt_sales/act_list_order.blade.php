@@ -6,6 +6,5 @@
         <a href="#" data-id="{{ $data['id'] }}" class="dropdown-item infoU" data-toggle="modal"
             data-target="#job_order">
             Detail </a>
-        <a class="dropdown-item" href="{{ route('pickup', $data['id']) }}">Pickup</a>
     </div>
 </div>

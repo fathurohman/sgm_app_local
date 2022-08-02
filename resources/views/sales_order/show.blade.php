@@ -26,11 +26,11 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Order_ID</th>
+                                        <th scope="col">Pickup</th>
                                         <th scope="col">Tipe Order</th>
-                                        <th scope="col">Client</th>\
+                                        <th scope="col">Client</th>
                                         <th scope="col">Service</th>
                                         <th scope="col">Via</th>
-                                        <th scope="col">Pol_Pod</th>
                                         <th scope="col">ETD</th>
                                         <th scope="col">ETA</th>
                                         <th scope="col">Action</th>
@@ -104,6 +104,12 @@
                         name: 'order_id',
                     },
                     {
+                        data: 'Pickup',
+                        name: 'Pickup',
+                        searchable: false,
+                        orderable: false
+                    },
+                    {
                         data: 'tipe_order',
                         name: 'tipe_order',
                     },
@@ -118,10 +124,6 @@
                     {
                         data: 'via_id',
                         name: 'via_id',
-                    },
-                    {
-                        data: 'pol_pod',
-                        name: 'pol_pod',
                     },
                     {
                         data: 'ETD',

@@ -481,6 +481,11 @@ class SalesOrderController extends BaseController
             $query
         )->editColumn('order_id', function ($row) {
             return $row->order_id;
+        })->addColumn('Pickup', function ($row) {
+            $data = [
+                'id'  => $row->id
+            ];
+            return view('sales_order.dt_sales.act_pickup', compact('data'));
         })->editColumn('tipe_order', function ($row) {
             return $row->tipe_order;
         })->editColumn('client_id', function ($row) {
@@ -489,8 +494,6 @@ class SalesOrderController extends BaseController
             return $row->service->service_name;
         })->editColumn('via_id', function ($row) {
             return $row->via->via_name;
-        })->editColumn('pol_pod', function ($row) {
-            return $row->pol_pod;
         })->editColumn('ETD', function ($row) {
             return $row->ETD;
         })->editColumn('ETA', function ($row) {
