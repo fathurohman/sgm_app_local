@@ -225,8 +225,9 @@
                                                         <input class="form-control price_real" type="text"
                                                             id="price_s_r" name="price_s[]" hidden>
                                                     </td>
-                                                    <td><input class="form-control sub_total_s" id="sub_total_s"
-                                                            name="sub_total_s[]" readonly>
+                                                    <td><input class="form-control sub_total_s" id="sub_total_s" readonly>
+                                                        <input class="form-control sub_total_s_real" type="text"
+                                                            id="sub_total_s_r" name="sub_total_s[]" hidden>
                                                     </td>
                                                     <td><input type="text" id="name_s"
                                                             class="form-control name_s ui-widget" name="name_s[]"></td>
@@ -285,7 +286,10 @@
                                                             id="price_b_r" name="price_b[]" hidden>
                                                     </td>
                                                     <td><input type="text" class="form-control sub_total_b"
-                                                            id="sub_total_b" name="sub_total_b[]" readonly></td>
+                                                            id="sub_total_b" readonly>
+                                                        <input type="text" class="form-control sub_total_b_real"
+                                                            id="sub_total_b_real" name="sub_total_b[]" hidden>
+                                                    </td>
                                                     <td><input type="text" class="form-control name_b ui-widget"
                                                             id="name_b" name="name_b[]"></td>
                                                     <td><input type="text" class="form-control remark_b"
@@ -478,7 +482,7 @@
                 $('.row-buying').each(function() {
                     var item = $(this);
                     var curr_beli = item.find('.curr_b').val();
-                    var jumlah = item.find('.sub_total_b')
+                    var jumlah = item.find('.sub_total_b_real')
                         .val();
                     // console.log(jumlah);
                     if (curr_beli == 'IDR') {
@@ -494,7 +498,7 @@
                 $('.row-selling').each(function() {
                     var item = $(this);
                     var curr_beli = item.find('.curr_s').val();
-                    var jumlah = item.find('.sub_total_s')
+                    var jumlah = item.find('.sub_total_s_real')
                         .val();
                     // console.log(jumlah);
                     if (curr_beli == 'IDR') {
@@ -669,9 +673,9 @@
                             var curr_sell = tr.find('.curr_s').val();
                             // var sub_total = $('.sub_total_s').val();
                             // var curr_buy = $('.curr_b').val();
-                            var sub_total_buy = $('.sub_total_b').val();
+                            var sub_total_buy = $('.sub_total_b_real').val();
                             var sum_s = 0;
-                            $('.sub_total_s').each(function() {
+                            $('.sub_total_s_real').each(function() {
                                 sum_s += +$(this).val();
                             });
 
@@ -699,9 +703,9 @@
                     var curr_sell = tr.find('.curr_s').val();
                     // var sub_total = $('.sub_total_s').val();
                     // var curr_buy = $('.curr_b').val();
-                    var sub_total_buy = $('.sub_total_b').val();
+                    var sub_total_buy = $('.sub_total_b_real').val();
                     var sum_s = 0;
-                    $('.sub_total_s').each(function() {
+                    $('.sub_total_s_real').each(function() {
                         sum_s += +$(this).val();
                     });
 

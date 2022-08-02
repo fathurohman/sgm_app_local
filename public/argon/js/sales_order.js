@@ -47,7 +47,9 @@ function addkolom_b() {
         '<td><input class="form-control price" type="text" id="price_b ' + nextid_b + '">' +
         '<input class="form-control price_real" type="text" id="price_b_r ' + nextid_b + '" name="price_b[]" hidden>' +
         '</td>' +
-        '<td><input class="form-control sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" name="sub_total_b[]" readonly></td>' +
+        '<td><input class="form-control sub_total_b" type="text" id="sub_total_b ' + nextid_b + '" readonly>' +
+        '<input class="form-control sub_total_b_real" type="text" id="sub_total_b_r ' + nextid_b + '" name="sub_total_b[]" hidden>' +
+        '</td>' +
         '<td><input class="form-control name_b" type="text" id="name_b ' + nextid_b + '" name="name_b[]"></td>' +
         '<td><input class="form-control remark_b ui-widget" type="text" id="remark_b ' + nextid_b + '" name="remark_b[]"></td>' +
         '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
@@ -88,7 +90,9 @@ function addkolom_s() {
         '<td><input class="form-control price" type="text" id="price_s ' + nextid_s + '">' +
         '<input class="form-control price_real" type="text" id="price_s_r ' + nextid_s + '" name="price_s[]" hidden>' +
         '</td>' +
-        '<td><input class="form-control sub_total_s" id="sub_total_s ' + nextid_s + '" name="sub_total_s[]" readonly></td>' +
+        '<td><input class="form-control sub_total_s" id="sub_total_s ' + nextid_s + '" readonly>' +
+        '<input class="form-control sub_total_s_real" id="sub_total_s_r ' + nextid_s + '" name="sub_total_s[]" hidden>' +
+        '</td>' +
         '<td><input class="form-control name_s" type="text" id="name_s ' + nextid_s + '" name="name_s[]"></td>' +
         '<td><input class="form-control remark_s ui-widget" type="text" id="remark_s ' + nextid_s + '" name="remark_s[]"></td>' +
         '<td><a href="#" id="refreshkolom" class="btn btn-warning btn-sm refresh"><i class="fa fa-spinner"></i></a>' +
@@ -138,8 +142,10 @@ $('tbody').on('keyup', ".price", function () {
     // console.log(polos_price);
     var total = qty * cloned;
     // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
-    tr.find('.sub_total_s').val(total);
-    tr.find('.sub_total_b').val(total);
+    tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
+    tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
+    tr.find('.sub_total_s_real').val(total);
+    tr.find('.sub_total_b_real').val(total);
     // parseInt(tr.find('.sub_total_s').val(total), 10);
     // parseInt($("#replies").text(),10);
 })
@@ -150,6 +156,8 @@ $('tbody').on('change', ".qty", function () {
     var qty = tr.find('.qty').val();
     var price = tr.find('.price_real').val();
     var total = qty * price;
-    tr.find('.sub_total_s').val(total);
-    tr.find('.sub_total_b').val(total);
+    tr.find('.sub_total_s_real').val(total);
+    tr.find('.sub_total_b_real').val(total);
+    tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
+    tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
 })

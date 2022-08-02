@@ -314,7 +314,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
                                     <div class="table-responsive">
-                                        <table id="dp" class="table align-items-center table-flush">
+                                        <table id="dp" class="table-dp align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <th>Customer</th>
                                                 <th>Currency</th>
@@ -323,17 +323,19 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><input value="{{ $down_payment->customer }}" type="text"
-                                                            id="customer_dp" name="customer_dp" readonly required>
+                                                    <td><input class="form-control" value="{{ $down_payment->customer }}"
+                                                            type="text" id="customer_dp" name="customer_dp" readonly
+                                                            required>
                                                         <input type="text" value="{{ $down_payment->id }}"
                                                             name="dp_id" hidden>
                                                     </td>
-                                                    <td><input value="{{ $down_payment->currency }}" type="text"
-                                                            id="currency_dp" name="currency_dp" readonly></td>
-                                                    <td><input value="{{ $down_payment->total }}" id="total_dp"
-                                                            name="total_dp" readonly required></td>
-                                                    <td><input value="{{ $down_payment->dp }}" id="d_payment"
-                                                            name="dp" required></td>
+                                                    <td><input class="form-control" value="{{ $down_payment->currency }}"
+                                                            type="text" id="currency_dp" name="currency_dp" readonly>
+                                                    </td>
+                                                    <td><input class="form-control" value="{{ $down_payment->total }}"
+                                                            id="total_dp" name="total_dp" readonly required></td>
+                                                    <td><input class="form-control" value="{{ $down_payment->dp }}"
+                                                            id="d_payment" name="dp" required></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -342,7 +344,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
                                     <div class="table-responsive">
-                                        <table id="profit" class="table align-items-center table-flush">
+                                        <table id="profit" class="table-profit align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <th>Currency</th>
                                                 <th>Total Selling</th>
@@ -353,21 +355,21 @@
                                                 @foreach ($profit as $x)
                                                     <tr class="profit_tr">
                                                         <td><input value="{{ $x->currency }}" type="text"
-                                                                class="curr_prof" id="currency_prof"
+                                                                class="form-control curr_prof" id="currency_prof"
                                                                 name="currency_prof[]" readonly>
                                                             <input value="{{ $x->id }}" type="text"
                                                                 class="id_prof" id="id_prof" name="id_prof[]" hidden>
                                                         </td>
-                                                        <td><input value="{{ $x->total_selling }}" type="text"
-                                                                id="total_selling_prof" name="total_selling_prof[]"
-                                                                readonly>
+                                                        <td><input class="form-control" value="{{ $x->total_selling }}"
+                                                                type="text" id="total_selling_prof"
+                                                                name="total_selling_prof[]" readonly>
                                                         </td>
-                                                        <td><input value="{{ $x->total_buying }}" type="text"
-                                                                id="total_buying_prof" name="total_buying_prof[]"
-                                                                readonly>
+                                                        <td><input class="form-control" value="{{ $x->total_buying }}"
+                                                                type="text" id="total_buying_prof"
+                                                                name="total_buying_prof[]" readonly>
                                                         </td>
-                                                        <td><input value="{{ $x->profit }}" type="text"
-                                                                id="profit_buy" name="profit[]" readonly>
+                                                        <td><input class="form-control" value="{{ $x->profit }}"
+                                                                type="text" id="profit_buy" name="profit[]" readonly>
                                                         </td>
                                                     </tr>
                                                 @endforeach
