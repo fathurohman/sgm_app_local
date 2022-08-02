@@ -363,13 +363,11 @@
                                     <label class="form-control-label" for="input-Notes">{{ __('Notes') }}</label>
                                     <textarea name="notes" class="form-control" id="notes" rows="3" placeholder="Catatan tambahan..."></textarea>
                                 </div>
-                                {{-- <div class="col-lg-4 col-md-8 col-sm-12">
-                                <label class="form-control-label" for="input-send">{{ __('send') }}</label>
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input name="published" class="custom-control-input" id="send" type="checkbox" value="1">
-                                    <label class="custom-control-label" for="send">Send</label>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label class="form-control-label" for="input-Hitung">{{ __('Hitung') }}</label>
+                                    <br>
+                                    <a href="#" id="calculate" class="btn btn-sm btn-primary">Hitung</a>
                                 </div>
-                            </div> --}}
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
@@ -489,7 +487,7 @@
                         sum_usd += +jumlah;
                     } else if (curr_beli == 'SGD') {
                         sum_sgd += +jumlah;
-                    } else {
+                    } else if (curr_beli == 'EUR') {
                         sum_eur += +jumlah;
                     }
                 });
@@ -505,7 +503,7 @@
                         sum_usd_s += +jumlah;
                     } else if (curr_beli == 'SGD') {
                         sum_sgd_s += +jumlah;
-                    } else {
+                    } else if (curr_beli == 'EUR') {
                         sum_eur_s += +jumlah;
                     }
                 });
@@ -717,6 +715,11 @@
                     $('#total_dp').val(sum_s);
                     $('#d_payment').val('0');
                 })
+                $(document).on('click', '#calculate', function(e) {
+                    e.preventDefault();
+                    calculate();
+                    // console.log(curr);
+                });
             })
         });
     </script>
