@@ -382,6 +382,11 @@
                                     <textarea name="notes" class="form-control" id="notes" rows="3"
                                         placeholder="Write a large text here ...">{{ $sales_order->notes }}</textarea>
                                 </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label class="form-control-label" for="input-Hitung">{{ __('Hitung') }}</label>
+                                    <br>
+                                    <a href="#" id="calculate" class="btn btn-sm btn-primary">Hitung</a>
+                                </div>
                                 {{-- <div class="col-lg-4 col-md-8 col-sm-12">
                                 <label class="form-control-label" for="input-send">{{ __('send') }}</label>
                                 <div class="custom-control custom-checkbox mb-3">
@@ -702,6 +707,15 @@
                     $('#total_dp').val(sum_s);
                     $('#d_payment').val('0');
                 })
+                $(document).on('click', '#calculate', function(e) {
+                    e.preventDefault();
+                    if (removetbprof) {
+                        $('.profit_tr').remove();
+                        removetbprof = false;
+                    }
+                    calculate();
+                    // console.log(curr);
+                });
             })
         });
     </script>
