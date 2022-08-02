@@ -200,7 +200,7 @@
                                                                 type="text" id="description_s"
                                                                 value="{{ $x->description }}" name="description_s[]">
                                                             <input type="text" name="id_selling[]"
-                                                                value="{{ $x->id }}">
+                                                                value="{{ $x->id }}" hidden>
                                                         </td>
                                                         <td><input class="form-control qty" type="number" id="qty_s"
                                                                 name="qty_s[]" value="{{ $x->qty }}"
@@ -267,7 +267,7 @@
                                                                 id="description_b" name="description_b[]"
                                                                 value="{{ $x->description }}">
                                                             <input type="text" name="id_buying[]"
-                                                                value="{{ $x->id }}">
+                                                                value="{{ $x->id }}" hidden>
                                                         </td>
                                                         <td><input class="form-control qty" type="text" id="qty_b"
                                                                 name="qty_b[]" value="{{ $x->qty }}"
