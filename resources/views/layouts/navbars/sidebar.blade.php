@@ -1,8 +1,8 @@
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main"
+            aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
@@ -12,7 +12,8 @@
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
-                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
                             <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
@@ -32,7 +33,8 @@
                         <span>{{ __('Settings') }}</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class="dropdown-item"
+                        onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
                         <span>{{ __('Logout') }}</span>
@@ -51,8 +53,9 @@
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main"
-                            aria-expanded="false" aria-label="Toggle sidenav">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse"
+                            data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
+                            aria-label="Toggle sidenav">
                             <span></span>
                             <span></span>
                         </button>
@@ -67,51 +70,61 @@
                     </a>
                 </li>
                 @can('admin.hakakses', Auth::user())
-                <li class="nav-pa {{ $activePage == 'permission' || $activePage == 'role' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
+                    <li class="nav-pa {{ $activePage == 'permission' || $activePage == 'role' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-examples" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-examples">
                             <i class="ni ni-lock-circle-open"></i>
                             <span class="nav-link-text">{{ __('Hak Akses') }}</span>
                         </a>
-                    <div class="collapse" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('permission.index') }}">
+                        <div class="collapse" id="navbar-examples">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('permission.index') }}">
                                         {{ __('Permission') }}
                                     </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('role.index') }}">
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('role.index') }}">
                                         {{ __('Role') }}
                                     </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endcan @can('admin.crud-vendor-client', Auth::user())
-                <li class="nav-vc {{ $activePage == 'vendor' || $activePage == 'client' || $activePage == 'items' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-vendor" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-crud-vendor">
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('roleuser.index') }}">
+                                        {{ __('User Role') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endcan @can('admin.crud-vendor-client', Auth::user())
+                    <li
+                        class="nav-vc {{ $activePage == 'vendor' || $activePage == 'client' || $activePage == 'items' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-vendor" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-vendor">
                             <i class="ni ni-collection"></i>
                             <span class="nav-link-text">{{ __('Basis Data') }}</span>
                         </a>
-                    <div class="collapse" id="navbar-crud-vendor">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('client.index') }}">
+                        <div class="collapse" id="navbar-crud-vendor">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('client.index') }}">
                                         {{ __('Clients') }}
                                     </a>
-                                <a class="nav-link" href="{{ route('vendor_data.index') }}">
+                                    <a class="nav-link" href="{{ route('vendor_data.index') }}">
                                         {{ __('Vendors') }}
                                     </a>
-                                <a class="nav-link" href="{{ route('items.index') }}">
+                                    <a class="nav-link" href="{{ route('items.index') }}">
                                         {{ __('Items') }}
                                     </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endcan
-                <li class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
+                <li
+                    class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
+                    <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
                         <i class="ni ni-credit-card"></i>
                         <span class="nav-link-text">{{ __('Transaksi') }}</span>
                     </a>
@@ -120,73 +133,80 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 @can('admin.job-order', Auth::user())
-                                <a class="nav-link" href="{{ route('job_order.index') }}">
+                                    <a class="nav-link" href="{{ route('job_order.index') }}">
                                         {{ __('Job Order') }}
-                                    </a> @endcan @can('admin.pickup-job', Auth::user())
-                                <a class="nav-link" href="{{ route('sales_order.index') }}">
+                                    </a>
+                                    @endcan @can('admin.pickup-job', Auth::user())
+                                    <a class="nav-link" href="{{ route('sales_order.index') }}">
                                         {{ __('Pickup Job') }}
-                                    </a> @endcan @can('admin.sales-order-data', Auth::user())
-                                <a class="nav-link" href="{{ route('data_sales') }}">
+                                    </a>
+                                    @endcan @can('admin.sales-order-data', Auth::user())
+                                    <a class="nav-link" href="{{ route('data_sales') }}">
                                         {{ __('Sales Order Data') }}
-                                    </a> @endcan @can('admin.history-sales-data', Auth::user())
-                                <a class="nav-link" href="{{ route('history_sales') }}">
+                                    </a>
+                                    @endcan @can('admin.history-sales-data', Auth::user())
+                                    <a class="nav-link" href="{{ route('history_sales') }}">
                                         {{ __('History Sales Data') }}
-                                    </a> @endcan
+                                    </a>
+                                @endcan
                             </li>
                         </ul>
                     </div>
                 </li>
                 @can('admin.cetakinv', Auth::user())
-                <li class="nav-inv {{ $activePage == 'invoice' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-cetak" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-crud-cetak">
+                    <li class="nav-inv {{ $activePage == 'invoice' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-cetak" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-cetak">
                             <i class="fas fa-file-export"></i>
                             <span class="nav-link-text">{{ __('Cetak Invoice') }}</span>
                         </a>
 
-                    <div class="collapse" id="navbar-crud-cetak">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('finance.index') }}">
+                        <div class="collapse" id="navbar-crud-cetak">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('finance.index') }}">
                                         {{ __('Cetak Invoice') }}
                                     </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endcan @can('admin.history', Auth::user())
-                <li class="nav-hist {{ $activePage == 'history' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-history" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-crud-history">
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endcan @can('admin.history', Auth::user())
+                    <li class="nav-hist {{ $activePage == 'history' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-history" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-history">
                             <i class="ni ni-world-2"></i>
                             <span class="nav-link-text">{{ __('History Invoice') }}</span>
                         </a>
 
-                    <div class="collapse" id="navbar-crud-history">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('history_orders') }}">
+                        <div class="collapse" id="navbar-crud-history">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('history_orders') }}">
                                         {{ __('History') }}
                                     </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endcan @can('admin.report', Auth::user())
-                <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
-                    <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-crud-report">
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endcan @can('admin.report', Auth::user())
+                    <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
+                        <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-crud-report">
                             <i class="ni ni-paper-diploma"></i>
                             <span class="nav-link-text">{{ __('Report Monthly') }}</span>
                         </a>
 
-                    <div class="collapse" id="navbar-crud-report">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('report') }}">
+                        <div class="collapse" id="navbar-crud-report">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('report') }}">
                                         {{ __('Report Monthly') }}
                                     </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endcan
             </ul>
             <!-- Divider -->

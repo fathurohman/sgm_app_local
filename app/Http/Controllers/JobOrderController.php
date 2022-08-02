@@ -280,7 +280,7 @@ class JobOrderController extends BaseController
     public function listorder()
     {
         $auth = Auth::id();
-        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
+        $query = job_order::where('created_by', $auth)->where('printed', '0')->orderBy('created_at', 'desc');
         // $query = job_order::all();
         return Datatables::of(
             $query
@@ -310,7 +310,7 @@ class JobOrderController extends BaseController
     public function listordershow()
     {
         $auth = Auth::id();
-        $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
+        $query = job_order::where('created_by', $auth)->where('printed', '0')->orderBy('created_at', 'desc');
         // $query = job_order::all();
         return Datatables::of(
             $query

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Client;
+use App\Model\job_order;
 use App\Model\SalesOrder;
 use App\Model\Settings;
 use Carbon\Carbon;
@@ -123,6 +124,10 @@ class FinanceController extends BaseController
         $tanggal = $createdAt->format('M d,Y');
         $ETD = $sales_job->ETD;
         $ETA = $sales_job->ETA;
+        $id_job = $sales_job->id;
+        job_order::where('id', $id_job)->update([
+            'printed' => '1',
+        ]);
         $x_etd = date('M d,Y', strtotime($ETD));
         $x_eta = date('M d,Y', strtotime($ETA));
         // $customer = $sales_job->client_id;
