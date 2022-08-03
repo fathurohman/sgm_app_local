@@ -221,8 +221,10 @@
                                                                 id="price_s_r" name="price_s[]" hidden>
                                                         </td>
                                                         <td><input value="{{ number_format($x->sub_total) }}"
-                                                                class="form-control sub_total_s" id="sub_total_s" readonly>
-                                                        <input value="{{$x->sub_total}}" class="form-control sub_total_s_real" type="text"
+                                                                class="form-control sub_total_s" id="sub_total_s"
+                                                                readonly>
+                                                            <input value="{{ $x->sub_total }}"
+                                                                class="form-control sub_total_s_real" type="text"
                                                                 id="sub_total_s_r" name="sub_total_s[]" hidden>
                                                         </td>
                                                         <td><input value="{{ $x->name }}" type="text"
@@ -290,10 +292,12 @@
                                                                 value="{{ $x->price }}" hidden>
                                                         </td>
                                                         <td><input type="text" class="form-control sub_total_b"
-                                                                id="sub_total_b" value="{{ number_format($x->sub_total) }}" readonly>
-                                                                <input type="text" class="form-control sub_total_b_real"
-                                                                id="sub_total_b_real" name="sub_total_b[]" value="{{ $x->sub_total }}" hidden>
-                                                            </td>
+                                                                id="sub_total_b"
+                                                                value="{{ number_format($x->sub_total) }}" readonly>
+                                                            <input type="text" class="form-control sub_total_b_real"
+                                                                id="sub_total_b_real" name="sub_total_b[]"
+                                                                value="{{ $x->sub_total }}" hidden>
+                                                        </td>
                                                         <td><input type="text" value="{{ $x->name }}"
                                                                 class="form-control name_b ui-widget" id="name_b"
                                                                 name="name_b[]">
@@ -363,16 +367,25 @@
                                                             <input value="{{ $x->id }}" type="text"
                                                                 class="id_prof" id="id_prof" name="id_prof[]" hidden>
                                                         </td>
-                                                        <td><input class="form-control" value="{{ $x->total_selling }}"
+                                                        <td><input class="form-control"
+                                                                value="{{ number_format($x->total_selling) }}"
+                                                                type="text" id="total_selling_prof" readonly>
+                                                            <input class="form-control" value="{{ $x->total_selling }}"
                                                                 type="text" id="total_selling_prof"
-                                                                name="total_selling_prof[]" readonly>
+                                                                name="total_selling_prof[]" hidden>
                                                         </td>
-                                                        <td><input class="form-control" value="{{ $x->total_buying }}"
+                                                        <td><input class="form-control"
+                                                                value="{{ number_format($x->total_buying) }}"
+                                                                type="text" id="total_buying_prof" readonly>
+                                                            <input class="form-control" value="{{ $x->total_buying }}"
                                                                 type="text" id="total_buying_prof"
-                                                                name="total_buying_prof[]" readonly>
+                                                                name="total_buying_prof[]" hidden>
                                                         </td>
-                                                        <td><input class="form-control" value="{{ $x->profit }}"
-                                                                type="text" id="profit_buy" name="profit[]" readonly>
+                                                        <td><input class="form-control"
+                                                                value="{{ number_format($x->profit) }}" type="text"
+                                                                id="profit_buy" readonly>
+                                                            <input class="form-control" value="{{ $x->profit }}"
+                                                                type="text" id="profit_buy" name="profit[]" hidden>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -424,6 +437,32 @@
             var appendusd = true;
             var appendsgd = true;
             var appendeur = true;
+
+            function append_tb_prof(curr_beli) {
+                var tb = '<tr>' +
+                    '<td><input class="form-control" type="text" id="currency_prof' +
+                    curr_beli +
+                    '" name="currency_prof[]" readonly></td>' +
+                    '<td><input class="form-control" type="text" id="total_selling' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="total_selling_real' +
+                    curr_beli +
+                    '" name="total_selling_prof[]" hidden>' +
+                    '</td>' +
+                    '<td><input class="form-control" type="text" id="total_buying' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="total_buying_real' +
+                    curr_beli +
+                    '" name="total_buying_prof[]" hidden>' +
+                    '</td>' +
+                    '<td><input class="form-control" type="text" id="profit_buy' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="profit_buy_real' +
+                    curr_beli + '" name="profit[]" hidden>' +
+                    '</td>' +
+                    '</tr>';
+                $('.profit_tb').append(tb);
+            }
 
             function calculate() {
                 var rowCount = $('tbody.buying tr').length;
@@ -477,118 +516,63 @@
                     var curr_beli = 'IDR';
                     var profit = sum_idr_s - sum_idr;
                     // console.log(profit);
-                    var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly>' +
-                        '<input type="text"' +
-                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
-                        '</td>' +
-                        '<td><input type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
+                    //append function
                     if (appendidr) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendidr = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_idr_s);
-                    $('#total_buying' + curr_beli + '').val(sum_idr);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling_real' + curr_beli + '').val(sum_idr_s);
+                    $('#total_selling' + curr_beli + '').val(sum_idr_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_idr.toLocaleString('id-ID'));
+                    $('#total_buying_real' + curr_beli + '').val(sum_idr);
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_usd > 0 || sum_usd_s > 0) {
                     var curr_beli = 'USD';
                     var profit = sum_usd_s - sum_usd;
-                    var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly>' +
-                        '<input type="text"' +
-                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
-                        '</td>' +
-                        '<td><input type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendusd) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendusd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_usd_s);
-                    $('#total_buying' + curr_beli + '').val(sum_usd);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_usd_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_usd.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_usd_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_usd);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_sgd > 0 || sum_sgd_s > 0) {
                     var curr_beli = 'SGD';
                     var profit = sum_sgd_s - sum_sgd;
-                    var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly>' +
-                        '<input type="text"' +
-                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
-                        '</td>' +
-                        '<td><input type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendsgd) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendsgd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_sgd_s);
-                    $('#total_buying' + curr_beli + '').val(sum_sgd);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_sgd_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_sgd.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_sgd_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_sgd);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_eur > 0 || sum_eur_s > 0) {
                     var curr_beli = 'EUR';
                     var profit = sum_eur_s - sum_eur;
-                    var tb = '<tr>' +
-                        '<td><input type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly>' +
-                        '<input type="text"' +
-                        'class="id_prof" id="id_prof" name="id_prof[]" hidden>' +
-                        '</td>' +
-                        '<td><input type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendeur) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendeur = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_eur_s);
-                    $('#total_buying' + curr_beli + '').val(sum_eur);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_eur_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_eur.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_eur_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_eur);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
             }
             $(function() {

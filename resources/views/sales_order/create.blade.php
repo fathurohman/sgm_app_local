@@ -566,9 +566,12 @@
                         appendusd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_usd_s);
-                    $('#total_buying' + curr_beli + '').val(sum_usd);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_usd_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_usd.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_usd_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_usd);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_sgd > 0 || sum_sgd_s > 0) {
                     var curr_beli = 'SGD';
@@ -578,9 +581,12 @@
                         appendsgd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_sgd_s);
-                    $('#total_buying' + curr_beli + '').val(sum_sgd);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_sgd_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_sgd.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_sgd_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_sgd);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_eur > 0 || sum_eur_s > 0) {
                     var curr_beli = 'EUR';
@@ -590,9 +596,12 @@
                         appendeur = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_eur_s);
-                    $('#total_buying' + curr_beli + '').val(sum_eur);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling' + curr_beli + '').val(sum_eur_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_eur.toLocaleString('id-ID'));
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#total_selling_real' + curr_beli + '').val(sum_eur_s);
+                    $('#total_buying_real' + curr_beli + '').val(sum_eur);
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
             }
             $(function() {
