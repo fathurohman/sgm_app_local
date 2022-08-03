@@ -7,40 +7,59 @@
 
     <div class="container-fluid mt--7">
         <div class="row mt-5">
-            <div class="col-xl-8 mb-5 mb-xl-0">
+            <div class="col-xl-4 col-md-4 mb-5 mb-xl-0">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="col">
-                            <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                            <h2 class="text-white mb-0">Sales value</h2>
+                            <h6 class="text-uppercase text-light ls-1 mb-1">Total Sellings</h6>
+                            <h2 class="text-black mb-0">Total Selling</h2>
                         </div>
+                    </div>
+                    <div class="card-body">
                         <div class="col">
                             <div class="card mb-3">
-                                <img src="{{ asset('argon') }}/img/brand/fw-1.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">About</h5>
-                                    <p class="card-text">This is a web application for PT Sigma Global Makmur to support
-                                        invoicing with sales orders, job orders,
-                                        manage data such as customer,vendor and items and monthly report.</p>
-                                </div>
+                                <p>Total Sellings IDR = {{ number_format($data['selling_idr']) }}</p>
+                                <p>Total Sellings USD = {{ number_format($data['selling_usd']) }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4 col-md-4">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <div class="card mb-3">
-                                    <img src="{{ asset('argon') }}/img/brand/fw-2.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">More</h5>
-                                        <p class="card-text">Hopefully this application will make the business and
-                                            transaction easier than before.</p>
-                                    </div>
-                                </div>
+                                <h6 class="text-uppercase text-light ls-1 mb-1">Buying</h6>
+                                <h2 class="text-black mb-0">Total Buying</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <p>Total Buyings IDR = {{ number_format($data['buying_idr']) }}</p>
+                                <p>Total Buyings USD = {{ number_format($data['buying_usd']) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="text-uppercase text-light ls-1 mb-1">Profit</h6>
+                                <h2 class="text-black mb-0">Total Profit</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <p>Total Profits IDR = {{ number_format($data['profits_idr']) }}</p>
+                                <p>Total Profits USD = {{ number_format($data['profits_usd']) }}</p>
                             </div>
                         </div>
                     </div>
