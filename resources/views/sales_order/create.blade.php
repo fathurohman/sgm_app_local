@@ -317,7 +317,7 @@
                                         <table id="dp" class="table-dp align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <th>Customer</th>
-                                                <th>Currency</th>
+                                                <th>Curr</th>
                                                 <th>Total</th>
                                                 <th>DP</th>
                                             </thead>
@@ -341,7 +341,7 @@
                                     <div class="table-responsive">
                                         <table id="profit" class="table-profit align-items-center table-flush">
                                             <thead class="thead-light">
-                                                <th>Currency</th>
+                                                <th>Curr</th>
                                                 <th>Total Selling</th>
                                                 <th>Total Buying</th>
                                                 <th>Profit</th>
@@ -467,6 +467,32 @@
             var appendsgd = true;
             var appendeur = true;
 
+            function append_tb_prof(curr_beli) {
+                var tb = '<tr>' +
+                    '<td><input class="form-control" type="text" id="currency_prof' +
+                    curr_beli +
+                    '" name="currency_prof[]" readonly></td>' +
+                    '<td><input class="form-control" type="text" id="total_selling' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="total_selling_real' +
+                    curr_beli +
+                    '" name="total_selling_prof[]" hidden>' +
+                    '</td>' +
+                    '<td><input class="form-control" type="text" id="total_buying' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="total_buying_real' +
+                    curr_beli +
+                    '" name="total_buying_prof[]" hidden>' +
+                    '</td>' +
+                    '<td><input class="form-control" type="text" id="profit_buy' +
+                    curr_beli + '" readonly>' +
+                    '<input class="form-control" type="text" id="profit_buy_real' +
+                    curr_beli + '" name="profit[]" hidden>' +
+                    '</td>' +
+                    '</tr>';
+                $('.profit_tb').append(tb);
+            }
+
             function calculate() {
                 var rowCount = $('tbody.buying tr').length;
                 // console.log(rowCount);
@@ -519,48 +545,24 @@
                     var curr_beli = 'IDR';
                     var profit = sum_idr_s - sum_idr;
                     // console.log(profit);
-                    var tb = '<tr>' +
-                        '<td><input class="form-control" type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
+                    //append function
                     if (appendidr) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendidr = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_idr_s);
-                    $('#total_buying' + curr_beli + '').val(sum_idr);
-                    $('#profit_buy' + curr_beli + '').val(profit);
+                    $('#total_selling_real' + curr_beli + '').val(sum_idr_s);
+                    $('#total_selling' + curr_beli + '').val(sum_idr_s.toLocaleString('id-ID'));
+                    $('#total_buying' + curr_beli + '').val(sum_idr.toLocaleString('id-ID'));
+                    $('#total_buying_real' + curr_beli + '').val(sum_idr);
+                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                    $('#profit_buy_real' + curr_beli + '').val(profit);
                 }
                 if (sum_usd > 0 || sum_usd_s > 0) {
                     var curr_beli = 'USD';
                     var profit = sum_usd_s - sum_usd;
-                    var tb = '<tr>' +
-                        '<td><input class="form-control" type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendusd) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendusd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
@@ -571,22 +573,8 @@
                 if (sum_sgd > 0 || sum_sgd_s > 0) {
                     var curr_beli = 'SGD';
                     var profit = sum_sgd_s - sum_sgd;
-                    var tb = '<tr>' +
-                        '<td><input class="form-control" type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendsgd) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendsgd = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
@@ -597,22 +585,8 @@
                 if (sum_eur > 0 || sum_eur_s > 0) {
                     var curr_beli = 'EUR';
                     var profit = sum_eur_s - sum_eur;
-                    var tb = '<tr>' +
-                        '<td><input class="form-control" type="text" id="currency_prof' +
-                        curr_beli +
-                        '" name="currency_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_selling' +
-                        curr_beli +
-                        '" name="total_selling_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="total_buying' +
-                        curr_beli +
-                        '" name="total_buying_prof[]" readonly></td>' +
-                        '<td><input class="form-control" type="text" id="profit_buy' +
-                        curr_beli +
-                        '" name="profit[]" readonly></td>' +
-                        '</tr>';
                     if (appendeur) {
-                        $('.profit_tb').append(tb);
+                        append_tb_prof(curr_beli);
                         appendeur = false;
                     }
                     $('#currency_prof' + curr_beli + '').val(curr_beli);
