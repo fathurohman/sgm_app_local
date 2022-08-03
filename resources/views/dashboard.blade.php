@@ -12,7 +12,7 @@
                     <div class="card-header border-0">
                         <div class="col">
                             <h6 class="text-uppercase text-light ls-1 mb-1">Total Sellings</h6>
-                            <h2 class="text-black mb-0">Total Selling</h2>
+                            <h2 class="text-black mb-0">This Month</h2>
                         </div>
                     </div>
                     <div class="card-body">
@@ -30,8 +30,8 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">Buying</h6>
-                                <h2 class="text-black mb-0">Total Buying</h2>
+                                <h6 class="text-uppercase text-light ls-1 mb-1">Total Buying</h6>
+                                <h2 class="text-black mb-0">This Month</h2>
                             </div>
                         </div>
                     </div>
@@ -50,8 +50,8 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">Profit</h6>
-                                <h2 class="text-black mb-0">Total Profit</h2>
+                                <h6 class="text-uppercase text-light ls-1 mb-1">Total Profit</h6>
+                                <h2 class="text-black mb-0">This Month</h2>
                             </div>
                         </div>
                     </div>
