@@ -7,8 +7,6 @@
             data-target="#sales_selling">Selling </a>
         <a href="#" data-id="{{ $data['id'] }}" class="dropdown-item infoB" data-toggle="modal"
             data-target="#sales_buying">Buying </a>
-        <a href="#" data-id="{{ $data['id'] }}" class="dropdown-item infoP" data-toggle="modal"
-            data-target="#sales_profit">Profit </a>
         <a href="#" data-id="{{ $data['id'] }}" class="dropdown-item infoDP" data-toggle="modal"
             data-target="#sales_dp">Down Payment </a>
     </div>

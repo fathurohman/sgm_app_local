@@ -27,7 +27,7 @@
                                     <tr>
                                         <th scope="col">Job Order_ID</th>
                                         <th scope="col">Tipe Order</th>
-                                        <th scope="col">Notes</th>
+                                        <th scope="col">Profits</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">More</th>
                                         {{-- <th scope="col">Delete</th> --}}
@@ -91,8 +91,10 @@
                     name: 'tipe'
                 },
                 {
-                    data: 'notes',
-                    name: 'notes'
+                    data: 'profits',
+                    name: 'profits',
+                    searchable: false,
+                    orderable: false
                 },
                 {
                     data: 'published',

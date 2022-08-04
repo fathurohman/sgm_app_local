@@ -25,8 +25,11 @@ class HistorySalesController extends Controller
             return $row->job_orders->order_id;
         })->editColumn('tipe', function ($row) {
             return $row->job_orders->tipe_order;
-        })->editColumn('notes', function ($row) {
-            return $row->notes;
+        })->editColumn('profits', function ($row) {
+            $data = [
+                'id' => $row->id
+            ];
+            return view('sales_order.dt.act_profit', compact('data'));
         })->editColumn('published', function ($row) {
             if ($row->published == '1') {
                 return 'Process by finance';
