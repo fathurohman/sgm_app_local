@@ -9,9 +9,8 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-3">
                         <div class="text-center mt-2 mb-3">
-                            <p>{{ __('PT Sigma Global Makmur') }}</p>
+                            <h4>{{ __('PT Sigma Global Makmur') }}</h4>
                         </div>
-                        <div class="text-muted text-center mt-2 mb-3"><small>{{ __('Login') }}</small></div>
                     </div>
                     <div class="card-body px-lg-3 py-lg-3">
                         <form role="form" method="POST" action="{{ route('login') }}">
