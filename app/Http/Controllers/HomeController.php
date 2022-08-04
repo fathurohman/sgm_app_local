@@ -47,7 +47,8 @@ class HomeController extends BaseController
         INNER JOIN profits ON sales_orders.id=profits.sales_order_id where sales_orders.created_by = ' . $user_id . ' 
         and MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
-        and profits.currency = "' . $curr . '"');
+        and profits.currency = "' . $curr . '"
+        and profits.deleted_at is null');
     }
 
     public function index()
