@@ -11,7 +11,7 @@
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="col">
-                            <h6 class="text-uppercase text-light ls-1 mb-1">Total Sellings</h6>
+                            <h6 class="text-uppercase ls-1 mb-1">Total Sellings {{ $data['name'] }}</h6>
                             <h2 class="text-black mb-0">This Month</h2>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">Total Buying</h6>
+                                <h6 class="text-uppercase ls-1 mb-1">Total Buying {{ $data['name'] }}</h6>
                                 <h2 class="text-black mb-0">This Month</h2>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">Total Profit</h6>
+                                <h6 class="text-uppercase ls-1 mb-1">Total Profit {{ $data['name'] }}</h6>
                                 <h2 class="text-black mb-0">This Month</h2>
                             </div>
                         </div>
