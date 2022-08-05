@@ -20,14 +20,16 @@ class HomeController extends BaseController
      *
      * @return \Illuminate\View\View
      */
-    public function data_sum_selling($month, $year, $curr, $params)
+    public function data_sum_selling($month, $year, $params)
     {
-        return DB::select('SELECT sales_orders.id, sales_orders.created_by, sales_orders.created_at, selling_orders.curr, selling_orders.sales_order_id, selling_orders.sub_total
+        return DB::select('SELECT selling_orders.curr AS curr, sum(selling_orders.sub_total ) AS sub_total
         FROM sales_orders
-        INNER JOIN selling_orders ON sales_orders.id=selling_orders.sales_order_id where MONTH(sales_orders.created_at) = ' . $month . '
+        INNER JOIN selling_orders ON sales_orders.id=selling_orders.sales_order_id
+		where MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
-        and selling_orders.curr = "' . $curr . '"
-        ' . $params . '');
+        and sales_orders.printed = 1
+		' . $params . '
+		GROUP BY selling_orders.curr');
     }
 
     public function data_sum_buying($month, $year, $curr, $params)
@@ -37,6 +39,7 @@ class HomeController extends BaseController
         INNER JOIN buying_orders ON sales_orders.id=buying_orders.sales_order_id where MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
         and buying_orders.curr = "' . $curr . '"
+        and sales_orders.printed = 1
         ' . $params . '');
     }
 
@@ -47,14 +50,13 @@ class HomeController extends BaseController
         INNER JOIN profits ON sales_orders.id=profits.sales_order_id where MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
         and profits.currency = "' . $curr . '"
+        and sales_orders.printed = 1
         and profits.deleted_at is null
         ' . $params . '');
     }
 
     public function index()
     {
-        $sum_selling_idr = 0;
-        $sum_selling_usd = 0;
         $sum_buying_idr = 0;
         $sum_buying_usd = 0;
         $sum_profits_idr = 0;
@@ -71,14 +73,7 @@ class HomeController extends BaseController
         }
         $year = Carbon::now()->format('Y');
         $month = Carbon::now()->format('m');
-        $data_selling_idr = $this->data_sum_selling($month, $year, $idr, $params);
-        foreach ($data_selling_idr as $x) {
-            $sum_selling_idr += $x->sub_total;
-        }
-        $data_selling_usd = $this->data_sum_selling($month, $year, $usd, $params);
-        foreach ($data_selling_usd as $x) {
-            $sum_selling_usd += $x->sub_total;
-        }
+        $data_selling = $this->data_sum_selling($month, $year, $params);
         $data_buying_idr = $this->data_sum_buying($month, $year, $idr, $params);
         foreach ($data_buying_idr as $x) {
             $sum_buying_idr += $x->sub_total;
@@ -96,8 +91,7 @@ class HomeController extends BaseController
             $sum_profits_usd += $x->profit;
         }
         $data = array(
-            'selling_idr' => $sum_selling_idr,
-            'selling_usd' => $sum_selling_usd,
+            'data_selling' => $data_selling,
             'buying_idr' => $sum_buying_idr,
             'buying_usd' => $sum_buying_usd,
             'profits_idr' => $sum_profits_idr,

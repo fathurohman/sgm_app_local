@@ -18,8 +18,9 @@
                     <div class="card-body">
                         <div class="col">
                             <div class="card mb-3">
-                                <p>Total Sellings IDR = {{ number_format($data['selling_idr']) }}</p>
-                                <p>Total Sellings USD = {{ number_format($data['selling_usd']) }}</p>
+                                @foreach ($data['data_selling'] as $x)
+                                    <p>Total Sellings {{ $x->curr }} = {{ number_format($x->sub_total) }}</p>
+                                @endforeach
                             </div>
                         </div>
                     </div>
