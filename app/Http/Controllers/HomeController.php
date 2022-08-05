@@ -32,27 +32,29 @@ class HomeController extends BaseController
 		GROUP BY selling_orders.curr');
     }
 
-    public function data_sum_buying($month, $year, $curr, $params)
+    public function data_sum_buying($month, $year, $params)
     {
-        return DB::select('SELECT sales_orders.id, sales_orders.created_by, sales_orders.created_at, buying_orders.curr, buying_orders.sales_order_id, buying_orders.sub_total
+        return DB::select('SELECT buying_orders.curr AS curr, sum(buying_orders.sub_total ) AS sub_total
         FROM sales_orders
-        INNER JOIN buying_orders ON sales_orders.id=buying_orders.sales_order_id where MONTH(sales_orders.created_at) = ' . $month . '
+        INNER JOIN buying_orders ON sales_orders.id=buying_orders.sales_order_id
+		where MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
-        and buying_orders.curr = "' . $curr . '"
         and sales_orders.printed = 1
-        ' . $params . '');
+		' . $params . '
+		GROUP BY buying_orders.curr');
     }
 
-    public function data_sum_profits($month, $year, $curr, $params)
+    public function data_sum_profits($month, $year, $params)
     {
-        return DB::select('SELECT sales_orders.id, sales_orders.created_by, sales_orders.created_at, profits.currency, profits.sales_order_id, profits.profit
+        return DB::select('SELECT profits.currency AS curr, sum(profits.profit ) AS sub_total
         FROM sales_orders
-        INNER JOIN profits ON sales_orders.id=profits.sales_order_id where MONTH(sales_orders.created_at) = ' . $month . '
+        INNER JOIN profits ON sales_orders.id=profits.sales_order_id
+		where MONTH(sales_orders.created_at) = ' . $month . '
         and YEAR(sales_orders.created_at) = ' . $year . '
-        and profits.currency = "' . $curr . '"
         and sales_orders.printed = 1
         and profits.deleted_at is null
-        ' . $params . '');
+		' . $params . '
+		GROUP BY profits.currency');
     }
 
     public function index()
@@ -74,28 +76,12 @@ class HomeController extends BaseController
         $year = Carbon::now()->format('Y');
         $month = Carbon::now()->format('m');
         $data_selling = $this->data_sum_selling($month, $year, $params);
-        $data_buying_idr = $this->data_sum_buying($month, $year, $idr, $params);
-        foreach ($data_buying_idr as $x) {
-            $sum_buying_idr += $x->sub_total;
-        }
-        $data_buying_usd = $this->data_sum_buying($month, $year, $usd, $params);
-        foreach ($data_buying_usd as $x) {
-            $sum_buying_usd += $x->sub_total;
-        }
-        $data_profits_idr = $this->data_sum_profits($month, $year, $idr, $params);
-        foreach ($data_profits_idr as $x) {
-            $sum_profits_idr += $x->profit;
-        }
-        $data_profits_usd = $this->data_sum_profits($month, $year, $usd, $params);
-        foreach ($data_profits_usd as $x) {
-            $sum_profits_usd += $x->profit;
-        }
+        $data_buying = $this->data_sum_buying($month, $year, $params);
+        $data_profits = $this->data_sum_profits($month, $year, $params);
         $data = array(
             'data_selling' => $data_selling,
-            'buying_idr' => $sum_buying_idr,
-            'buying_usd' => $sum_buying_usd,
-            'profits_idr' => $sum_profits_idr,
-            'profits_usd' => $sum_profits_usd,
+            'data_buying' => $data_buying,
+            'data_profits' => $data_profits,
             'name' => $name,
         );
         return view('dashboard', compact('data'));
