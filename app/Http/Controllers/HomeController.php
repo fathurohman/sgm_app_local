@@ -59,12 +59,6 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $sum_buying_idr = 0;
-        $sum_buying_usd = 0;
-        $sum_profits_idr = 0;
-        $sum_profits_usd = 0;
-        $idr = "IDR";
-        $usd = "USD";
         $user_id = Auth::id();
         if ($user_id == '3') {
             $params = '';

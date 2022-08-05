@@ -3,22 +3,20 @@
         aria-expanded="false">Action
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-        @if ($data['printed'] == '0')
-            <form method="post" id="Return-form-{{ $data['id'] }}" action="{{ route('finance.return', $data['id']) }}"
-                style="display: none">
-                {{ csrf_field() }} {{ method_field('put') }}
-            </form>
-            <a class="dropdown-item" href=""
-                onclick="if(confirm('Are you sure?'))
+        <form method="post" id="Return-form-{{ $data['id'] }}" action="{{ route('finance.return', $data['id']) }}"
+            style="display: none">
+            {{ csrf_field() }} {{ method_field('put') }}
+        </form>
+        <a class="dropdown-item" href=""
+            onclick="if(confirm('Are you sure?'))
                 {
                     event.preventDefault();document.getElementById('Return-form-{{ $data['id'] }}').submit();
                 }
                 else{
                     event.preventDefault();
                 }">
-                Return to sales
-            </a>
-        @endif
+            Return to sales
+        </a>
         <form method="post" id="buku-form-{{ $data['id'] }}" action="{{ route('finance.pembukuan', $data['id']) }}"
             style="display: none">
             {{ csrf_field() }} {{ method_field('put') }}
