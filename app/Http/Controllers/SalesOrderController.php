@@ -267,26 +267,45 @@ class SalesOrderController extends BaseController
         $down_payment->save();
         //buying
         $buying = SalesOrder::find($id)->buyings;
-        foreach ($buying as $x) {
-            $id_buying  = $x->id;
-            if (in_array($id_buying, $request->id_buying)) {
-                foreach ($request->description_b as $a => $v) {
-                    BuyingOrder::updateorCreate(
-                        ['id' => $request->id_buying[$a]],
-                        [
-                            'sales_order_id' => $sales_order->id,
-                            'description' => $v,
-                            'qty' => $request->qty_b[$a],
-                            'curr' => $request->curr_b[$a],
-                            'price' => $request->price_b[$a],
-                            'sub_total' => $request->sub_total_b[$a],
-                            'remark' => $request->remark_b[$a],
-                            'name' => $request->name_b[$a],
-                        ]
-                    );
+        $itung_buying = $buying->count();
+        if ($itung_buying == 0) {
+            foreach ($request->description_b as $a => $v) {
+                BuyingOrder::updateorCreate(
+                    ['id' => $request->id_buying[$a]],
+                    [
+                        'sales_order_id' => $sales_order->id,
+                        'description' => $v,
+                        'qty' => $request->qty_b[$a],
+                        'curr' => $request->curr_b[$a],
+                        'price' => $request->price_b[$a],
+                        'sub_total' => $request->sub_total_b[$a],
+                        'remark' => $request->remark_b[$a],
+                        'name' => $request->name_b[$a],
+                    ]
+                );
+            }
+        } else {
+            foreach ($buying as $x) {
+                $id_buying  = $x->id;
+                if (in_array($id_buying, $request->id_buying)) {
+                    foreach ($request->description_b as $a => $v) {
+                        BuyingOrder::updateorCreate(
+                            ['id' => $request->id_buying[$a]],
+                            [
+                                'sales_order_id' => $sales_order->id,
+                                'description' => $v,
+                                'qty' => $request->qty_b[$a],
+                                'curr' => $request->curr_b[$a],
+                                'price' => $request->price_b[$a],
+                                'sub_total' => $request->sub_total_b[$a],
+                                'remark' => $request->remark_b[$a],
+                                'name' => $request->name_b[$a],
+                            ]
+                        );
+                    }
+                } else {
+                    BuyingOrder::where('id', $id_buying)->delete();
                 }
-            } else {
-                BuyingOrder::where('id', $id_buying)->delete();
             }
         }
         //selling
