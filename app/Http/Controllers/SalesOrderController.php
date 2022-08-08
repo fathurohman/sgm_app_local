@@ -267,78 +267,63 @@ class SalesOrderController extends BaseController
         $down_payment->save();
         //buying
         $buying = SalesOrder::find($id)->buyings;
-        $itung_buying = $buying->count();
-        if ($itung_buying == 0) {
-            if (!empty($request->description_b[0])) {
-                foreach ($request->description_b as $a => $v) {
-                    BuyingOrder::updateorCreate(
-                        ['id' => $request->id_buying[$a]],
-                        [
-                            'sales_order_id' => $sales_order->id,
-                            'description' => $v,
-                            'qty' => $request->qty_b[$a],
-                            'curr' => $request->curr_b[$a],
-                            'price' => $request->price_b[$a],
-                            'sub_total' => $request->sub_total_b[$a],
-                            'remark' => $request->remark_b[$a],
-                            'name' => $request->name_b[$a],
-                        ]
-                    );
-                }
-            }
-        } else {
-            foreach ($buying as $x) {
-                $id_buying  = $x->id;
-                if (in_array($id_buying, $request->id_buying)) {
-                    foreach ($request->description_b as $a => $v) {
-                        BuyingOrder::updateorCreate(
-                            ['id' => $request->id_buying[$a]],
-                            [
-                                'sales_order_id' => $sales_order->id,
-                                'description' => $v,
-                                'qty' => $request->qty_b[$a],
-                                'curr' => $request->curr_b[$a],
-                                'price' => $request->price_b[$a],
-                                'sub_total' => $request->sub_total_b[$a],
-                                'remark' => $request->remark_b[$a],
-                                'name' => $request->name_b[$a],
-                            ]
-                        );
-                    }
-                } else {
-                    BuyingOrder::where('id', $id_buying)->delete();
-                }
+        foreach ($buying as $x) {
+            //seluruh data buying
+            $id_buying  = $x->id;
+            //ini cek id yang ke post
+            if (!in_array($id_buying, $request->id_buying)) {
+                BuyingOrder::where('id', $id_buying)->delete();
             }
         }
-        //selling
+        if (!empty($request->description_b[0])) {
+            foreach ($request->description_b as $a => $v) {
+                BuyingOrder::updateorCreate(
+                    ['id' => $request->id_buying[$a]],
+                    [
+                        'sales_order_id' => $sales_order->id,
+                        'description' => $v,
+                        'qty' => $request->qty_b[$a],
+                        'curr' => $request->curr_b[$a],
+                        'price' => $request->price_b[$a],
+                        'sub_total' => $request->sub_total_b[$a],
+                        'remark' => $request->remark_b[$a],
+                        'name' => $request->name_b[$a],
+                    ]
+                );
+            }
+        }
+        //new selling
         $selling = SalesOrder::find($id)->sellings;
         foreach ($selling as $x) {
             //seluruh data selling
             $id_selling  = $x->id;
             //ini cek id yang ke post
-            if (in_array($id_selling, $request->id_selling)) {
-                foreach ($request->description_s as $a => $v) {
-                    // if (in_array($request->id_selling[$a])) {
-                    //     # code...
-                    // }
-                    SellingOrder::updateorCreate(
-                        ['id' => $request->id_selling[$a]],
-                        [
-                            'sales_order_id' => $sales_order->id,
-                            'description' => $v,
-                            'qty' => $request->qty_s[$a],
-                            'curr' => $request->curr_s[$a],
-                            'price' => $request->price_s[$a],
-                            'sub_total' => $request->sub_total_s[$a],
-                            'remark' => $request->remark_s[$a],
-                            'name' => $request->name_s[$a],
-                        ]
-                    );
-                }
-            } else {
+            if (!in_array($id_selling, $request->id_selling)) {
                 SellingOrder::where('id', $id_selling)->delete();
             }
         }
+        foreach ($request->description_s as $a => $v) {
+            // $cek = SellingOrder::find($request->id_selling[$a]);
+            //ini cek id yang ke post
+            if (!empty($request->description_s[0])) {
+                // if (isset($cek)) {
+                SellingOrder::updateorCreate(
+                    ['id' => $request->id_selling[$a]],
+                    [
+                        'sales_order_id' => $sales_order->id,
+                        'description' => $v,
+                        'qty' => $request->qty_s[$a],
+                        'curr' => $request->curr_s[$a],
+                        'price' => $request->price_s[$a],
+                        'sub_total' => $request->sub_total_s[$a],
+                        'remark' => $request->remark_s[$a],
+                        'name' => $request->name_s[$a],
+                    ]
+                );
+                // }
+            }
+        }
+        // }
         //profit
         // dd($request->id_prof['0']);
         if (empty($request->id_prof['0']) || empty($request->id_prof)) {

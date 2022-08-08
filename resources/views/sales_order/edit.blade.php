@@ -488,7 +488,7 @@
                         sum_usd += +jumlah;
                     } else if (curr_beli == 'SGD') {
                         sum_sgd += +jumlah;
-                    } else {
+                    } else if (curr_beli == 'EUR') {
                         sum_eur += +jumlah;
                     }
                 });
@@ -504,7 +504,7 @@
                         sum_usd_s += +jumlah;
                     } else if (curr_beli == 'SGD') {
                         sum_sgd_s += +jumlah;
-                    } else {
+                    } else if (curr_beli == 'EUR') {
                         sum_eur_s += +jumlah;
                     }
                 });
