@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col">
-                            <div class="card mb-3">
+                            <div class="card mb-3 border-0">
                                 @foreach ($data['data_selling'] as $x)
                                     <p>Total Sellings {{ $x->curr }} = {{ number_format($x->sub_total) }}</p>
                                 @endforeach
@@ -38,7 +38,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col">
-                            <div class="card mb-3">
+                            <div class="card mb-3 border-0">
                                 @foreach ($data['data_buying'] as $x)
                                     <p>Total Buyings {{ $x->curr }} = {{ number_format($x->sub_total) }}</p>
                                 @endforeach
@@ -59,7 +59,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col">
-                            <div class="card mb-3">
+                            <div class="card mb-3 border-0">
                                 @foreach ($data['data_profits'] as $x)
                                     <p>Total Profits {{ $x->curr }} = {{ number_format($x->sub_total) }}</p>
                                 @endforeach
