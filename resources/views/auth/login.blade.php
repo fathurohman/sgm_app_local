@@ -9,7 +9,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-3">
                         <div class="text-center mt-2 mb-3">
-                            <h4>{{ __('PT Sigma Global Makmur') }}</h4>
+                            <h2>{{ __('PT Sigma Global Makmur') }}</h2>
                         </div>
                     </div>
                     <div class="card-body px-lg-3 py-lg-3">

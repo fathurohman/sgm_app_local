@@ -3,7 +3,7 @@
         <div class="header-body text-center mb-7">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6">
-                    <h1 class="text-white">{{ __('Selamat Datang') }}</h1>
+                    <h3 class="text-white">{{ __('Selamat Datang') }}</h3>
                 </div>
             </div>
         </div>
