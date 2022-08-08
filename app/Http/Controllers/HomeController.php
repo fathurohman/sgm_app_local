@@ -60,7 +60,8 @@ class HomeController extends BaseController
     public function index()
     {
         $user_id = Auth::id();
-        if ($user_id == '3') {
+        $user_dept = Auth::user()->department;
+        if ($user_dept == 'super-admin') {
             $params = '';
             $name = "ALL";
         } else {

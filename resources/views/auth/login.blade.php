@@ -8,8 +8,13 @@
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-3">
-                        <div class="text-center mt-2 mb-3">
-                            <h2>{{ __('PT Sigma Global Makmur') }}</h2>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <img width="50px" height="auto" src="{{ asset('argon') }}/img/brand/sgm.jpg" alt="">
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 mb-3">
+                                <h2>{{ __('PT Sigma Global Makmur') }}</h2>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body px-lg-3 py-lg-3">
