@@ -56,6 +56,21 @@ class HomeController extends BaseController
 		' . $params . '
 		GROUP BY profits.currency');
     }
+    public function lempar_curr($jumlah)
+    {
+        $curr = 'IDR,USD,SGD,EUR';
+        $isicurr = explode(',', $curr);
+        if ($jumlah == '1') {
+            unset($isicurr[0]);
+        } elseif ($jumlah == '2') {
+            unset($isicurr[0], $isicurr[1]);
+        } elseif ($jumlah == '3') {
+            unset($isicurr[0], $isicurr[1], $isicurr[2]);
+        } else {
+            unset($isicurr);
+        }
+        return $isicurr;
+    }
 
     public function index()
     {
@@ -71,13 +86,28 @@ class HomeController extends BaseController
         $year = Carbon::now()->format('Y');
         $month = Carbon::now()->format('m');
         $data_selling = $this->data_sum_selling($month, $year, $params);
+        //ambil curr yang lain
+        $count_s = count((array)$data_selling);
+        $lempar_curr_s = $this->lempar_curr($count_s);
+        //end
         $data_buying = $this->data_sum_buying($month, $year, $params);
+        //ambil curr yang lain
+        $count_b = count((array)$data_buying);
+        $lempar_curr_b = $this->lempar_curr($count_b);
+        //end
         $data_profits = $this->data_sum_profits($month, $year, $params);
+        //ambil curr yang lain
+        $count_p = count((array)$data_profits);
+        $lempar_curr_p = $this->lempar_curr($count_p);
+        //end
         $data = array(
             'data_selling' => $data_selling,
             'data_buying' => $data_buying,
             'data_profits' => $data_profits,
             'name' => $name,
+            'curr_b' => $lempar_curr_b,
+            'curr_s' => $lempar_curr_s,
+            'curr_p' => $lempar_curr_p,
         );
         return view('dashboard', compact('data'));
     }
