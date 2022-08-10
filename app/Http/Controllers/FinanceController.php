@@ -120,8 +120,9 @@ class FinanceController extends BaseController
         $inv_fix = "$ptng/$sub_string";
         $sales_job = $sales_order->job_orders;
         // dd($selling);
-        $createdAt = Carbon::parse($sales_order->created_at);
-        $tanggal = $createdAt->format('M d,Y');
+        // $createdAt = Carbon::parse($sales_order->inv_date);
+        $tanggal = date('M d,Y', strtotime($sales_order->inv_date));
+        // $tanggal = $createdAt->format('M d,Y');
         $ETD = $sales_job->ETD;
         $ETA = $sales_job->ETA;
         $id_job = $sales_job->id;
