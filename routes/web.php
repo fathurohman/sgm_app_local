@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('auth.login');
 });
 Auth::routes();
 
@@ -81,6 +81,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//history routes
 	Route::get('/listsaleshistory', 'HistorySalesController@listsaleshistory')->name('listsaleshistory');
 	Route::get('/history_sales', 'HistorySalesController@index')->name('history_sales');
+	//BOL Routes
+	Route::resource('bol', 'BOLController');
+	Route::get('getdatabol', 'BOLController@getdatabol')->name('getdatabol');
 });
 
 

@@ -116,6 +116,9 @@
                                     <a class="nav-link" href="{{ route('items.index') }}">
                                         {{ __('Items') }}
                                     </a>
+                                    <a class="nav-link" href="{{ route('bol.index') }}">
+                                        {{ __('Bill Of Lading') }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
