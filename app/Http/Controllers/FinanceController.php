@@ -53,7 +53,8 @@ class FinanceController extends BaseController
         $settings = Settings::all();
         $sales_data = SalesOrder::find($id);
         $tipe_cetak = $tipe;
-        return view('finance.detail_invoice', compact('settings', 'sales_data', 'tipe_cetak'));
+        $date = $sales_data->inv_date;
+        return view('finance.detail_invoice', compact('settings', 'sales_data', 'tipe_cetak', 'date'));
     }
 
     public function order_row($tipe, $month, $year)
@@ -82,8 +83,13 @@ class FinanceController extends BaseController
 
     public function cetak_invoice_dua(Request $request)
     {
-        $now = Carbon::now()->format('Y-m-d');
+        $date = $request->inv_date;
         $id = $request->id_sales;
+        if (empty($date)) {
+            $now = Carbon::now()->format('Y-m-d');
+        } else {
+            $now = $date;
+        }
         $tipe = $request->tipe_cetak;
         $pajak = $request->tipe_pajak;
         $sum = 0;
@@ -112,7 +118,7 @@ class FinanceController extends BaseController
             'vat' => $pajak,
             'order_row' => $order_month,
             'nomor_invoice' => $inv,
-            'inv_date' => $now
+            'inv_date' => $now,
         ]);
         //end update
         $ptng = sprintf('%03d', $inv);

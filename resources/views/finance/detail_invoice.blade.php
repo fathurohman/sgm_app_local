@@ -25,6 +25,7 @@
                 <td>
                     <input type="text" name="id_sales" value="{{ $sales_data->id }}" hidden>
                     <input type="text" name="tipe_cetak" value="{{ $tipe_cetak }}" hidden>
+                    <input type="text" name="inv_date" value="{{ $date }}" hidden>
                     <button type="submit" class="btn btn-primary btn-sm btn-rounded">Cetak Invoice</button>
                 </td>
             </tr>
