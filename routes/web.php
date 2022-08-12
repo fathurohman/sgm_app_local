@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//BOL Routes
 	Route::resource('bol', 'BOLController');
 	Route::get('getdatabol', 'BOLController@getdatabol')->name('getdatabol');
+	Route::get('cetakbol/{id}', 'BOLController@Cetak')->name('cetakbol');
 });
 
 
