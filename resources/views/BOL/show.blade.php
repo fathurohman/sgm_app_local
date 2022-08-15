@@ -28,6 +28,7 @@
                                         <th scope="col">Place Date Issue</th>
                                         <th scope="col">On Board Date</th>
                                         <th scope="col">Total Charges</th>
+                                        <th scope="col">Actions</th>
                                         <th scope="col">More</th>
                                         {{-- <th scope="col">Delete</th> --}}
                                     </tr>
@@ -69,6 +70,13 @@
                 {
                     data: 'Total_Charges',
                     name: 'Total_Charges'
+                },
+                {
+                    data: 'Actions',
+                    name: 'Actions',
+                    searchable: false,
+                    orderable: false
+
                 },
                 {
                     data: 'More',

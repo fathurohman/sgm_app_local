@@ -32,6 +32,11 @@ class BOLController extends Controller
             return $row->ON_Board_Date;
         })->editColumn('Total_Charges', function ($row) {
             return $row->Total_Charges;
+        })->addColumn('Actions', function ($row) {
+            $data = [
+                'id' => $row->id
+            ];
+            return view('BOL.dt.act_list_action', compact('data'));
         })->addColumn('More', function ($row) {
             $data = [
                 'id' => $row->id
@@ -112,9 +117,10 @@ class BOLController extends Controller
      * @param  \App\Model\BOL  $bOL
      * @return \Illuminate\Http\Response
      */
-    public function edit(BOL $bOL)
+    public function edit($id)
     {
-        //
+        $bol = BOL::find($id);
+        return view('bol.edit', compact('bol'));
     }
 
     /**
@@ -124,9 +130,43 @@ class BOLController extends Controller
      * @param  \App\Model\BOL  $bOL
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BOL $bOL)
+    public function update(Request $request, $id)
     {
-        //
+        $BY = Carbon::parse($request->BY)->format('Y-m-d');
+        $on_board_date = Carbon::parse($request->on_board_date)->format('Y-m-d');
+        $bol = BOL::find($id);
+        $bol->BL_NO = $request->bl_no;
+        $bol->Shipper = $request->shipper;
+        $bol->Export_References = $request->export_ref;
+        $bol->Consignee = $request->consignee;
+        $bol->Forwarding_Agent = $request->forwarding_agent;
+        $bol->Point_Country_Origin = $request->point_country_origin;
+        $bol->Notify_Party = $request->notify_party;
+        $bol->Obtain_Delivery = $request->delivery_contact;
+        $bol->Pre_Carriage = $request->pre_carriage;
+        $bol->Place_Receipt = $request->place_receipt;
+        $bol->Exporting_Carrier = $request->exporting_carrier;
+        $bol->Port_Loading = $request->port_loading;
+        $bol->Port_Discharge = $request->port_discharge;
+        $bol->Port_Delivery = $request->port_delivery;
+        $bol->Transshipment_to = $request->transshipment;
+        $bol->Final_destination = $request->final_destination;
+        $bol->Marks_Number = $request->marks_number;
+        $bol->No_Cont_Pkgs = $request->no_of_cont;
+        $bol->Description_Packages_Goods = $request->description_packages;
+        $bol->Gross_Weight = $request->gross_weight;
+        $bol->Measurement = $request->measurement;
+        $bol->Freight_Charges = $request->freight_charges;
+        $bol->Prepaid = $request->prepaid;
+        $bol->Collect = $request->collect;
+        $bol->Total_Charges = $request->total_charges;
+        $bol->Freight_Payable = $request->freight_payable;
+        $bol->No_Original = $request->no_original_bl;
+        $bol->BY = $BY;
+        $bol->Place_Date_Issue = $request->place_and_date;
+        $bol->ON_Board_Date = $on_board_date;
+        $bol->save();
+        return redirect(route('bol.index'));
     }
 
     /**

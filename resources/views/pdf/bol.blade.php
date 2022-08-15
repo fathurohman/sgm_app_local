@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th height="30" style="widht:40%; text-align:left;vertical-align: top;">
-                    a{{ $data->Export_References }}</th>
+                    {{ $data->Export_References }}</th>
             </tr>
         </table>
     </div>
@@ -31,11 +31,11 @@
                     style="width:55%; vertical-align: top; text-align:left;padding-right:10px">
                     {{ $data->Consignee }}</th>
                 <th height="45" style="width:45%; vertical-align: top; text-align:left">
-                    a{{ $data->forwarding_agent }}
+                    {{ $data->Forwarding_Agent }}
                 </th>
             </tr>
             <tr>
-                <th style="width:45%; text-align:center">a{{ $data->Point_Country_Origin }}</th>
+                <th style="width:45%; text-align:center">{{ $data->Point_Country_Origin }}</th>
             </tr>
         </table>
     </div>
@@ -70,10 +70,10 @@
     <div class="table-discharge">
         <table style="table-layout: fixed">
             <tr>
-                <th style="width: 25%;text-align:center">a {{ $data->Port_Dischage }}</th>
-                <th style="width: 25%;text-align:center">a {{ $data->Port_Delivery }}</th>
-                <th style="width: 25%;text-align:center">a {{ $data->Transshipment_to }}</th>
-                <th style="width: 25%;text-align:center">a {{ $data->Final_destination }}</th>
+                <th style="width: 25%;text-align:center">{{ $data->Port_Discharge }}</th>
+                <th style="width: 25%;text-align:center">{{ $data->Port_Delivery }}</th>
+                <th style="width: 25%;text-align:center">{{ $data->Transshipment_to }}</th>
+                <th style="width: 25%;text-align:center">{{ $data->Final_destination }}</th>
             </tr>
         </table>
     </div>
@@ -88,7 +88,7 @@
             </tr>
             <tr>
                 <td class="marks-td" height="180">{{ $data->Marks_Number }}</td>
-                <td height="180">{{ $data->No_Cont_Pkgs }}</td>
+                <td height="180" style="text-align: left">{{ $data->No_Cont_Pkgs }}</td>
                 <td class="marks-td" height="180">{{ $data->Description_Packages_Goods }}</td>
                 <td class="marks-td" height="180">{{ $data->Gross_Weight }}</td>
                 <td height="180">{{ $data->Measurement }}</td>
@@ -104,9 +104,9 @@
                 <th style="width: 60%;"></th>
             </tr>
             <tr>
-                <td height="75" style="text-align:left">a{{ $data->Freight_Charges }}</td>
-                <td height="75" style="text-align:left">a{{ $data->Prepaid }}</td>
-                <td height="75" style="text-align:left">a{{ $data->Collect }}</td>
+                <td height="75" style="text-align:left">{{ $data->Freight_Charges }}</td>
+                <td height="75" style="text-align:left">{{ $data->Prepaid }}</td>
+                <td height="75" style="text-align:left">{{ $data->Collect }}</td>
                 <td height="75"></td>
             </tr>
             <tr>
