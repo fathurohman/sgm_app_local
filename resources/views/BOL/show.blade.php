@@ -13,7 +13,7 @@
                                 <h3 class="mb-0">Bill Of Lading</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="#" class="btn btn-sm btn-primary">Add BOL</a>
+                                <a href="{{ route('bol.create') }}" class="btn btn-sm btn-primary">Add BOL</a>
                             </div>
                         </div>
                     </div>
