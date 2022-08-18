@@ -120,7 +120,7 @@ class BOLController extends Controller
     public function edit($id)
     {
         $bol = BOL::find($id);
-        return view('bol.edit', compact('bol'));
+        return view('BOL.edit', compact('bol'));
     }
 
     /**
