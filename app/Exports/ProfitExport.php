@@ -69,7 +69,7 @@ class ProfitExport implements FromView, ShouldAutoSize, WithStrictNullComparison
             $sales_name = "ALL";
         } else {
             $params = 'and sales_orders.created_by = ' . $this->sales_id . '';
-            $sales = User::find($this->user_id);
+            $sales = User::find($this->sales_id);
             $sales_name = $sales->name;
         }
         $data_selling = $this->data_sum_selling($bulan, $year, $params);
