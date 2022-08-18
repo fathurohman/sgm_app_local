@@ -15,11 +15,12 @@
             <tr>
                 <th height="30" rowspan="2"
                     style="width: 55%;vertical-align: top;text-align:left;padding-right:5px">
-                    {{ $data->Shipper }}</th>
-                <th style="width: 40%; text-align:center">{{ $data->BL_NO }}</th>
+                    <p>{{ $data->Shipper }}</p>
+                </th>
+                <th style="width: 45%; text-align:center">{{ $data->BL_NO }}</th>
             </tr>
             <tr>
-                <th height="30" style="widht:40%; text-align:left;vertical-align: top;">
+                <th height="30" style="widht:45%; text-align:left;vertical-align: top;">
                     {{ $data->Export_References }}</th>
             </tr>
         </table>

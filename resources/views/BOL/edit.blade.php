@@ -47,9 +47,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <label class="form-control-label"
                                             for="input-Forwarding Agent">{{ __('Forwarding Agent') }}</label>
-                                        <textarea name="forwarding_agent" class="form-control" id="export_ref" rows="2">
-                                             {{ $bol->Forwarding_Agent }}
-                                        </textarea>
+                                        <textarea name="forwarding_agent" class="form-control" id="export_ref" rows="2">{{ $bol->Forwarding_Agent }}</textarea>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm12">
                                         <label class="form-control-label"
@@ -67,9 +65,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <label class="form-control-label"
                                                 for="input-Notify Party">{{ __('Notify Party') }}</label>
-                                            <textarea name="notify_party" class="form-control" id="Notify Party" rows="4">
-                                             {{ $bol->Notify_Party }}
-                                            </textarea>
+                                            <textarea name="notify_party" class="form-control" id="Notify Party" rows="4">{{ $bol->Notify_Party }}</textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -157,9 +153,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-12">
                                     <label class="form-control-label"
                                         for="input-no_of_cont">{{ __('NO OF CONT') }}</label>
-                                    <textarea name="no_of_cont" class="form-control" id="no_of_cont" rows="11">
-                                        {{ $bol->No_Cont_Pkgs }}
-                                    </textarea>
+                                    <textarea name="no_of_cont" class="form-control" id="no_of_cont" rows="11">{{ $bol->No_Cont_Pkgs }}</textarea>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <label class="form-control-label"
