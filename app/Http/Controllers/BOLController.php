@@ -52,7 +52,7 @@ class BOLController extends Controller
      */
     public function create()
     {
-        return view('bol.create');
+        return view('BOL.create');
     }
 
     /**
