@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+            href="{{ route('home') }}">{{ $activePage }}</a>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">

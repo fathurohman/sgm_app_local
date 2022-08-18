@@ -30,9 +30,10 @@
             <tr>
                 <th height="50" rowspan="2"
                     style="width:55%; vertical-align: top; text-align:left;padding-right:10px">
-                    {{ $data->Consignee }}</th>
+                    <p>{{ $data->Consignee }}</p>
+                </th>
                 <th height="45" style="width:45%; vertical-align: top; text-align:left">
-                    {{ $data->Forwarding_Agent }}
+                    <p>{{ $data->Forwarding_Agent }}</p>
                 </th>
             </tr>
             <tr>
@@ -47,7 +48,8 @@
                     style="width:55%; vertical-align: top; text-align:left;padding-bottom:5px;padding-right:10px">
                     {{ $data->Notify_Party }}
                 </th>
-                <th rowspan="3" style="width:45%; vertical-align: top; text-align:left">{{ $data->Obtain_Delivery }}
+                <th rowspan="3" style="width:45%; vertical-align: top; text-align:left">
+                    <p>{{ $data->Obtain_Delivery }}</p>
                 </th>
             </tr>
             <tr>
@@ -88,11 +90,21 @@
                 <th style="width: 10%;text-align:left"></th>
             </tr>
             <tr>
-                <td class="marks-td" height="180">{{ $data->Marks_Number }}</td>
-                <td height="180" style="text-align: left">{{ $data->No_Cont_Pkgs }}</td>
-                <td class="marks-td" height="180">{{ $data->Description_Packages_Goods }}</td>
-                <td class="marks-td" height="180">{{ $data->Gross_Weight }}</td>
-                <td height="180">{{ $data->Measurement }}</td>
+                <td class="marks-td" height="180">
+                    <p>{{ $data->Marks_Number }}</p>
+                </td>
+                <td height="180" style="text-align: left">
+                    <p>{{ $data->No_Cont_Pkgs }}</p>
+                </td>
+                <td class="marks-td" height="180">
+                    <p>{{ $data->Description_Packages_Goods }}</p>
+                </td>
+                <td class="gross-td" height="180">
+                    <p>{{ $data->Gross_Weight }}</p>
+                </td>
+                <td height="180">
+                    <p>{{ $data->Measurement }}</p>
+                </td>
             </tr>
         </table>
     </div>

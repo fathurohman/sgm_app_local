@@ -193,7 +193,7 @@
                         </div>
                     </li>
                     @endcan @can('admin.report', Auth::user())
-                    <li class="nav-report {{ $activePage == 'report' || $activePage == 'tarik_prof' ? ' active' : '' }}">
+                    <li class="nav-report {{ $activePage == 'reports' || $activePage == 'tarik_prof' ? ' active' : '' }}">
                         <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="navbar-crud-report">
                             <i class="ni ni-paper-diploma"></i>
