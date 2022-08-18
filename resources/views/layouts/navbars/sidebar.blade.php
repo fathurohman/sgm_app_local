@@ -98,7 +98,7 @@
                     </li>
                     @endcan @can('admin.crud-vendor-client', Auth::user())
                     <li
-                        class="nav-vc {{ $activePage == 'vendor' || $activePage == 'client' || $activePage == 'items' ? ' active' : '' }}">
+                        class="nav-vc {{ $activePage == 'vendor' || $activePage == 'client' || $activePage == 'items' || $activePage == 'BOL' ? ' active' : '' }}">
                         <a class="nav-link collapsed" href="#navbar-crud-vendor" data-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="navbar-crud-vendor">
                             <i class="ni ni-collection"></i>
@@ -193,7 +193,7 @@
                         </div>
                     </li>
                     @endcan @can('admin.report', Auth::user())
-                    <li class="nav-report {{ $activePage == 'report' ? ' active' : '' }}">
+                    <li class="nav-report {{ $activePage == 'report' || $activePage == 'tarik_prof' ? ' active' : '' }}">
                         <a class="nav-link collapsed" href="#navbar-crud-report" data-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="navbar-crud-report">
                             <i class="ni ni-paper-diploma"></i>
@@ -206,6 +206,11 @@
                                     <a class="nav-link" href="{{ route('report') }}">
                                         {{ __('Report Monthly') }}
                                     </a>
+                                    @can('admin.report-profit', Auth::user())
+                                        <a class="nav-link" href="{{ route('tarik_profit') }}">
+                                            {{ __('Profit Monthly') }}
+                                        </a>
+                                    @endcan
                                 </li>
                             </ul>
                         </div>

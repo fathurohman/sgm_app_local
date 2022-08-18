@@ -50,6 +50,10 @@ class UserPolicy
     {
         return $this->getPermission($user, 9);
     }
+    public function Report_Profit(User $user)
+    {
+        return $this->getPermission($user, 10);
+    }
     protected function getPermission($user, $p_id)
     {
         foreach ($user->roles as $role) {

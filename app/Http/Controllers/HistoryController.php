@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProfitExport;
 use App\Exports\SalesExport;
 use App\Model\reports;
 use App\Model\SalesOrder;
@@ -49,6 +50,16 @@ class HistoryController extends BaseController
         return view('reports.daily', compact('month', 'sales_name'));
     }
 
+    public function tarik_profit()
+    {
+        $month = array_reduce(range(1, 12), function ($rslt, $m) {
+            $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
+            return $rslt;
+        });
+        $sales_name = User::where('department', 'sales')->get();
+        return view('reports.tarik_profit', compact('month', 'sales_name'));
+    }
+
     public function export(Request $request)
     {
         $tipe = $request->tipe;
@@ -56,6 +67,15 @@ class HistoryController extends BaseController
         $sales_id = $request->sales;
         $this->narikdata($month, $tipe, $sales_id);
         $download = Excel::download(new SalesExport($month), 'ReportMonthly.xlsx');
+        return $download;
+    }
+
+    public function export_profit(Request $request)
+    {
+        $month = $request->month;
+        $sales_id = $request->sales;
+        // $this->narikdata($month, $sales_id);
+        $download = Excel::download(new ProfitExport($month, $sales_id), 'ProfitMonthly.xlsx');
         return $download;
     }
 

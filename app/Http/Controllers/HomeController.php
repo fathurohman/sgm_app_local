@@ -66,8 +66,10 @@ class HomeController extends BaseController
             unset($isicurr[0], $isicurr[1]);
         } elseif ($jumlah == '3') {
             unset($isicurr[0], $isicurr[1], $isicurr[2]);
-        } else {
+        } elseif ($jumlah == '4') {
             unset($isicurr);
+        } else {
+            $isicurr;
         }
         return $isicurr;
     }

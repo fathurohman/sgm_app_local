@@ -76,7 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//end
 	//reports
 	Route::post('/datamonthly', 'HistoryController@export')->name('export');
+	Route::post('/datamonthlyreport', 'HistoryController@export_profit')->name('export_profit');
 	Route::get('/daily_home', 'HistoryController@daily_home')->name('report');
+	Route::get('/tarik_profit', 'HistoryController@tarik_profit')->name('tarik_profit');
 	Route::put('profile/password', 'ProfileController@password')->name('profile.password');
 	//history routes
 	Route::get('/listsaleshistory', 'HistorySalesController@listsaleshistory')->name('listsaleshistory');

@@ -78,6 +78,11 @@
             $('li.nav-hist a').removeClass('collapsed').attr("aria-expanded", "true");
             var thisID = $('li.nav-hist a').next().addClass('show');
         }
+        if ($('li.nav-report').hasClass('active')) {
+            //ada class active
+            $('li.nav-report a').removeClass('collapsed').attr("aria-expanded", "true");
+            var thisID = $('li.nav-report a').next().addClass('show');
+        }
     </script>
 </body>
 

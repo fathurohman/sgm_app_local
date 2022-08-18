@@ -33,6 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin.sales-order-data', 'App\Policies\UserPolicy@Sales_Order_Data');
         Gate::define('admin.history-sales-data', 'App\Policies\UserPolicy@History_Sales_Data');
         Gate::define('admin.pickup-job', 'App\Policies\UserPolicy@Pickup_Job');
+        Gate::define('admin.report-profit', 'App\Policies\UserPolicy@Report_Profit');
         //
     }
 }
