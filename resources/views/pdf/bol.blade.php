@@ -14,7 +14,7 @@
         <table style="table-layout:fixed;">
             <tr>
                 <th height="30" rowspan="2"
-                    style="width: 55%;vertical-align: top;text-align:left;padding-right:5px">
+                    style="width: 55%;vertical-align: top;text-align:left;padding-right:5px;">
                     <p>{{ $data->Shipper }}</p>
                 </th>
                 <th style="width: 45%; text-align:center">{{ $data->BL_NO }}</th>
