@@ -78,6 +78,46 @@
                 </div>
             </div>
         </div>
+        @if (auth()->user()->department == 'super-admin')
+            <div class="row mt-5">
+                <div class="col-xl-4 col-md-4">
+                    <div class="card shadow">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="text-uppercase ls-1 mb-1">Rank Of Sales</h6>
+                                    <h2 class="text-black mb-0">This Month</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="card mb-3 border-0">
+                                    @foreach ($data['rankings'] as $x)
+                                        @if ($x->curr = 'IDR')
+                                            <p>{{ $loop->index + 1 }}.
+                                                @foreach (\App\User::where('id', $x->user_id)->get() as $users)
+                                                    Sales Name = {{ $users->name }}
+                                                    @if (empty($users->foto))
+                                                        <img style="border-radius: 50%;" height="auto" width="60px"
+                                                            alt="Image placeholder"
+                                                            src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+                                                    @else
+                                                        <img style="border-radius: 50%;" height="52px" width="60px"
+                                                            alt="Image placeholder"
+                                                            src="{{ url('storage/foto/' . $users->foto) }}">
+                                                    @endif
+                                                @endforeach
+                                            </p>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         @include('layouts.footers.auth')
     </div>

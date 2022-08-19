@@ -59,6 +59,20 @@ class HomeController extends BaseController
 		GROUP BY profits.currency');
     }
 
+    public function rankings($month, $year, $curr)
+    {
+        return DB::select('SELECT sum(profits.profit ) AS sub_total,
+        sales_orders.created_by as user_id FROM sales_orders
+        INNER JOIN profits ON sales_orders.id=profits.sales_order_id
+		where MONTH(sales_orders.created_at) = ' . $month . '
+        and YEAR(sales_orders.created_at) = ' . $year . '
+        and sales_orders.printed = 1
+        and profits.deleted_at is null
+        and profits.currency = "' . $curr . '"
+		GROUP BY sales_orders.created_by
+		ORDER BY sub_total DESC');
+    }
+
     public function getprofit(Request $request)
     {
         $bulan = $request->get('bulan');
@@ -131,11 +145,14 @@ class HomeController extends BaseController
         $count_p = count((array)$data_profits);
         $lempar_curr_p = $this->lempar_curr($count_p);
         //end
+        //rankings
+        $rankings_idr = $this->rankings($month, $year, "IDR");
         $data = array(
             'data_selling' => $data_selling,
             'data_buying' => $data_buying,
             'data_profits' => $data_profits,
             'name' => $name,
+            'rankings' => $rankings_idr,
             'curr_b' => $lempar_curr_b,
             'curr_s' => $lempar_curr_s,
             'curr_p' => $lempar_curr_p,
