@@ -94,22 +94,20 @@
                             <div class="col">
                                 <div class="card mb-3 border-0">
                                     @foreach ($data['rankings'] as $x)
-                                        @if ($x->curr = 'IDR')
-                                            <p>{{ $loop->index + 1 }}.
-                                                @foreach (\App\User::where('id', $x->user_id)->get() as $users)
-                                                    Sales Name = {{ $users->name }}
-                                                    @if (empty($users->foto))
-                                                        <img style="border-radius: 50%;" height="auto" width="60px"
-                                                            alt="Image placeholder"
-                                                            src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
-                                                    @else
-                                                        <img style="border-radius: 50%;" height="52px" width="60px"
-                                                            alt="Image placeholder"
-                                                            src="{{ url('storage/foto/' . $users->foto) }}">
-                                                    @endif
-                                                @endforeach
-                                            </p>
-                                        @endif
+                                        <p>{{ $loop->index + 1 }}.
+                                            @foreach (\App\User::where('id', $x->user_id)->get() as $users)
+                                                Sales Name = {{ $users->name }}
+                                                @if (empty($users->foto))
+                                                    <img style="border-radius: 50%;" height="auto" width="60px"
+                                                        alt="Image placeholder"
+                                                        src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+                                                @else
+                                                    <img style="border-radius: 50%;" height="52px" width="60px"
+                                                        alt="Image placeholder"
+                                                        src="{{ url('storage/foto/' . $users->foto) }}">
+                                                @endif
+                                            @endforeach
+                                        </p>
                                     @endforeach
                                 </div>
                             </div>
