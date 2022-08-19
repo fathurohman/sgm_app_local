@@ -73,9 +73,9 @@
     <div class="table-discharge">
         <table style="table-layout: fixed">
             <tr>
-                <th style="width: 25%;text-align:center">{{ $data->Port_Discharge }}</th>
-                <th style="width: 25%;text-align:center">{{ $data->Port_Delivery }}</th>
-                <th style="width: 25%;text-align:center">{{ $data->Transshipment_to }}</th>
+                <th style="width: 27,5%;text-align:center">{{ $data->Port_Discharge }}</th>
+                <th style="width: 27,5%;text-align:center">{{ $data->Port_Delivery }}</th>
+                <th style="width: 20%;text-align:center">{{ $data->Transshipment_to }}</th>
                 <th style="width: 25%;text-align:center">{{ $data->Final_destination }}</th>
             </tr>
         </table>
@@ -83,8 +83,8 @@
     <div class="table-marks">
         <table class="marks" style="table-layout: fixed">
             <tr>
-                <th style="width: 25%;text-align:left"></th>
-                <th style="width: 10%;text-align:left"></th>
+                <th style="width: 20%;text-align:left"></th>
+                <th style="width: 15%;text-align:left"></th>
                 <th style="width: 40%;text-align:left"></th>
                 <th style="width: 15%;text-align:left"></th>
                 <th style="width: 10%;text-align:left"></th>
@@ -93,7 +93,7 @@
                 <td class="marks-td" height="180">
                     <p>{{ $data->Marks_Number }}</p>
                 </td>
-                <td height="180" style="text-align: left">
+                <td height="180" style="text-align: center">
                     <p>{{ $data->No_Cont_Pkgs }}</p>
                 </td>
                 <td class="marks-td" height="180">
@@ -117,10 +117,10 @@
                 <th style="width: 60%;"></th>
             </tr>
             <tr>
-                <td height="75" style="text-align:left">{{ $data->Freight_Charges }}</td>
-                <td height="75" style="text-align:left">{{ $data->Prepaid }}</td>
-                <td height="75" style="text-align:left">{{ $data->Collect }}</td>
-                <td height="75"></td>
+                <td height="80" style="text-align:left">{{ $data->Freight_Charges }}</td>
+                <td height="80" style="text-align:left">{{ $data->Prepaid }}</td>
+                <td height="80" style="text-align:left">{{ $data->Collect }}</td>
+                <td height="80"></td>
             </tr>
             <tr>
                 <td style="text-align:center;padding-bottom:10px" colspan="3">{{ $data->Total_Charges }}</td>
