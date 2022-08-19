@@ -20,8 +20,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-2">
                 <div class="col-xl-6 mb-5 mb-xl-0">
                     <div class="card shadow">
                         <div class="card-header border-0">
@@ -34,6 +32,11 @@
                             </select>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-12 col-md-12">
+                    <div id="table-prof"></div>
                 </div>
             </div>
             <div class="row">
@@ -49,3 +52,35 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script type="text/javascript">
+        function narik(bulan, sales_id, token) {
+            $.ajax({
+                url: "{{ route('getprofit') }}",
+                method: "GET",
+                dataType: "json",
+                data: {
+                    bulan: bulan,
+                    sales_id: sales_id,
+                    _token: token
+                },
+                success: function(data) {
+                    $('#table-prof').html(data.html);
+                    console.log(data);
+                }
+            });
+        }
+        $("#month_id").change(function() {
+            var bulan = $('#month_id option:selected').val();
+            var sales_id = $('#sales_id option:selected').val();
+            var _token = $('input[name="_token"]').val();
+            narik(bulan, sales_id, _token);
+        });
+        $("#sales_id").change(function() {
+            var bulan = $('#month_id option:selected').val();
+            var sales_id = $('#sales_id option:selected').val();
+            var _token = $('input[name="_token"]').val();
+            narik(bulan, sales_id, _token);
+        });
+    </script>
+@endpush

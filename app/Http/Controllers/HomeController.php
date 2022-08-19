@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\SellingOrder;
+use Illuminate\Http\Request;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +57,33 @@ class HomeController extends BaseController
         and profits.deleted_at is null
 		' . $params . '
 		GROUP BY profits.currency');
+    }
+
+    public function getprofit(Request $request)
+    {
+        $bulan = $request->get('bulan');
+        $sales_id = $request->get('sales_id');
+        $year = Carbon::now()->format('Y');
+        if ($sales_id == "All") {
+            $params = '';
+            $sales_name = "ALL";
+        } else {
+            $params = 'and sales_orders.created_by = ' . $sales_id . '';
+            $sales = User::find($sales_id);
+            $sales_name = $sales->name;
+        }
+        $data_selling = $this->data_sum_selling($bulan, $year, $params);
+        $data_buying = $this->data_sum_buying($bulan, $year, $params);
+        $data_profits = $this->data_sum_profits($bulan, $year, $params);
+        $data = array(
+            'data_selling' => $data_selling,
+            'data_buying' => $data_buying,
+            'data_profits' => $data_profits,
+            'sales_name' => $sales_name,
+        );
+        $html = view('reports.table_prof')->with(compact('data'))->render();
+        return response()->json(['success' => true, 'html' => $html]);
+        // return json_encode($data);
     }
     public function lempar_curr($jumlah)
     {
