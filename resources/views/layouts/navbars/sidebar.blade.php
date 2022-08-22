@@ -211,6 +211,9 @@
                                             {{ __('Profit Monthly') }}
                                         </a>
                                     @endcan
+                                    <a class="nav-link" href="{{ route('jurnal') }}">
+                                        {{ __('Jurnal Reports') }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>

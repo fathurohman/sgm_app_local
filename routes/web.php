@@ -89,6 +89,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('cetakbol/{id}', 'BOLController@Cetak')->name('cetakbol');
 	//ajax profit
 	Route::get('/getprofit', 'HomeController@getprofit')->name('getprofit');
+	//jurnal routes
+	Route::get('/jurnal', 'JurnalController@index')->name('jurnal');
+	Route::post('/export_jurnal', 'JurnalController@export_jurnal')->name('export_jurnal');
 });
 
 
