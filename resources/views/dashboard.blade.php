@@ -105,7 +105,7 @@
                                                         alt="Image placeholder"
                                                         src="{{ url('storage/foto/' . $users->foto) }}">
                                                 @endif
-                                                {{ $loop->index + 1 }}. Sales Name = {{ $users->name }}
+                                                Sales Name = {{ $users->name }}
                                             @endforeach
                                         </p>
                                     @endforeach
