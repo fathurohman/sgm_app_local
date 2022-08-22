@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class BOLController extends Controller
+class BOLController extends BaseController
 {
     /**
      * Display a listing of the resource.

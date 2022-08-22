@@ -94,9 +94,8 @@
                             <div class="col">
                                 <div class="card mb-3 border-0">
                                     @foreach ($data['rankings'] as $x)
-                                        <p>{{ $loop->index + 1 }}.
+                                        <p>
                                             @foreach (\App\User::where('id', $x->user_id)->get() as $users)
-                                                Sales Name = {{ $users->name }}
                                                 @if (empty($users->foto))
                                                     <img style="border-radius: 50%;" height="auto" width="60px"
                                                         alt="Image placeholder"
@@ -106,6 +105,7 @@
                                                         alt="Image placeholder"
                                                         src="{{ url('storage/foto/' . $users->foto) }}">
                                                 @endif
+                                                {{ $loop->index + 1 }}. Sales Name = {{ $users->name }}
                                             @endforeach
                                         </p>
                                     @endforeach
