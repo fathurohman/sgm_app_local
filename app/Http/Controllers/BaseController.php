@@ -15,10 +15,10 @@ class BaseController extends Controller
                 Alert::success('Success!', session('success_message'));
             }
             $foto = Auth::user()->foto;
-            $data = array(
+            $data_head = array(
                 'foto' => $foto,
             );
-            View::share('data', $data);
+            View::share('data_head', $data_head);
             return $next($request);
         });
     }

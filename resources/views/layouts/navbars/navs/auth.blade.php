@@ -11,12 +11,12 @@
                     aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar">
-                            @if (empty($data['foto']))
+                            @if (empty($data_head['foto']))
                                 <img style="border-radius: 50%;" height="auto" width="60px" alt="Image placeholder"
                                     src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
                             @else
                                 <img style="border-radius: 50%;" height="52px" width="60px" alt="Image placeholder"
-                                    src="{{ url('storage/foto/' . $data['foto']) }}">
+                                    src="{{ url('storage/foto/' . $data_head['foto']) }}">
                             @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
