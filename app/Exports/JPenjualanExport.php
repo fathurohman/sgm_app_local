@@ -2,16 +2,32 @@
 
 namespace App\Exports;
 
+use App\Model\JurnalPenjualan;
 use App\Model\SalesOrder;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-class JPenjualanExport implements FromCollection
+class JPenjualanExport implements FromView, ShouldAutoSize, WithStrictNullComparison
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $start, $end;
+
+    function __construct($start, $end)
     {
-        return SalesOrder::all();
+        $this->start = $start;
+        $this->end = $end;
+    }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function view(): View
+    {
+        $penjualan = JurnalPenjualan::whereBetween('trans_date', [$this->start, $this->end])->get();
+        return view('jurnal.jurnal_penjualan_excel', [
+            'data_penjualan' => $penjualan,
+            // 'date_inv' => $date_inv,
+            // 'inv_fix' => $inv_fix,
+        ]);
     }
 }
