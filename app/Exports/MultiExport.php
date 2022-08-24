@@ -20,8 +20,8 @@ class MultiExport implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            // new JPembelianExport(),
-            new JPenjualanExport($this->start, $this->end),
+            new JPembelianExport($this->start, $this->end),
+            // new JPenjualanExport($this->start, $this->end),
         ];
     }
 }
