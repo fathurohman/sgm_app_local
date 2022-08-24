@@ -55,16 +55,16 @@
             <tr>
                 <table>
                     <tr>
-                        <th style="width: 50%;text-align:center">{{ $data->Pre_Carriage }}</th>
-                        <th style="width: 50%;text-align:center">{{ $data->Place_Receipt }}</th>
+                        <th style="width: 50%;text-align:left">{{ $data->Pre_Carriage }}</th>
+                        <th style="width: 50%;text-align:left;padding-left:5px">{{ $data->Place_Receipt }}</th>
                     </tr>
                 </table>
             </tr>
             <tr>
                 <table>
                     <tr>
-                        <th style="width: 50%;text-align:center">{{ $data->Exporting_Carrier }}</th>
-                        <th style="width: 50%;text-align:center">{{ $data->Port_Loading }}</th>
+                        <th style="width: 50%;text-align:left">{{ $data->Exporting_Carrier }}</th>
+                        <th style="width: 50%;text-align:left;padding-left:5px">{{ $data->Port_Loading }}</th>
                     </tr>
                 </table>
             </tr>
@@ -73,10 +73,10 @@
     <div class="table-discharge">
         <table style="table-layout: fixed">
             <tr>
-                <th style="width: 27,5%;text-align:center">{{ $data->Port_Discharge }}</th>
-                <th style="width: 27,5%;text-align:center">{{ $data->Port_Delivery }}</th>
-                <th style="width: 20%;text-align:center">{{ $data->Transshipment_to }}</th>
-                <th style="width: 25%;text-align:center">{{ $data->Final_destination }}</th>
+                <th style="width: 27,5%;text-align:left;padding-left:5px">{{ $data->Port_Discharge }}</th>
+                <th style="width: 27,5%;text-align:left;padding-left:5px">{{ $data->Port_Delivery }}</th>
+                <th style="width: 20%;text-align:left;padding-left:5px">{{ $data->Transshipment_to }}</th>
+                <th style="width: 25%;text-align:left;padding-left:5px">{{ $data->Final_destination }}</th>
             </tr>
         </table>
     </div>
