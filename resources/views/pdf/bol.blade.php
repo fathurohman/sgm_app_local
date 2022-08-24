@@ -14,13 +14,13 @@
         <table style="table-layout:fixed;">
             <tr>
                 <th height="30" rowspan="2"
-                    style="width: 55%;vertical-align: top;text-align:left;padding-right:5px;">
+                    style="width: 60%;vertical-align: top;text-align:left;padding-right:5px;">
                     <p>{{ $data->Shipper }}</p>
                 </th>
-                <th style="width: 45%; text-align:center">{{ $data->BL_NO }}</th>
+                <th style="width: 40%; text-align:center">{{ $data->BL_NO }}</th>
             </tr>
             <tr>
-                <th height="30" style="widht:45%; text-align:left;vertical-align: top;">
+                <th height="30" style="widht:40%; text-align:left;vertical-align: top;">
                     {{ $data->Export_References }}</th>
             </tr>
         </table>
@@ -29,15 +29,15 @@
         <table style="table-layout: fixed">
             <tr>
                 <th height="50" rowspan="2"
-                    style="width:55%; vertical-align: top; text-align:left;padding-right:10px">
+                    style="width:60%; vertical-align: top; text-align:left;padding-right:10px">
                     <p>{{ $data->Consignee }}</p>
                 </th>
-                <th height="45" style="width:45%; vertical-align: top; text-align:left">
+                <th height="45" style="width:40%; vertical-align: top; text-align:left">
                     <p>{{ $data->Forwarding_Agent }}</p>
                 </th>
             </tr>
             <tr>
-                <th style="width:45%; text-align:center">{{ $data->Point_Country_Origin }}</th>
+                <th style="width:40%; text-align:center">{{ $data->Point_Country_Origin }}</th>
             </tr>
         </table>
     </div>
@@ -45,10 +45,10 @@
         <table style="table-layout: fixed">
             <tr>
                 <th height="60"
-                    style="width:55%; vertical-align: top; text-align:left;padding-bottom:5px;padding-right:10px">
+                    style="width:60%; vertical-align: top; text-align:left;padding-bottom:5px;padding-right:10px">
                     {{ $data->Notify_Party }}
                 </th>
-                <th rowspan="3" style="width:45%; vertical-align: top; text-align:left">
+                <th rowspan="3" style="width:40%; vertical-align: top; text-align:left">
                     <p>{{ $data->Obtain_Delivery }}</p>
                 </th>
             </tr>
@@ -56,7 +56,7 @@
                 <table>
                     <tr>
                         <th style="width: 50%;text-align:left">{{ $data->Pre_Carriage }}</th>
-                        <th style="width: 50%;text-align:left;padding-left:5px">{{ $data->Place_Receipt }}</th>
+                        <th style="width: 50%;text-align:left">{{ $data->Place_Receipt }}</th>
                     </tr>
                 </table>
             </tr>
@@ -64,7 +64,7 @@
                 <table>
                     <tr>
                         <th style="width: 50%;text-align:left">{{ $data->Exporting_Carrier }}</th>
-                        <th style="width: 50%;text-align:left;padding-left:5px">{{ $data->Port_Loading }}</th>
+                        <th style="width: 50%;text-align:left">{{ $data->Port_Loading }}</th>
                     </tr>
                 </table>
             </tr>
@@ -73,10 +73,10 @@
     <div class="table-discharge">
         <table style="table-layout: fixed">
             <tr>
-                <th style="width: 27,5%;text-align:left;padding-left:5px">{{ $data->Port_Discharge }}</th>
-                <th style="width: 27,5%;text-align:left;padding-left:5px">{{ $data->Port_Delivery }}</th>
-                <th style="width: 20%;text-align:left;padding-left:5px">{{ $data->Transshipment_to }}</th>
-                <th style="width: 25%;text-align:left;padding-left:5px">{{ $data->Final_destination }}</th>
+                <th style="width: 27,5%;text-align:left">{{ $data->Port_Discharge }}</th>
+                <th style="width: 27,5%;text-align:left">{{ $data->Port_Delivery }}</th>
+                <th style="width: 20%;text-align:left">{{ $data->Transshipment_to }}</th>
+                <th style="width: 25%;text-align:left">{{ $data->Final_destination }}</th>
             </tr>
         </table>
     </div>
