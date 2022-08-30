@@ -2,7 +2,7 @@
      margin-top: 100px;
      margin-left: 40px;
      margin-right: 40px;
-     font-size: 10pt;
+     font-size: 9pt;
      font-family: 'Courier New', Courier, monospace;
 }
 
@@ -22,7 +22,7 @@
 .table-discharge table {
      width: 100%;
      border-collapse: collapse;
-     margin-top: 10px;
+     margin-top: 15px;
 }
 
 .table-consignee table {

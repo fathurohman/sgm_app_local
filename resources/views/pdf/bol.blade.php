@@ -124,7 +124,7 @@
             </tr>
             <tr>
                 <td style="text-align:center;padding-bottom:10px" colspan="3">{{ $data->Total_Charges }}</td>
-                <td style="text-align: right">{{ $data->BY }}</td>
+                <td style="text-align: right;padding-right:50px">{{ $data->BY }}</td>
             </tr>
             <tr>
                 <td style="text-align:center" colspan="3">{{ $data->Freight_Payable }}</td>
