@@ -21,7 +21,7 @@ class MultiExport implements WithMultipleSheets
     {
         return [
             new JPembelianExport($this->start, $this->end),
-            // new JPenjualanExport($this->start, $this->end),
+            new JPenjualanExport($this->start, $this->end),
         ];
     }
 }

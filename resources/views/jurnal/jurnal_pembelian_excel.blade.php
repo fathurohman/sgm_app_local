@@ -17,7 +17,7 @@
                 <td>{{ date('d-F-Y', strtotime($x->trans_date)) }}</td>
                 <td>{{ $x->inv_no }}</td>
                 <td>{{ $x->description }}</td>
-                <td>{{ $x->coa_id }}</td>
+                <td>{{ $x->coa->kd_aktiva }}</td>
                 <td>{{ number_format($x->debit, 2) }}</td>
                 <td>{{ number_format($x->credit, 2) }}</td>
                 <td>{{ number_format($x->ending_balance, 2) }}</td>
