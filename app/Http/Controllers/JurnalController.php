@@ -174,86 +174,100 @@ class JurnalController extends Controller
             $tanggal_inv = $y->inv_date;
             // $date_inv = date('d-F-Y', strtotime($tanggal_inv));
             $no_inv = $y->nomor_invoice;
-            if ($curr == 'IDR') {
-                $nilai_usd = '0';
-                $ptng = sprintf('%03d', $no_inv);
-                $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
-                $trans_no = "$ptng/$sub_string";
-                $description = $y->job_order_id;
-                $vat = 1.1 / 100;
-                $pph = $sub_total * (2 / 100);
-                $total_pajak = $sub_total * $vat;
-                $total_charge = $sub_total + $total_pajak;
-                $Admin = array(
+            $j_pembelian = JurnalPembelian::where('sales_order_id', $id)->where('nilai_trans', $sub_total)->count();
+            if ($j_pembelian == '0') {
+                if ($curr == 'IDR') {
+                    $nilai_usd = '0';
+                    $ptng = sprintf('%03d', $no_inv);
+                    $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
+                    $trans_no = "$ptng/$sub_string";
+                    $description = $y->job_order_id;
+                    $vat = 1.1 / 100;
+                    $pph = $sub_total * (2 / 100);
+                    $total_pajak = $sub_total * $vat;
+                    $total_charge = $sub_total + $total_pajak;
+                    $Admin = array(
+                        'sales_order_id' => $id,
+                        'job_order_id' => $description,
+                        'trans_date' => $tanggal_inv,
+                        'inv_No' => $trans_no,
+                        'description' => "A/p $customer",
+                        'coa_id' => '386',
+                        'debit' => $pph,
+                        'credit' => '0',
+                        'ending_balance' => $pph,
+                        'inv_usd' => '0',
+                        'nilai_trans' => $sub_total,
+                    );
+                    $hutang_pajak = array(
+                        'sales_order_id' => $id,
+                        'job_order_id' => $description,
+                        'trans_date' => $tanggal_inv,
+                        'inv_No' => $trans_no,
+                        'description' => "A/p $customer",
+                        'coa_id' => '195',
+                        'debit' => '0',
+                        'credit' => $pph,
+                        'ending_balance' => $pph,
+                        'inv_usd' => '0',
+                        'nilai_trans' => $sub_total,
+                    );
+                    $ppn = array(
+                        'sales_order_id' => $id,
+                        'job_order_id' => $description,
+                        'trans_date' => $tanggal_inv,
+                        'inv_No' => $trans_no,
+                        'description' => "A/p $customer",
+                        'coa_id' => '79',
+                        'debit' => $total_pajak,
+                        'credit' => '0',
+                        'ending_balance' => $total_pajak,
+                        'inv_usd' => '0',
+                        'nilai_trans' => $sub_total,
+                    );
+                } else {
+                    $Admin = NULL;
+                    $hutang_pajak = NULL;
+                    $ppn = NULL;
+                    $total_charge = '0';
+                    $nilai_usd = $sub_total;
+                }
+                $pembelian = array(
                     'sales_order_id' => $id,
+                    'job_order_id' => $description,
                     'trans_date' => $tanggal_inv,
                     'inv_No' => $trans_no,
-                    'description' => "A/p $customer $description",
-                    'coa_id' => '386',
-                    'debit' => $pph,
+                    'description' => "A/p $customer",
+                    'coa_id' => '253',
+                    'debit' => $total_charge,
                     'credit' => '0',
-                    'ending_balance' => $pph,
-                    'inv_usd' => '0',
+                    'ending_balance' => $total_charge,
+                    'inv_usd' => $nilai_usd,
                     'nilai_trans' => $sub_total,
                 );
-                $hutang_pajak = array(
+                $hutang = array(
                     'sales_order_id' => $id,
+                    'job_order_id' => $description,
                     'trans_date' => $tanggal_inv,
                     'inv_No' => $trans_no,
-                    'description' => "A/p $customer $description",
-                    'coa_id' => '195',
+                    'description' => "A/p $customer",
+                    'coa_id' => '155',
                     'debit' => '0',
-                    'credit' => $pph,
-                    'ending_balance' => $pph,
-                    'inv_usd' => '0',
+                    'credit' => $total_charge,
+                    'ending_balance' => $total_charge,
+                    'inv_usd' => $nilai_usd,
+                    'nilai_trans' => $sub_total,
                 );
-                $ppn = array(
-                    'sales_order_id' => $id,
-                    'trans_date' => $tanggal_inv,
-                    'inv_No' => $trans_no,
-                    'description' => "A/p $customer $description",
-                    'coa_id' => '79',
-                    'debit' => $total_pajak,
-                    'credit' => '0',
-                    'ending_balance' => $total_pajak,
-                    'inv_usd' => '0',
-                );
+                // dd($hutang);
+                JurnalPembelian::insert($pembelian);
+                JurnalPembelian::insert($hutang);
+                if (!empty($ppn) && !empty($Admin) && !empty($hutang_pajak)) {
+                    JurnalPembelian::insert($ppn);
+                    JurnalPembelian::insert($Admin);
+                    JurnalPembelian::insert($hutang_pajak);
+                }
             } else {
-                $Admin = NULL;
-                $hutang_pajak = NULL;
-                $ppn = NULL;
-                $total_charge = '0';
-                $nilai_usd = $sub_total;
-            }
-            $pembelian = array(
-                'sales_order_id' => $id,
-                'trans_date' => $tanggal_inv,
-                'inv_No' => $trans_no,
-                'description' => "A/p $customer $description",
-                'coa_id' => '253',
-                'debit' => $total_charge,
-                'credit' => '0',
-                'ending_balance' => $total_charge,
-                'inv_usd' => $nilai_usd,
-            );
-            $hutang = array(
-                'sales_order_id' => $id,
-                'trans_date' => $tanggal_inv,
-                'inv_No' => $trans_no,
-                'description' => "A/p $customer $description",
-                'coa_id' => '155',
-                'debit' => '0',
-                'credit' => $total_charge,
-                'ending_balance' => $total_charge,
-                'inv_usd' => $nilai_usd,
-            );
-            // dd($hutang);
-            JurnalPembelian::insert($pembelian);
-            JurnalPembelian::insert($hutang);
-            if (!empty($ppn) && !empty($Admin) && !empty($hutang_pajak)) {
-                JurnalPembelian::insert($ppn);
-                JurnalPembelian::insert($Admin);
-                JurnalPembelian::insert($hutang_pajak);
+                return 'data available';
             }
             $sub_total = 0;
         }

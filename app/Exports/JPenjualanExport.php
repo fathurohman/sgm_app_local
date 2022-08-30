@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class JPenjualanExport implements FromView, ShouldAutoSize, WithStrictNullComparison
+class JPenjualanExport implements FromView, ShouldAutoSize, WithStrictNullComparison, WithTitle
 {
     protected $start, $end;
 
@@ -29,5 +30,10 @@ class JPenjualanExport implements FromView, ShouldAutoSize, WithStrictNullCompar
             // 'date_inv' => $date_inv,
             // 'inv_fix' => $inv_fix,
         ]);
+    }
+
+    public function title(): string
+    {
+        return 'Jur_Penjualan';
     }
 }

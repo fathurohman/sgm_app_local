@@ -12,4 +12,9 @@ class JurnalPembelian extends Model
     {
         return $this->belongsTo('App\Model\COA', 'coa_id');
     }
+
+    public function job_orders()
+    {
+        return $this->belongsTo('App\Model\job_order', 'job_order_id');
+    }
 }
