@@ -125,7 +125,12 @@
                     </li>
                 @endcan
                 <li
-                    class="nav-tr {{ $activePage == 'sales_orders' || $activePage == 'job_orders' ? ' active' : '' }}">
+                    class="nav-tr {{ $activePage == 'sales_orders' ||
+                    $activePage == 'job_orders' ||
+                    $activePage == 'History-Sales-Orders' ||
+                    $activePage == 'Pickup-Job'
+                        ? ' active'
+                        : '' }}">
                     <a class="nav-link collapsed" href="#navbar-crud-Transaksi" data-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="navbar-crud-Transaksi">
                         <i class="ni ni-credit-card"></i>

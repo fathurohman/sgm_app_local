@@ -158,7 +158,7 @@ class JurnalController extends Controller
         FROM sales_orders
         INNER JOIN buying_orders ON sales_orders.id=buying_orders.sales_order_id
 		where sales_orders.created_at between "' . $start . '" and "' . $end . '"
-        and sales_orders.printed = 1
+        and sales_orders.booked = 1
 		GROUP BY buying_orders.curr,buying_orders.name, sales_orders.inv_date, sales_orders.nomor_invoice,
         sales_orders.job_order_id,buying_orders.sales_order_id');
     }

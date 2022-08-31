@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'sales_orders'])
+@extends('layouts.app', ['activePage' => 'History-Sales-Orders'])
 @push('css')
     <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
 @endpush
@@ -13,7 +13,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Sales Orders</h3>
+                                <h3 class="mb-0">History Sales Orders</h3>
                             </div>
                         </div>
                     </div>
