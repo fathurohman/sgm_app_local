@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//jurnal routes
 	Route::get('/jurnal', 'JurnalController@index')->name('jurnal');
 	Route::post('/export_jurnal', 'JurnalController@export_jurnal')->name('export_jurnal');
+	//chart routes
+	Route::get('/monthly-chart-data', 'ChartController@getMonthlyProfitData');
 });
 
 
