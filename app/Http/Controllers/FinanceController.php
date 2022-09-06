@@ -96,9 +96,12 @@ class FinanceController extends BaseController
         $sales_order = SalesOrder::find($id);
         $tipe = $sales_order->tipe;
         //no invoice
-        $year = Carbon::now()->format('Y');
-        $tahun = Carbon::now()->format('y');
-        $month = Carbon::now()->format('m');
+        // $year = Carbon::now()->format('Y');
+        // $tahun = Carbon::now()->format('y');
+        // $month = Carbon::now()->format('m');
+        $tahun = $sales_order->created_at->format('y');
+        $year = $sales_order->created_at->format('Y');
+        $month = $sales_order->created_at->format('m');
         // $order_month = $jml_by_month + 1;
         if ($sales_order->printed == '1') {
             $order_month = $sales_order->order_row;
