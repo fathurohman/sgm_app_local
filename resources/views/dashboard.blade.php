@@ -157,5 +157,5 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/ProfitChart.js"></script>
+    <script src="{{ asset('argon') }}/vendor/chart.js/dist/profitChart.js"></script>
 @endpush
