@@ -128,7 +128,8 @@
                                             <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
                                                 <label for="inputState">Currency</label>
                                                 <select id="curr" name="curr" class="form-control" required>
-                                                    <option selected value="IDR">IDR</option>
+                                                    <option selected value="ALL">Pilih Currency: </option>
+                                                    <option value="IDR">IDR</option>
                                                     <option value="USD">USD</option>
                                                 </select>
                                             </a>

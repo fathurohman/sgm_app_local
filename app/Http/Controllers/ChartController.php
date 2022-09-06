@@ -40,7 +40,7 @@ class ChartController extends BaseController
 
     public function getMonthlyProfitData(Request $request)
     {
-        $curr = $request->get('currency');
+        $curr = $request->get('curr');
         $monthly_data_profit_array = array();
         $month_array = $this->getAllMonths();
         $month_name_array = array();
