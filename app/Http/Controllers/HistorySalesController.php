@@ -25,6 +25,8 @@ class HistorySalesController extends Controller
             return $row->job_orders->order_id;
         })->editColumn('tipe', function ($row) {
             return $row->job_orders->tipe_order;
+        })->editColumn('pol_pod', function ($row) {
+            return $row->job_orders->pol_pod;
         })->editColumn('profits', function ($row) {
             $data = [
                 'id' => $row->id

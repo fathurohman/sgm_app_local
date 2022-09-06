@@ -27,6 +27,7 @@
                                     <tr>
                                         <th scope="col">Job Order_ID</th>
                                         <th scope="col">Tipe Order</th>
+                                        <th scope="col">POL POD</th>
                                         <th scope="col">Profits</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">More</th>
@@ -89,6 +90,10 @@
                 {
                     data: 'tipe',
                     name: 'tipe'
+                },
+                {
+                    data: 'pol_pod',
+                    name: 'pol_pod'
                 },
                 {
                     data: 'profits',
