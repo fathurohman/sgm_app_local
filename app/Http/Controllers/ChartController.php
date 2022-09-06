@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\SalesOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DateTime;
 use Illuminate\Support\Facades\DB;
@@ -10,12 +11,13 @@ use Illuminate\Support\Facades\DB;
 class ChartController extends BaseController
 {
     //chart start
-    public function data_sum_profits($month, $curr)
+    public function data_sum_profits($month, $curr, $year)
     {
         $sales_profit_monthly = DB::select('SELECT profits.currency AS curr, sum(profits.profit ) AS sub_total
         FROM sales_orders
         INNER JOIN profits ON sales_orders.id=profits.sales_order_id
 		where MONTH(sales_orders.created_at) = ' . $month . '
+        and YEAR(sales_orders.created_at) = ' . $year . '
 				and sales_orders.printed = 1
         and profits.deleted_at is null
 				and profits.currency = "' . $curr . '"
@@ -40,13 +42,14 @@ class ChartController extends BaseController
 
     public function getMonthlyProfitData(Request $request)
     {
+        $year = Carbon::now()->format('Y');
         $curr = $request->get('curr');
         $monthly_data_profit_array = array();
         $month_array = $this->getAllMonths();
         $month_name_array = array();
         if (!empty($month_array)) {
             foreach ($month_array as $month_no => $month_name) {
-                $monthly_profit_data = $this->data_sum_profits($month_no, $curr);
+                $monthly_profit_data = $this->data_sum_profits($month_no, $curr, $year);
                 foreach ($monthly_profit_data as $x) {
                     $monthly_profit = $x->sub_total;
                 }
