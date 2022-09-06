@@ -119,8 +119,8 @@
                         <div class="card-header bg-transparent">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                                    <h2 class="text-white mb-0">Sales value</h2>
+                                    <h6 class="text-uppercase text-light ls-1 mb-1">Total</h6>
+                                    <h2 class="text-white mb-0">Profit Sales</h2>
                                 </div>
                                 <div class="col">
                                     <ul class="nav nav-pills justify-content-end">
