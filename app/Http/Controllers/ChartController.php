@@ -58,7 +58,11 @@ class ChartController extends BaseController
             }
         }
         $max_no = max($monthly_data_profit_array);
-        $max = round(($max_no + 10000000 / 2) / 10) * 10;
+        if ($curr == 'IDR') {
+            $max = round(($max_no + 10000000 / 2) / 10) * 10;
+        } else {
+            $max = round(($max_no + 10000 / 2) / 10) * 10;
+        }
         $monthly_total_profit_array = array(
             'months' => $month_name_array,
             'month_total_profit' => $monthly_data_profit_array,

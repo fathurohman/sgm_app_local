@@ -8,7 +8,6 @@ function respondCanvas() {
      myLineChart = new Chart(ctx, {
           type: 'line',
           scaleOverride: true,
-          scaleStepWidth: Math.ceil(max),
           scaleStartValue: 0,
           data: chartData,
           options: chartOptions,
@@ -44,21 +43,13 @@ var GetChartData = function (curr) {
                }
                chartOptions = {
                     responsive: true,
-                    plugins: {
-                         title: {
-                              display: true,
-                              text: 'Min and Max Settings'
-                         }
-                    },
                     scales: {
                          y: {
-                              min: 0,
+                              // min: 0,
                               max: response.max,
                          }
                     }
                };
-
-               max = Math.max.apply(Math, response.month_total_profit);
 
                respondCanvas();
           }
