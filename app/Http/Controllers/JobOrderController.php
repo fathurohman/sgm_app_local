@@ -36,8 +36,9 @@ class JobOrderController extends BaseController
         // $now = Carbon::now();
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
-        $jml_by_month = job_order::whereMonth('created_at', $month)->count();
-        $urutan = job_order::select('order_row')->where('month', $month)->get();
+        $tahun = Carbon::now()->format('Y');
+        $jml_by_month = job_order::whereMonth('created_at', $month)->whereYear('created_at', $tahun)->count();
+        $urutan = job_order::select('order_row')->where('month', $month)->whereYear('created_at', $tahun)->get();
         $results = array();
         foreach ($urutan as $query) {
             $order_row = $query->order_row;
