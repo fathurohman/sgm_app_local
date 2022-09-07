@@ -43,12 +43,12 @@ var GetChartData = function (curr) {
                }
                chartOptions = {
                     responsive: true,
-                    scales: {
-                         y: {
-                              // min: 0,
-                              max: response.max,
-                         }
-                    }
+                    // scales: {
+                    //      y: {
+                    //           // min: 0,
+                    //           max: response.max,
+                    //      }
+                    // }
                };
 
                respondCanvas();
