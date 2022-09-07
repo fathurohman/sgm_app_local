@@ -48,6 +48,8 @@
                                         value="{{ $data['order_id'] }}" hidden>
                                     <input id="row-id-hide" type="text" class="form-control"
                                         value="{{ $data['order_month'] }}" hidden>
+                                    <input id="month-hide" name="month_order" type="text" class="form-control"
+                                        value="{{ $data['month'] }}" hidden>
                                     <input id="row-id-field" type="text" class="form-control" name="order_month" hidden>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3">
@@ -376,6 +378,7 @@
                         // alert($currID);
                         $.get('/job_data?pid=' + $currID, function(data) {
                             $('#order_id-field').val(data['jobs'].order_id);
+                            $('#month-hide').val(data['month']);
                             $('#row-id-field').val(data['jobs'].order_row);
                             $('#tipe_order_full').val(data['jobs'].tipe_order);
                             $('#customer-field').val(data['name_client']);
