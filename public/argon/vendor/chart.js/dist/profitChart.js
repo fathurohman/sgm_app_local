@@ -1,6 +1,7 @@
 var max = 0;
 var chartData = {};
 var myLineChart;
+var options = {};
 function respondCanvas() {
      var ctx = document.getElementById("chart-sales");
      //Call a function to redraw other content (texts, images etc)
@@ -10,6 +11,7 @@ function respondCanvas() {
           scaleStepWidth: Math.ceil(max),
           scaleStartValue: 0,
           data: chartData,
+          options: chartOptions,
      });
 }
 
@@ -39,6 +41,21 @@ var GetChartData = function (curr) {
                          pointBorderWidth: 2,
                          data: response.month_total_profit // The response got from the ajax request containing data for the completed jobs in the corresponding months
                     }],
+               }
+               chartOptions = {
+                    responsive: true,
+                    plugins: {
+                         title: {
+                              display: true,
+                              text: 'Min and Max Settings'
+                         }
+                    },
+                    scales: {
+                         y: {
+                              min: 0,
+                              max: response.max,
+                         }
+                    }
                };
 
                max = Math.max.apply(Math, response.month_total_profit);
@@ -49,7 +66,7 @@ var GetChartData = function (curr) {
 };
 
 $(document).ready(function () {
-     $(window).resize(respondCanvas);
+     // $(window).resize(respondCanvas);
      $("#curr").change(function () {
           var curr = $('#curr option:selected').val();
           GetChartData(curr);

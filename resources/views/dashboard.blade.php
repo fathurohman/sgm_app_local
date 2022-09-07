@@ -115,12 +115,12 @@
                     </div>
                 </div>
                 <div class="col-xl-8 col-md-8">
-                    <div class="card bg-gradient-default shadow">
-                        <div class="card-header bg-transparent">
+                    <div class="card shadow">
+                        <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h6 class="text-uppercase text-light ls-1 mb-1">Total</h6>
-                                    <h2 class="text-white mb-0">Profit Sales</h2>
+                                    <h6 class="text-uppercase text-black ls-1 mb-1">Total</h6>
+                                    <h2 class="text-black mb-0">Profit Sales</h2>
                                 </div>
                                 <div class="col">
                                     <ul class="nav nav-pills justify-content-end">
