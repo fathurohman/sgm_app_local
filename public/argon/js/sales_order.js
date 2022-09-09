@@ -137,7 +137,7 @@ $('tbody').on('keyup', ".price", function () {
     var qty = tr.find('.qty').val();
     var price = tr.find('.price').val();
     var clone = $(this).val();
-    var cloned = clone.replace(/[A-Za-z$. ,-]/g, "");
+    var cloned = clone.replace(/[A-Za-z$ ,-]/g, "");
     tr.find('.price_real').val(cloned);
     // console.log(polos_price);
     var total = qty * cloned;

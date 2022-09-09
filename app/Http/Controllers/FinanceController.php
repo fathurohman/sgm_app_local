@@ -154,13 +154,15 @@ class FinanceController extends BaseController
         // $nilai_pajak = $pajak->value;
         $vat = $pajak / 100;
         $itung_pajak = $sum * $vat;
-        $total_pajak = (int)$itung_pajak;
-        $total_charge = $sum + $total_pajak;
         if ($curr == 'IDR') {
+            $total_pajak = (int)$itung_pajak;
+            $total_charge = $sum + $total_pajak;
             $terbilang = ucwords(Terbilang::make($total_charge, ' rupiah'));
             $terbilang_dn = ucwords(Terbilang::make($sum, ' rupiah'));
         } else {
             App::setLocale('en');
+            $total_pajak = $itung_pajak;
+            $total_charge = $sum + $total_pajak;
             $terbilang = ucwords(Terbilang::make($total_charge, ' dollars#', '# '));
             $terbilang_dn = ucwords(Terbilang::make($sum, ' dollars#', '# '));
         }

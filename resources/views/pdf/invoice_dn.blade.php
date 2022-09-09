@@ -155,7 +155,7 @@
             <td style="text-align:center;font-weight:bold">Total Charges:</td>
             <td class="last-terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
             <td class="last-empty-value" style="text-align:right;font-weight:bold">
-                {{ number_format($data['sum']) }}
+                {{ number_format((float) $data['sum'], 2, '.', '') }}
             </td>
         </tr>
         {{-- <tr>
