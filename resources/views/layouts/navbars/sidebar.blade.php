@@ -127,6 +127,7 @@
                 <li
                     class="nav-tr {{ $activePage == 'sales_orders' ||
                     $activePage == 'job_orders' ||
+                    $activePage == 'history_job_orders' ||
                     $activePage == 'History-Sales-Orders' ||
                     $activePage == 'Pickup-Job'
                         ? ' active'
@@ -143,6 +144,9 @@
                                 @can('admin.job-order', Auth::user())
                                     <a class="nav-link" href="{{ route('job_order.index') }}">
                                         {{ __('Job Order') }}
+                                    </a>
+                                    <a class="nav-link" href="{{ route('hist_job_order') }}">
+                                        {{ __('History Of Job Order') }}
                                     </a>
                                     @endcan @can('admin.pickup-job', Auth::user())
                                     <a class="nav-link" href="{{ route('sales_order.index') }}">

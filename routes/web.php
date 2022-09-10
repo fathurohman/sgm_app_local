@@ -38,6 +38,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/listcustomer', 'JobOrderController@listcustomer')->name('listcustomer');
 	Route::get('/listorder', 'JobOrderController@listorder')->name('listorder');
 	Route::get('/listordershow', 'JobOrderController@listordershow')->name('listordershow');
+	//history routes
+	Route::get('/hist_job_order', 'HistoryJobController@hist_job_order')->name('hist_job_order');
+	Route::get('/hist_tipe_order', 'HistoryJobController@gettipeorder');
+	Route::get('/hist_job_detail/{id}', 'HistoryJobController@showDetail');
+	Route::get('/hist_job_pickup/{id}', 'HistoryJobController@pickup')->name('job_pickup');
+	Route::get('/listorderhist', 'HistoryJobController@listorderhist')->name('listorderhist');
+	Route::post('/hist_post', 'HistoryJobController@hist_post')->name('hist_post');
 	//sales order routes
 	Route::get('/listsalesshow', 'SalesOrderController@listsalesshow')->name('listsalesshow');
 	Route::get('/sales_selling_detail/{id}', 'SalesOrderController@showDetailSelling');
