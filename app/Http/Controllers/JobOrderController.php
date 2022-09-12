@@ -36,8 +36,9 @@ class JobOrderController extends BaseController
         // $now = Carbon::now();
         $year = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
-        $jml_by_month = job_order::whereMonth('created_at', $month)->count();
-        $urutan = job_order::select('order_row')->whereMonth('created_at', $month)->get();
+        $tahun = Carbon::now()->format('Y');
+        $jml_by_month = job_order::whereMonth('created_at', $month)->whereYear('created_at', $tahun)->count();
+        $urutan = job_order::select('order_row')->where('month', $month)->whereYear('created_at', $tahun)->get();
         $results = array();
         foreach ($urutan as $query) {
             $order_row = $query->order_row;
@@ -68,6 +69,7 @@ class JobOrderController extends BaseController
             'sales' => $sales,
             'order_id' => $order_id,
             // 'clients' => $clients,
+            'month' => $month,
             'order_month' => $order_month,
             'job_order' => $job_order,
         );
@@ -88,6 +90,7 @@ class JobOrderController extends BaseController
         // $request->ETA = date("Y-m-d");
         $job_order = new job_order;
         $job_order->order_id = $request->order_id;
+        $job_order->month = $request->month_order;
         $job_order->order_row = $request->order_month;
         $job_order->tipe_order = $request->tipe_order_text;
         $job_order->client_id = $request->client_id;
@@ -169,7 +172,6 @@ class JobOrderController extends BaseController
         $ETA = Carbon::parse($request->ETA)->format('Y-m-d');
         $job_order = job_order::find($id);
         $job_order->order_id = $request->order_id;
-        $job_order->order_row = $request->order_month;
         $job_order->tipe_order = $request->tipe_order_text;
         $job_order->client_id = $request->client_id;
         $job_order->sales_id = $request->sales_id;
@@ -225,10 +227,13 @@ class JobOrderController extends BaseController
     {
         $pid = $request->get('pid');
         $jobs = job_order::where('id', $pid)->first();
+        $order_id = $jobs->order_id;
+        $month = substr($order_id, -5, 2);
         $client_name = $jobs->clients->COMPANY_NAME;
         $data = array(
             'jobs' => $jobs,
             'name_client' => $client_name,
+            'month' => $month,
         );
         return Response::json($data);
         // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
