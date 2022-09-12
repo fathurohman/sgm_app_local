@@ -118,11 +118,11 @@
                 <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
                     {{ $x->qty }}</td>
                 <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
-                    {{ number_format($x->price) }}
+                    {{ $x->price }}
                 </td>
                 <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>
                 <td style="padding-right:2px;text-align:right;font-weight:bold">
-                    {{ number_format($x->sub_total) }}</td>
+                    {{ $x->sub_total }}</td>
             </tr>
         @endforeach
         <tr>
@@ -149,14 +149,14 @@
             <td style="padding-left:2px;font-weight:bold">Total:</td>
             <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
             <td style="text-align:right;font-weight:bold">
-                {{ number_format($data['sum']) }}
+                {{ number_format((float) $data['sum'], 2, '.', '') }}
             </td>
         </tr>
         <tr>
             <td style="padding-left:2px;font-weight:bold">VAT {{ $data['nilai_pajak'] }} % :</td>
             <td class="terbilang-value" style="font-weight:bold">{{ $data['curr'] }}</td>
             <td style="text-align:right;font-weight:bold">
-                {{ number_format($data['total_pajak']) }}
+                {{ number_format((float) $data['total_pajak'], 2, '.', '') }}
             </td>
         </tr>
         <tr>

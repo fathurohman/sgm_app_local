@@ -124,11 +124,11 @@
                 <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
                     {{ $x->qty }}</td>
                 <td class="selling-value" style="padding-right:4px;text-align:right;font-weight:bold">
-                    {{ number_format($x->price) }}
+                    {{ $x->price }}
                 </td>
                 <td style="padding-left:2px;text-align:left;font-weight:bold">{{ $x->curr }}</td>
                 <td style="padding-right:2px;text-align:right;font-weight:bold">
-                    {{ number_format($x->sub_total) }}</td>
+                    {{ $x->sub_total }}</td>
             </tr>
         @endforeach
         <tr>
