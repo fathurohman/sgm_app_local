@@ -9,9 +9,9 @@
         @foreach ($profit_orders as $x)
             <tr>
                 <td>{{ $x->currency }}</td>
-                <td>{{ number_format($x->total_selling) }}</td>
-                <td>{{ number_format($x->total_buying) }}</td>
-                <td>{{ number_format($x->profit) }}</td>
+                <td>{{ number_format((float) $x->total_selling, 2, '.', ',') }}</td>
+                <td>{{ number_format((float) $x->total_buying, 2, '.', ',') }}</td>
+                <td>{{ number_format((float) $x->profit, 2, '.', ',') }}</td>
             </tr>
         @endforeach
     </tbody>

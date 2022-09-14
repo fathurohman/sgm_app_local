@@ -14,8 +14,8 @@
                 <td>{{ $x->description }}</td>
                 <td>{{ $x->qty }}</td>
                 <td>{{ $x->curr }}</td>
-                <td>{{ number_format($x->price) }}</td>
-                <td>{{ number_format($x->sub_total) }}</td>
+                <td>{{ number_format((float) $x->price, 2, '.', ',') }}</td>
+                <td>{{ number_format((float) $x->sub_total, 2, '.', ',') }}</td>
                 <td>{{ $x->remark }}</td>
                 <td>{{ $x->name }}</td>
             </tr>
