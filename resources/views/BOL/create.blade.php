@@ -1,4 +1,7 @@
 @extends('layouts.app', ['activePage' => 'BOL'])
+@push('css')
+    <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
+@endpush
 @section('content')
     @include('users.partials.header', [
         'class' => 'col-lg-7',
@@ -25,6 +28,21 @@
                                     </button>
                                 </div>
                             @endif
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-BL_NO">{{ __('BL_NO') }}</label>
+                                    <div class="input-group">
+                                        <input id="BL_NO-field" type="text" class="form-control" placeholder="BL_NO"
+                                            aria-label="BL_NO" readonly>
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                                                data-target="#bolList">
+                                                Find
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="form-control-label"
@@ -55,7 +73,8 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <label class="form-control-label"
                                             for="input-Forwarding Agent">{{ __('Forwarding Agent') }}</label>
-                                        <textarea name="forwarding_agent" class="form-control" id="export_ref" rows="2" placeholder="Forwarding Agent"></textarea>
+                                        <textarea name="forwarding_agent" class="form-control" id="forwarding_agent" rows="2"
+                                            placeholder="Forwarding Agent"></textarea>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm12">
                                         <label class="form-control-label"
@@ -73,7 +92,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <label class="form-control-label"
                                                 for="input-Notify Party">{{ __('Notify Party') }}</label>
-                                            <textarea name="notify_party" class="form-control" id="Notify Party" rows="4" placeholder="Notify Party"></textarea>
+                                            <textarea name="notify_party" class="form-control" id="notify-party" rows="4" placeholder="Notify Party"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -220,7 +239,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <label class="form-control-label"
                                                 for="input-no_original_bl">{{ __('NO ORIGINAL B/L') }}</label>
-                                            <input type="text" name="no_original_bl" id="input-colect"
+                                            <input type="text" name="no_original_bl" id="no_original_bl"
                                                 class="form-control form-control-alternative"
                                                 placeholder="{{ __('NO ORIGINAL B/L') }}">
                                         </div>
@@ -280,8 +299,75 @@
             </div>
         </div>
     </div>
+    @include('BOL.bollist')
     @include('layouts.footers.auth')
 @endsection
 @push('js')
+    <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#bol').DataTable({
+            processing: true,
+            serverSide: true,
+            drawCallback: function(settings) {
+                $('.infoO').click(function() {
+                    $currID = $(this).attr("data-id");
+                    $.get('/bol_data?pid=' + $currID, function(data) {
+                        $('#BL_NO-field').val(data['bols'].BL_NO);
+                        $('#input-BL_NO').val(data['bols'].BL_NO);
+                        $('#shipper').val(data['bols'].Shipper);
+                        $('#export_ref').val(data['bols'].Export_References);
+                        $('#consignee').val(data['bols'].Consignee);
+                        $('#forwarding_agent').val(data['bols'].Forwarding_Agent);
+                        $('#input-point_country_origin').val(data['bols'].Point_Country_origin);
+                        $('#notify-party').val(data['bols'].Notify_Party);
+                        $('#input-pre_carriage').val(data['bols'].Pre_Carriage);
+                        $('#input-place_receipt').val(data['bols'].Place_Receipt);
+                        $('#input-exporting_carrier').val(data['bols'].Exporting_Carrier);
+                        $('#input-port_loading').val(data['bols'].Port_Loading);
+                        $('#input-port_discharge').val(data['bols'].Port_Discharge);
+                        $('#input-port_delivery').val(data['bols'].Port_Delivery);
+                        $('#delivery_contact').val(data['bols'].Obtain_Delivery);
+                        $('#input-transshipment').val(data['bols'].Transshipment_to);
+                        $('#marks_number').val(data['bols'].Marks_Number);
+                        $('#no_of_cont').val(data['bols'].No_Cont_Pkgs);
+                        $('#description_packages').val(data['bols'].Description_Packages_Goods);
+                        $('#gross_weight').val(data['bols'].Gross_Weight);
+                        $('#measurement').val(data['bols'].Measurement);
+                        $('#freight_charges').val(data['bols'].Freight_Charges);
+                        $('#prepaid').val(data['bols'].Prepaid);
+                        $('#input-total_charges').val(data['bols'].Total_Charges);
+                        $('#input-freight_payable').val(data['bols'].Freight_Payable);
+                        $('#no_original_bl').val(data['bols'].No_Original);
+                        $('#BY').val(data['bols'].BY);
+                        $('#input-place_and_date').val(data['bols'].Place_Date_Issue);
+                        $('#on_board_date').val(data['bols'].ON_Board_Date);
+                        // console.log(data);
+                    });
+                    $('#bolList').modal('toggle');
+                });
+            },
+            ajax: '{!! route('listbol') !!}',
+            columns: [{
+                    data: 'BL_NO',
+                    name: 'BL_NO'
+                },
+                {
+                    data: 'Place_Date_Issue',
+                    name: 'Place_Date_Issue'
+                },
+                {
+                    data: 'ON_Board_Date',
+                    name: 'ON_Board_Date'
+                },
+                {
+                    data: 'Actions',
+                    name: 'Actions',
+                    searchable: false,
+                    orderable: false
+
+                }
+            ]
+        });
+    </script>
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 @endpush

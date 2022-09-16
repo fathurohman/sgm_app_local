@@ -6,6 +6,7 @@ use App\Model\BOL;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Response;
 
 class BOLController extends BaseController
 {
@@ -43,6 +44,25 @@ class BOLController extends BaseController
             ];
             return view('BOL.dt.act_list_more', compact('data'));
         })->rawColumns(['More'])->toJson();
+    }
+
+    public function listbol()
+    {
+        $query = BOL::orderBy('created_at', 'desc');
+        return Datatables::of(
+            $query
+        )->editColumn('BL_NO', function ($row) {
+            return $row->BL_NO;
+        })->editColumn('Place_Date_Issue', function ($row) {
+            return $row->Place_Date_Issue;
+        })->editColumn('ON_Board_Date', function ($row) {
+            return $row->ON_Board_Date;
+        })->addColumn('Actions', function ($row) {
+            $data = [
+                'id' => $row->id
+            ];
+            return view('BOL.dt.act_listpick', compact('data'));
+        })->rawColumns(['Actions'])->toJson();
     }
 
     /**
@@ -178,6 +198,18 @@ class BOLController extends BaseController
     public function destroy(BOL $bOL)
     {
         //
+    }
+
+    public function getdataorder(Request $request)
+    {
+        $pid = $request->get('pid');
+        $bols = BOL::where('id', $pid)->first();
+        $data = array(
+            'bols' => $bols,
+        );
+        return Response::json($data);
+        // $tipe_name = job_order::where('order_id',$pid)->where('',$order_tipe)
+        // $tipe_name = $data = job_order::find($)->artk;
     }
 
     public function Cetak($id)

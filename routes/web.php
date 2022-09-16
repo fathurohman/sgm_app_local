@@ -93,7 +93,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//BOL Routes
 	Route::resource('bol', 'BOLController');
 	Route::get('getdatabol', 'BOLController@getdatabol')->name('getdatabol');
+	Route::get('listbol', 'BOLController@listbol')->name('listbol');
 	Route::get('cetakbol/{id}', 'BOLController@Cetak')->name('cetakbol');
+	Route::get('/bol_data', 'BOLController@getdataorder');
 	//ajax profit
 	Route::get('/getprofit', 'HomeController@getprofit')->name('getprofit');
 	//jurnal routes
