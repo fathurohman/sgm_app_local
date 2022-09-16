@@ -333,10 +333,8 @@ class JobOrderController extends BaseController
             return $row->via->via_name;
         })->editColumn('pol_pod', function ($row) {
             return $row->pol_pod;
-        })->editColumn('ETD', function ($row) {
-            return $row->ETD;
-        })->editColumn('ETA', function ($row) {
-            return $row->ETA;
+        })->editColumn('GWT_MEAS', function ($row) {
+            return $row->GWT_MEAS;
         })->addColumn('Action', function ($row) {
             $data = [
                 'id' => $row->id

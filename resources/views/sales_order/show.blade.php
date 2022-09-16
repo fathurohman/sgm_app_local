@@ -30,9 +30,8 @@
                                         <th scope="col">Tipe Order</th>
                                         <th scope="col">Client</th>
                                         <th scope="col">Service</th>
-                                        <th scope="col">Via</th>
-                                        <th scope="col">ETD</th>
-                                        <th scope="col">ETA</th>
+                                        <th scope="col">Pol_Pod</th>
+                                        <th scope="col">Volume</th>
                                         <th scope="col">Action</th>
                                         {{-- <th scope="col">Delete</th> --}}
                                     </tr>
@@ -122,16 +121,12 @@
                         name: 'service_id',
                     },
                     {
-                        data: 'via_id',
-                        name: 'via_id',
+                        data: 'pol_pod',
+                        name: 'pol_pod',
                     },
                     {
-                        data: 'ETD',
-                        name: 'ETD',
-                    },
-                    {
-                        data: 'ETA',
-                        name: 'ETA',
+                        data: 'GWT_MEAS',
+                        name: 'GWT_MEAS',
                     },
                     {
                         data: 'Action',
