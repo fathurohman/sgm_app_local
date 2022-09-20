@@ -76,7 +76,18 @@ class HomeController extends BaseController
     public function getprofit(Request $request)
     {
         $bulan = $request->get('bulan');
-        $sales_id = $request->get('sales_id');
+        $id = $request->get('sales_id');
+        if ($id == 'All') {
+            $sales_id = $id;
+        } else {
+            $user = User::find($id);
+            $dept = $user->department;
+            if ($dept == 'super-admin') {
+                $sales_id = "All";
+            } else {
+                $sales_id = $id;
+            }
+        }
         $year = Carbon::now()->format('Y');
         if ($sales_id == "All") {
             $params = '';
