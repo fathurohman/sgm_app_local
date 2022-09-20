@@ -119,6 +119,10 @@ class HomeController extends BaseController
 
     public function index()
     {
+        $month_list = array_reduce(range(1, 12), function ($rslt, $m) {
+            $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
+            return $rslt;
+        });
         $user_id = Auth::id();
         $user_dept = Auth::user()->department;
         if ($user_dept == 'super-admin') {
@@ -156,6 +160,7 @@ class HomeController extends BaseController
             'curr_b' => $lempar_curr_b,
             'curr_s' => $lempar_curr_s,
             'curr_p' => $lempar_curr_p,
+            'month_list' => $month_list,
         );
         return view('dashboard', compact('data'));
     }

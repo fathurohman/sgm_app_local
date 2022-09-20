@@ -7,6 +7,27 @@
 
     <div class="container-fluid mt--7">
         <div class="row mt-5">
+            <div class="col-xl-6 col-md-6 mb-5 mb-xl-0">
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <label for="inputState">Bulan</label>
+                        <select id="month_id" name="month" class="form-control" required>
+                            <option selected disabled value="">Pilih Bulan...</option>
+                            @foreach ($data['month_list'] as $key => $m)
+                                <option value="{{ $key }}">{{ $m }}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" value="{{ auth()->user()->id }}" id="sales_id" hidden>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-12 col-md-12">
+                <div id="table-prof"></div>
+            </div>
+        </div>
+        <div class="row mt-5 this-prof">
             <div class="col-xl-4 col-md-4 mb-5 mb-xl-0">
                 <div class="card shadow">
                     <div class="card-header border-0">
@@ -161,4 +182,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/profitChart.js"></script>
+    <script type="text/javascript">
+        function narik(bulan, sales_id, token) {
+            $.ajax({
+                url: "{{ route('getprofit') }}",
+                method: "GET",
+                dataType: "json",
+                data: {
+                    bulan: bulan,
+                    sales_id: sales_id,
+                    _token: token
+                },
+                success: function(data) {
+                    $('#table-prof').html(data.html);
+                    console.log(data);
+                }
+            });
+        }
+        $("#month_id").change(function() {
+            var bulan = $('#month_id option:selected').val();
+            var sales_id = $('#sales_id').val();
+            var _token = $('input[name="_token"]').val();
+            $(".this-prof").remove();
+            narik(bulan, sales_id, _token);
+        });
+    </script>
 @endpush
