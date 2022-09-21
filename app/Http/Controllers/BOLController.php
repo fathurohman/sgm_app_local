@@ -215,7 +215,12 @@ class BOLController extends BaseController
     public function Cetak($id)
     {
         $bol_data = BOL::find($id);
-        $view = View('pdf.bol', ['data' => $bol_data]);
+        $lines = preg_split('/\n|\r/', $bol_data->Description_Packages_Goods);
+        $Total_lines = count($lines);
+        $view = View('pdf.bol', [
+            'data' => $bol_data,
+            'lines' => $Total_lines,
+        ]);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view->render())->setPaper('a4', 'portrait');
         return $pdf->stream();

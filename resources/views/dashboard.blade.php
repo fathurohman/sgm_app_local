@@ -22,12 +22,12 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-lg-12 col-md-12">
                 <div id="table-prof"></div>
             </div>
         </div>
-        <div class="row mt-5 this-prof">
+        <div class="row mt-3 this-prof">
             <div class="col-xl-4 col-md-4 mb-5 mb-xl-0">
                 <div class="card shadow">
                     <div class="card-header border-0">
