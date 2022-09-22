@@ -191,6 +191,14 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#history_sales">
+                                        Pilih History
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="form-control-label" for="input-Selling">{{ __('Selling') }}</label>
                                     <div>
@@ -384,81 +392,13 @@
             </div>
         </div>
     </div>
-    @include('job_order.order_list') {{-- @include('job_order.customerlist') --}}
+    @include('sales_order.history.history_modal') {{-- @include('job_order.customerlist') --}}
     @include('layouts.footers.auth')
 @endsection
 
 @push('js')
     <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        // $(document).ready(function() {
-        //     $('#order').DataTable({
-        //         processing: true,
-        //         serverSide: true,
-        //         drawCallback: function(settings) {
-        //             $('.infoO').click(function() {
-        //                 $currID = $(this).attr("data-id");
-        //                 $('#order_id-field').val('');
-        //                 $.get('/job_data_sales?pid=' + $currID, function(data) {
-        //                     $('#order_id-field').val(data['jobs'].order_id);
-        //                     $('#order-id-hide').val(data['jobs'].id);
-        //                     $('#tipe_order').val(data['jobs'].tipe_order);
-        //                     $('#Tanggal').val(data['tanggal']);
-        //                     $('#no_inv').val('-');
-        //                     $('#input-customer').val(data['name_client']);
-        //                     $('#sales_id').val(data['sales_name']);
-        //                     $('#via_id').val(data['jobs'].via_id);
-        //                     $('#ETD').val(data['jobs'].ETD);
-        //                     $('#ETA').val(data['jobs'].ETA);
-        //                     $('#input-pol_pod').val(data['jobs'].pol_pod);
-        //                     $('#input-party').val(data['jobs'].party);
-        //                     $('#input-hbl').val(data['jobs'].HBL);
-        //                     $('#input-gwt_meas').val(data['jobs'].GWT_MEAS);
-        //                     $('#input-mbl').val(data['jobs'].MBL);
-        //                     $('#input-vessel1').val(data['jobs'].vessel1);
-        //                     $('#input-vessel2').val(data['jobs'].vessel2);
-        //                     $('#input-consignee').val(data['jobs'].consignee);
-        //                     $('#input-agent_overseas').val(data['jobs'].agent_overseas);
-        //                 });
-        //                 $('#orderList').modal('toggle');
-        //             });
-        //         },
-        //         ajax: '{!! route('listordersales') !!}',
-        //         columns: [{
-        //                 data: 'order_id',
-        //                 name: 'order_id'
-        //             },
-        //             {
-        //                 data: 'tipe_order',
-        //                 name: 'tipe_order'
-        //             },
-        //             {
-        //                 data: 'created_at',
-        //                 name: 'created_at'
-        //             },
-        //             {
-        //                 data: 'client_id',
-        //                 name: 'client_id'
-        //             },
-        //             {
-        //                 data: 'party',
-        //                 name: 'party'
-        //             },
-        //             {
-        //                 data: 'pol_pod',
-        //                 name: 'pol_pod'
-        //             },
-        //             {
-        //                 data: 'Action',
-        //                 name: 'Action',
-        //                 searchable: false,
-        //                 orderable: false
-        //             },
-        //         ]
-        //     });
-        // });
-    </script>
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -708,6 +648,51 @@
                     // console.log(curr);
                 });
             })
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#history_sales_tb').DataTable({
+                processing: true,
+                serverSide: true,
+                drawCallback: function(settings) {
+                    $(".infoHS").click(function(e) {
+                        $currID = $(this).attr("data-id");
+                        $.get('/history_modal?pid=' + $currID, function(data) {
+                            console.log(data);
+                            // For debugging purposes you can add : console.log(data); to see the output of your request
+                        });
+                        $('#history_sales').modal('toggle');
+                    });
+                },
+                ajax: '{!! route('historyinvoicemodal') !!}',
+                columns: [{
+                        data: 'nomor_invoice',
+                        name: 'nomor_invoice',
+                    }, {
+                        data: 'job_order_id',
+                        name: 'job_order_id',
+                    },
+                    {
+                        data: 'tipe',
+                        name: 'tipe',
+                    },
+                    {
+                        data: 'pol_pod',
+                        name: 'pol_pod',
+                    },
+                    {
+                        data: 'GWT_MEAS',
+                        name: 'GWT_MEAS',
+                    },
+                    {
+                        data: 'Pickup',
+                        name: 'Pickup',
+                        searchable: false,
+                        orderable: false
+                    },
+                ]
+            });
         });
     </script>
 @endpush

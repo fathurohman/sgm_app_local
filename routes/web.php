@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/hist_job_pickup/{id}', 'HistoryJobController@pickup')->name('job_pickup');
 	Route::get('/listorderhist', 'HistoryJobController@listorderhist')->name('listorderhist');
 	Route::post('/hist_post', 'HistoryJobController@hist_post')->name('hist_post');
+	Route::get('/history_modal', 'HistoryController@getdatahist_m');
 	//sales order routes
 	Route::get('/listsalesshow', 'SalesOrderController@listsalesshow')->name('listsalesshow');
 	Route::get('/sales_selling_detail/{id}', 'SalesOrderController@showDetailSelling');
@@ -80,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//history routes
 	Route::get('/history_orders', 'HistoryController@history_index')->name('history_orders');
 	Route::get('/historyinvoiceshow', 'HistoryController@historyinvoiceshow')->name('historyinvoiceshow');
+	//modal pas create sales order
+	Route::get('/historyinvoicemodal', 'HistoryController@historyinvoicemodal')->name('historyinvoicemodal');
 	//end
 	//reports
 	Route::post('/datamonthly', 'HistoryController@export')->name('export');

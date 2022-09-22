@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Response;
 
 class HistoryController extends BaseController
 {
@@ -37,6 +38,41 @@ class HistoryController extends BaseController
                 'id' => $row->id
             ];
             return view('history.dt.act_list_more', compact('data'));
+        })->rawColumns(['action', 'More'])->toJson();
+    }
+
+    public function getdatahist_m(Request $request)
+    {
+        $pid = $request->get('pid');
+        $selling_order = SalesOrder::find($pid)->sellings;
+        $buying_order = SalesOrder::find($pid)->buyings;
+        $data = array(
+            'selling_order' => $selling_order,
+            'buying_order' => $buying_order,
+        );
+        return Response::json($data);
+    }
+
+    public function historyinvoicemodal()
+    {
+        $query = SalesOrder::where('published', '1')->where('printed', '1')->orderBy('created_at', 'desc');
+        return Datatables::of(
+            $query
+        )->editColumn('nomor_invoice', function ($row) {
+            return $row->nomor_invoice;
+        })->editColumn('job_order_id', function ($row) {
+            return $row->job_orders->order_id;
+        })->editColumn('tipe', function ($row) {
+            return $row->tipe;
+        })->editColumn('pol_pod', function ($row) {
+            return $row->job_orders->pol_pod;
+        })->editColumn('GWT_MEAS', function ($row) {
+            return $row->job_orders->GWT_MEAS;
+        })->addColumn('Pickup', function ($row) {
+            $data = [
+                'id' => $row->id
+            ];
+            return view('history.dt.act_history_modal', compact('data'));
         })->rawColumns(['action', 'More'])->toJson();
     }
 

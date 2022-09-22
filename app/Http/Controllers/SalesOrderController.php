@@ -370,59 +370,6 @@ class SalesOrderController extends BaseController
         return redirect()->back();
     }
 
-    // public function listordersales()
-    // {
-    //     // $query = SalesOrder::all();
-    //     $auth = Auth::id();
-    //     $query = job_order::where('created_by', $auth)->orderBy('created_at', 'desc');
-    //     // $query = job_order::all();
-    //     return Datatables::of(
-    //         $query
-    //     )->editColumn('order_id', function ($row) {
-    //         return $row->order_id;
-    //     })->editColumn('tipe_order', function ($row) {
-    //         return $row->tipe_order;
-    //     })->editColumn('created_at', function ($row) {
-    //         return $row->created_at;
-    //     })->editColumn('client_id', function ($row) {
-    //         return $row->clients->COMPANY_NAME;
-    //     })->editColumn('party', function ($row) {
-    //         return $row->party;
-    //     })->editColumn('pol_pod', function ($row) {
-    //         return $row->pol_pod;
-    //     })->addColumn('Action', function ($row) {
-    //         $data = [
-    //             'id' => $row->id
-    //         ];
-    //         return view('job_order.dt.act_order_pilih', compact('data'));
-    //     })->rawColumns(['action'])->toJson();
-    // }
-
-    // public function getdataordersales(Request $request)
-    // {
-    //     $pid = $request->get('pid');
-    //     $jobs = job_order::where('id', $pid)->first();
-    //     $client_name = $jobs->clients->COMPANY_NAME;
-    //     $sales_name = $jobs->sales->name;
-    //     // $jobs->created_at = date("Y-m-d");
-    //     // $tanggal = $jobs->created_at;
-    //     $createdAt = Carbon::parse($jobs->created_at);
-    //     $tanggal = $createdAt->format('Y-m-d');
-    //     // $order_id = $jobs->order_id;
-    //     $tipe_order = strtok($jobs->tipe_order, '-');
-    //     // $jenis_order = substr($jobs->tipe_order, strpos($jobs->tipe_order, "-") + 1);
-    //     // print_r($jenis_order);
-    //     //end
-    //     $data = array(
-    //         'jobs' => $jobs,
-    //         'name_client' => $client_name,
-    //         // 'inv' => $inv,
-    //         'tanggal' => $tanggal,
-    //         'sales_name' => $sales_name,
-    //     );
-    //     return Response::json($data);
-    // }
-
     public function autocomplete_desc(Request $request)
     {
         $term = $request->term;
