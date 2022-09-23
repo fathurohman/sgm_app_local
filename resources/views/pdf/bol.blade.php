@@ -90,19 +90,19 @@
                 <th style="width: 10%;text-align:left"></th>
             </tr>
             <tr>
-                <td class="marks-td" height="150">
+                <td class="marks-td" height="180">
                     <p>{{ $data->Marks_Number }}</p>
                 </td>
-                <td height="150" style="text-align: center">
+                <td height="180" style="text-align: center">
                     <p>{{ $data->No_Cont_Pkgs }}</p>
                 </td>
-                <td class="marks-td" height="150">
+                <td class="marks-td" height="180">
                     <p>{{ $data->Description_Packages_Goods }}</p>
                 </td>
-                <td class="gross-td" height="150">
+                <td class="gross-td" height="180">
                     <p>{{ $data->Gross_Weight }}</p>
                 </td>
-                <td height="150">
+                <td height="180">
                     <p>{{ $data->Measurement }}</p>
                 </td>
             </tr>
