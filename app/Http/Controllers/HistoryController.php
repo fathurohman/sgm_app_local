@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\ProfitExport;
 use App\Exports\SalesExport;
+use App\Model\Down_Payment;
 use App\Model\reports;
 use App\Model\SalesOrder;
 use App\User;
@@ -46,11 +47,17 @@ class HistoryController extends BaseController
         $pid = $request->get('pid');
         $selling_order = SalesOrder::find($pid)->sellings;
         $buying_order = SalesOrder::find($pid)->buyings;
+        $profits = SalesOrder::find($pid)->profits;
+        $dp = Down_Payment::where('sales_order_id', $pid)->first();
         $data = array(
             'selling_order' => $selling_order,
             'buying_order' => $buying_order,
+            'profits' => $profits,
+            'dp' => $dp,
         );
-        return Response::json($data);
+        $html = view('sales_order.modal.table_sales')->with(compact('data'))->render();
+        return response()->json(['success' => true, 'html' => $html]);
+        // return Response::json($data);
     }
 
     public function historyinvoicemodal()

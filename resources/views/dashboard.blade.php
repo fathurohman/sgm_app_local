@@ -195,7 +195,7 @@
                 },
                 success: function(data) {
                     $('#table-prof').html(data.html);
-                    console.log(data);
+                    // console.log(data);
                 }
             });
         }
