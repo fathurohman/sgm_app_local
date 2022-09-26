@@ -194,7 +194,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <button type="button" class="btn btn-warning" data-toggle="modal"
                                         data-target="#history_sales">
-                                        Pilih History
+                                        Pickup Data History Sales
                                     </button>
                                 </div>
                             </div>
