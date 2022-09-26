@@ -112,52 +112,54 @@ $(document).on('click', '.remove_s', function (e) {
         $(this).parent().parent().remove();
     }
 });
-$('tbody').on('keyup', ".price", function () {
-    var format = function (num) {
-        var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
-        if (str.indexOf(".") > 0) {
-            parts = str.split(".");
-            str = parts[0];
-        }
-        str = str.split("").reverse();
-        for (var j = 0, len = str.length; j < len; j++) {
-            if (str[j] != ",") {
-                output.push(str[j]);
-                if (i % 3 == 0 && j < (len - 1)) {
-                    output.push(",");
-                }
-                i++;
+function pricy() {
+    $('tbody').on('keyup', ".price", function () {
+        var format = function (num) {
+            var str = num.toString().replace("", ""), parts = false, output = [], i = 1, formatted = null;
+            if (str.indexOf(".") > 0) {
+                parts = str.split(".");
+                str = parts[0];
             }
-        }
-        formatted = output.reverse().join("");
-        return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-    };
-    $(this).val(format($(this).val()));
-    var tr = $(this).parent().parent();
-    var qty = tr.find('.qty').val();
-    var price = tr.find('.price').val();
-    var clone = $(this).val();
-    var cloned = clone.replace(/[A-Za-z$ ,-]/g, "");
-    tr.find('.price_real').val(cloned);
-    // console.log(polos_price);
-    var total = qty * cloned;
-    // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
-    tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
-    tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
-    tr.find('.sub_total_s_real').val(total);
-    tr.find('.sub_total_b_real').val(total);
-    // parseInt(tr.find('.sub_total_s').val(total), 10);
-    // parseInt($("#replies").text(),10);
-})
-$('tbody').on('change', ".qty", function () {
-    var tr = $(this).parent().parent();
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(3));
-    var qty = tr.find('.qty').val();
-    var price = tr.find('.price_real').val();
-    var total = qty * price;
-    tr.find('.sub_total_s_real').val(total);
-    tr.find('.sub_total_b_real').val(total);
-    tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
-    tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
-})
+            str = str.split("").reverse();
+            for (var j = 0, len = str.length; j < len; j++) {
+                if (str[j] != ",") {
+                    output.push(str[j]);
+                    if (i % 3 == 0 && j < (len - 1)) {
+                        output.push(",");
+                    }
+                    i++;
+                }
+            }
+            formatted = output.reverse().join("");
+            return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+        };
+        $(this).val(format($(this).val()));
+        var tr = $(this).parent().parent();
+        var qty = tr.find('.qty').val();
+        var price = tr.find('.price').val();
+        var clone = $(this).val();
+        var cloned = clone.replace(/[A-Za-z$ ,-]/g, "");
+        tr.find('.price_real').val(cloned);
+        // console.log(polos_price);
+        var total = qty * cloned;
+        // tr.find('.sub_total').val(total.toLocaleString('id-ID'));
+        tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
+        tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
+        tr.find('.sub_total_s_real').val(total);
+        tr.find('.sub_total_b_real').val(total);
+        // parseInt(tr.find('.sub_total_s').val(total), 10);
+        // parseInt($("#replies").text(),10);
+    })
+    $('tbody').on('change', ".qty", function () {
+        var tr = $(this).parent().parent();
+        var $this = $(this);
+        $this.val(parseFloat($this.val()).toFixed(3));
+        var qty = tr.find('.qty').val();
+        var price = tr.find('.price_real').val();
+        var total = qty * price;
+        tr.find('.sub_total_s_real').val(total);
+        tr.find('.sub_total_b_real').val(total);
+        tr.find('.sub_total_s').val(total.toLocaleString('id-ID'));
+        tr.find('.sub_total_b').val(total.toLocaleString('id-ID'));
+    })
+}

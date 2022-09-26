@@ -433,6 +433,7 @@
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            pricy();
             var appendidr = true;
             var appendusd = true;
             var appendsgd = true;

@@ -413,264 +413,270 @@
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            pricy();
             var appendidr = true;
             var appendusd = true;
             var appendsgd = true;
             var appendeur = true;
 
-            function append_tb_prof(curr_beli) {
-                var tb = '<tr>' +
-                    '<td><input class="form-control" type="text" id="currency_prof' +
-                    curr_beli +
-                    '" name="currency_prof[]" readonly></td>' +
-                    '<td><input class="form-control" type="text" id="total_selling' +
-                    curr_beli + '" readonly>' +
-                    '<input class="form-control" type="text" id="total_selling_real' +
-                    curr_beli +
-                    '" name="total_selling_prof[]" hidden>' +
-                    '</td>' +
-                    '<td><input class="form-control" type="text" id="total_buying' +
-                    curr_beli + '" readonly>' +
-                    '<input class="form-control" type="text" id="total_buying_real' +
-                    curr_beli +
-                    '" name="total_buying_prof[]" hidden>' +
-                    '</td>' +
-                    '<td><input class="form-control" type="text" id="profit_buy' +
-                    curr_beli + '" readonly>' +
-                    '<input class="form-control" type="text" id="profit_buy_real' +
-                    curr_beli + '" name="profit[]" hidden>' +
-                    '</td>' +
-                    '</tr>';
-                $('.profit_tb').append(tb);
-            }
+            function automasi() {
+                function append_tb_prof(curr_beli) {
+                    var tb = '<tr>' +
+                        '<td><input class="form-control" type="text" id="currency_prof' +
+                        curr_beli +
+                        '" name="currency_prof[]" readonly></td>' +
+                        '<td><input class="form-control" type="text" id="total_selling' +
+                        curr_beli + '" readonly>' +
+                        '<input class="form-control" type="text" id="total_selling_real' +
+                        curr_beli +
+                        '" name="total_selling_prof[]" hidden>' +
+                        '</td>' +
+                        '<td><input class="form-control" type="text" id="total_buying' +
+                        curr_beli + '" readonly>' +
+                        '<input class="form-control" type="text" id="total_buying_real' +
+                        curr_beli +
+                        '" name="total_buying_prof[]" hidden>' +
+                        '</td>' +
+                        '<td><input class="form-control" type="text" id="profit_buy' +
+                        curr_beli + '" readonly>' +
+                        '<input class="form-control" type="text" id="profit_buy_real' +
+                        curr_beli + '" name="profit[]" hidden>' +
+                        '</td>' +
+                        '</tr>';
+                    $('.profit_tb').append(tb);
+                }
 
-            function calculate() {
-                var rowCount = $('tbody.buying tr').length;
-                // console.log(rowCount);
-                var sum_idr = 0;
-                var sum_usd = 0;
-                var sum_sgd = 0;
-                var sum_eur = 0;
-                var sum_idr_s = 0;
-                var sum_usd_s = 0;
-                var sum_sgd_s = 0;
-                var sum_eur_s = 0;
-                var curr_id_prof = '';
-                $('.row-buying').each(function() {
-                    var item = $(this);
-                    var curr_beli = item.find('.curr_b').val();
-                    var jumlah = item.find('.sub_total_b_real')
-                        .val();
-                    // console.log(jumlah);
-                    if (curr_beli == 'IDR') {
-                        sum_idr += +jumlah;
-                    } else if (curr_beli == 'USD') {
-                        sum_usd += +jumlah;
-                    } else if (curr_beli == 'SGD') {
-                        sum_sgd += +jumlah;
-                    } else if (curr_beli == 'EUR') {
-                        sum_eur += +jumlah;
-                    }
-                });
-                $('.row-selling').each(function() {
-                    var item = $(this);
-                    var curr_beli = item.find('.curr_s').val();
-                    var jumlah = item.find('.sub_total_s_real')
-                        .val();
-                    // console.log(jumlah);
-                    if (curr_beli == 'IDR') {
-                        sum_idr_s += +jumlah;
-                    } else if (curr_beli == 'USD') {
-                        sum_usd_s += +jumlah;
-                    } else if (curr_beli == 'SGD') {
-                        sum_sgd_s += +jumlah;
-                    } else if (curr_beli == 'EUR') {
-                        sum_eur_s += +jumlah;
-                    }
-                });
-                // console.log(sum_idr);
-                // console.log(sum_usd);
-                // console.log(sum_sgd);
-                // console.log(sum_eur);
-                if (sum_idr > 0 || sum_idr_s > 0) {
-                    var curr_beli = 'IDR';
-                    var profit = sum_idr_s - sum_idr;
-                    // console.log(profit);
-                    //append function
-                    if (appendidr) {
-                        append_tb_prof(curr_beli);
-                        appendidr = false;
-                    }
-                    $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling_real' + curr_beli + '').val(sum_idr_s);
-                    $('#total_selling' + curr_beli + '').val(sum_idr_s.toLocaleString('id-ID'));
-                    $('#total_buying' + curr_beli + '').val(sum_idr.toLocaleString('id-ID'));
-                    $('#total_buying_real' + curr_beli + '').val(sum_idr);
-                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
-                    $('#profit_buy_real' + curr_beli + '').val(profit);
-                }
-                if (sum_usd > 0 || sum_usd_s > 0) {
-                    var curr_beli = 'USD';
-                    var profit = sum_usd_s - sum_usd;
-                    if (appendusd) {
-                        append_tb_prof(curr_beli);
-                        appendusd = false;
-                    }
-                    $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_usd_s.toLocaleString('id-ID'));
-                    $('#total_buying' + curr_beli + '').val(sum_usd.toLocaleString('id-ID'));
-                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
-                    $('#total_selling_real' + curr_beli + '').val(sum_usd_s);
-                    $('#total_buying_real' + curr_beli + '').val(sum_usd);
-                    $('#profit_buy_real' + curr_beli + '').val(profit);
-                }
-                if (sum_sgd > 0 || sum_sgd_s > 0) {
-                    var curr_beli = 'SGD';
-                    var profit = sum_sgd_s - sum_sgd;
-                    if (appendsgd) {
-                        append_tb_prof(curr_beli);
-                        appendsgd = false;
-                    }
-                    $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_sgd_s.toLocaleString('id-ID'));
-                    $('#total_buying' + curr_beli + '').val(sum_sgd.toLocaleString('id-ID'));
-                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
-                    $('#total_selling_real' + curr_beli + '').val(sum_sgd_s);
-                    $('#total_buying_real' + curr_beli + '').val(sum_sgd);
-                    $('#profit_buy_real' + curr_beli + '').val(profit);
-                }
-                if (sum_eur > 0 || sum_eur_s > 0) {
-                    var curr_beli = 'EUR';
-                    var profit = sum_eur_s - sum_eur;
-                    if (appendeur) {
-                        append_tb_prof(curr_beli);
-                        appendeur = false;
-                    }
-                    $('#currency_prof' + curr_beli + '').val(curr_beli);
-                    $('#total_selling' + curr_beli + '').val(sum_eur_s.toLocaleString('id-ID'));
-                    $('#total_buying' + curr_beli + '').val(sum_eur.toLocaleString('id-ID'));
-                    $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
-                    $('#total_selling_real' + curr_beli + '').val(sum_eur_s);
-                    $('#total_buying_real' + curr_beli + '').val(sum_eur);
-                    $('#profit_buy_real' + curr_beli + '').val(profit);
-                }
-            }
-            $(function() {
-                $('tbody').on('focus', ".autosuggest", function() {
-                    var tr = $(this).parent().parent();
-                    // console.log(tipeatk);
-                    $(this).autocomplete({
-                        source: "{{ URL('search/autocomplete') }}",
-                        // source: "{{ URL('search/autocompletenama') }}",
-                        minLength: 1,
-                        select: function(event, ui) {
-                            // tr.find('.qty').val("");
-                            // $('#selectnip').val(ui.item.value);
-                            tr.find('.autosuggest').val(ui.item.value);
+                function calculate() {
+                    var rowCount = $('tbody.buying tr').length;
+                    // console.log(rowCount);
+                    var sum_idr = 0;
+                    var sum_usd = 0;
+                    var sum_sgd = 0;
+                    var sum_eur = 0;
+                    var sum_idr_s = 0;
+                    var sum_usd_s = 0;
+                    var sum_sgd_s = 0;
+                    var sum_eur_s = 0;
+                    var curr_id_prof = '';
+                    $('.row-buying').each(function() {
+                        var item = $(this);
+                        var curr_beli = item.find('.curr_b').val();
+                        var jumlah = item.find('.sub_total_b_real')
+                            .val();
+                        // console.log(jumlah);
+                        if (curr_beli == 'IDR') {
+                            sum_idr += +jumlah;
+                        } else if (curr_beli == 'USD') {
+                            sum_usd += +jumlah;
+                        } else if (curr_beli == 'SGD') {
+                            sum_sgd += +jumlah;
+                        } else if (curr_beli == 'EUR') {
+                            sum_eur += +jumlah;
                         }
-                    })
-                })
-                $('tbody.buying').on('focus', ".name_b", function() {
-                    var tr = $(this).parent().parent();
-                    // console.log(tipeatk);
-                    $(this).autocomplete({
-                        source: "{{ URL('search/autocomplete_remark') }}",
-                        // source: "{{ URL('search/autocompletenama') }}",
-                        minLength: 1,
-                        select: function(event, ui) {
-                            tr.find('.name_b').val(ui.item.value);
-                            tr.find('.remark_b').val(ui.item.nick);
-                            calculate();
-                        }
-                    })
-                })
-                $('tbody.buying').on('blur', ".name_b", function() {
-                    calculate();
-                });
-                $('tbody.selling').on('focus', ".name_s", function() {
-                    var tr = $(this).parent().parent();
-                    // console.log(tipeatk);
-                    $(this).autocomplete({
-                        source: "{{ URL('search/autocomplete_client') }}",
-                        // source: "{{ URL('search/autocompletenama') }}",
-                        minLength: 1,
-                        select: function(event, ui) {
-                            tr.find('.name_s').val(ui.item.value);
-                            tr.find('.remark_s').val(ui.item.nick);
-                            $('#total_dp').val('');
-                            $('#d_payment').val('');
-                            $('#total_selling').val('');
-                            $('#total_buying').val('');
-                            $('#profit_buy').val('');
-                            var remark = tr.find('.remark_s').val();
-                            var name = tr.find('.name_s').val();
-                            var curr_sell = tr.find('.curr_s').val();
-                            // var sub_total = $('.sub_total_s').val();
-                            // var curr_buy = $('.curr_b').val();
-                            var sub_total_buy = $('.sub_total_b_real').val();
-                            var sum_s = 0;
-                            $('.sub_total_s_real').each(function() {
-                                sum_s += +$(this).val();
-                            });
-
-                            //ambil buying per mata uang
-                            calculate();
-                            //end
-                            // var total = parseInt(sum_s, 10);
-                            // var description = tr.find('.autosuggest').val();
-                            $('#customer_dp').val(name);
-                            $('#currency_dp').val(curr_sell);
-                            $('#total_dp').val(sum_s);
-                            $('#d_payment').val('0');
-                        }
-                    })
-                })
-                $('tbody.selling').on('blur', ".name_s", function() {
-                    var tr = $(this).parent().parent();
-                    $('#total_dp').val('');
-                    $('#d_payment').val('');
-                    $('#total_selling').val('');
-                    $('#total_buying').val('');
-                    $('#profit_buy').val('');
-                    var remark = tr.find('.remark_s').val();
-                    var name = tr.find('.name_s').val();
-                    var curr_sell = tr.find('.curr_s').val();
-                    // var sub_total = $('.sub_total_s').val();
-                    // var curr_buy = $('.curr_b').val();
-                    var sub_total_buy = $('.sub_total_b_real').val();
-                    var sum_s = 0;
-                    $('.sub_total_s_real').each(function() {
-                        sum_s += +$(this).val();
                     });
+                    $('.row-selling').each(function() {
+                        var item = $(this);
+                        var curr_beli = item.find('.curr_s').val();
+                        var jumlah = item.find('.sub_total_s_real')
+                            .val();
+                        // console.log(jumlah);
+                        if (curr_beli == 'IDR') {
+                            sum_idr_s += +jumlah;
+                        } else if (curr_beli == 'USD') {
+                            sum_usd_s += +jumlah;
+                        } else if (curr_beli == 'SGD') {
+                            sum_sgd_s += +jumlah;
+                        } else if (curr_beli == 'EUR') {
+                            sum_eur_s += +jumlah;
+                        }
+                    });
+                    // console.log(sum_idr);
+                    // console.log(sum_usd);
+                    // console.log(sum_sgd);
+                    // console.log(sum_eur);
+                    if (sum_idr > 0 || sum_idr_s > 0) {
+                        var curr_beli = 'IDR';
+                        var profit = sum_idr_s - sum_idr;
+                        // console.log(profit);
+                        //append function
+                        if (appendidr) {
+                            append_tb_prof(curr_beli);
+                            appendidr = false;
+                        }
+                        $('#currency_prof' + curr_beli + '').val(curr_beli);
+                        $('#total_selling_real' + curr_beli + '').val(sum_idr_s);
+                        $('#total_selling' + curr_beli + '').val(sum_idr_s.toLocaleString('id-ID'));
+                        $('#total_buying' + curr_beli + '').val(sum_idr.toLocaleString('id-ID'));
+                        $('#total_buying_real' + curr_beli + '').val(sum_idr);
+                        $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                        $('#profit_buy_real' + curr_beli + '').val(profit);
+                    }
+                    if (sum_usd > 0 || sum_usd_s > 0) {
+                        var curr_beli = 'USD';
+                        var profit = sum_usd_s - sum_usd;
+                        if (appendusd) {
+                            append_tb_prof(curr_beli);
+                            appendusd = false;
+                        }
+                        $('#currency_prof' + curr_beli + '').val(curr_beli);
+                        $('#total_selling' + curr_beli + '').val(sum_usd_s.toLocaleString('id-ID'));
+                        $('#total_buying' + curr_beli + '').val(sum_usd.toLocaleString('id-ID'));
+                        $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                        $('#total_selling_real' + curr_beli + '').val(sum_usd_s);
+                        $('#total_buying_real' + curr_beli + '').val(sum_usd);
+                        $('#profit_buy_real' + curr_beli + '').val(profit);
+                    }
+                    if (sum_sgd > 0 || sum_sgd_s > 0) {
+                        var curr_beli = 'SGD';
+                        var profit = sum_sgd_s - sum_sgd;
+                        if (appendsgd) {
+                            append_tb_prof(curr_beli);
+                            appendsgd = false;
+                        }
+                        $('#currency_prof' + curr_beli + '').val(curr_beli);
+                        $('#total_selling' + curr_beli + '').val(sum_sgd_s.toLocaleString('id-ID'));
+                        $('#total_buying' + curr_beli + '').val(sum_sgd.toLocaleString('id-ID'));
+                        $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                        $('#total_selling_real' + curr_beli + '').val(sum_sgd_s);
+                        $('#total_buying_real' + curr_beli + '').val(sum_sgd);
+                        $('#profit_buy_real' + curr_beli + '').val(profit);
+                    }
+                    if (sum_eur > 0 || sum_eur_s > 0) {
+                        var curr_beli = 'EUR';
+                        var profit = sum_eur_s - sum_eur;
+                        if (appendeur) {
+                            append_tb_prof(curr_beli);
+                            appendeur = false;
+                        }
+                        $('#currency_prof' + curr_beli + '').val(curr_beli);
+                        $('#total_selling' + curr_beli + '').val(sum_eur_s.toLocaleString('id-ID'));
+                        $('#total_buying' + curr_beli + '').val(sum_eur.toLocaleString('id-ID'));
+                        $('#profit_buy' + curr_beli + '').val(profit.toLocaleString('id-ID'));
+                        $('#total_selling_real' + curr_beli + '').val(sum_eur_s);
+                        $('#total_buying_real' + curr_beli + '').val(sum_eur);
+                        $('#profit_buy_real' + curr_beli + '').val(profit);
+                    }
+                }
+                $(function() {
+                    $('tbody').on('focus', ".autosuggest", function() {
+                        var tr = $(this).parent().parent();
+                        // console.log(tipeatk);
+                        $(this).autocomplete({
+                            source: "{{ URL('search/autocomplete') }}",
+                            // source: "{{ URL('search/autocompletenama') }}",
+                            minLength: 1,
+                            select: function(event, ui) {
+                                // tr.find('.qty').val("");
+                                // $('#selectnip').val(ui.item.value);
+                                tr.find('.autosuggest').val(ui.item.value);
+                            }
+                        })
+                    })
+                    $('tbody.buying').on('focus', ".name_b", function() {
+                        var tr = $(this).parent().parent();
+                        // console.log(tipeatk);
+                        $(this).autocomplete({
+                            source: "{{ URL('search/autocomplete_remark') }}",
+                            // source: "{{ URL('search/autocompletenama') }}",
+                            minLength: 1,
+                            select: function(event, ui) {
+                                tr.find('.name_b').val(ui.item.value);
+                                tr.find('.remark_b').val(ui.item.nick);
+                                calculate();
+                            }
+                        })
+                    })
+                    $('tbody.buying').on('blur', ".name_b", function() {
+                        calculate();
+                    });
+                    $('tbody.selling').on('focus', ".name_s", function() {
+                        var tr = $(this).parent().parent();
+                        // console.log(tipeatk);
+                        $(this).autocomplete({
+                            source: "{{ URL('search/autocomplete_client') }}",
+                            // source: "{{ URL('search/autocompletenama') }}",
+                            minLength: 1,
+                            select: function(event, ui) {
+                                tr.find('.name_s').val(ui.item.value);
+                                tr.find('.remark_s').val(ui.item.nick);
+                                $('#total_dp').val('');
+                                $('#d_payment').val('');
+                                $('#total_selling').val('');
+                                $('#total_buying').val('');
+                                $('#profit_buy').val('');
+                                var remark = tr.find('.remark_s').val();
+                                var name = tr.find('.name_s').val();
+                                var curr_sell = tr.find('.curr_s').val();
+                                // var sub_total = $('.sub_total_s').val();
+                                // var curr_buy = $('.curr_b').val();
+                                var sub_total_buy = $('.sub_total_b_real').val();
+                                var sum_s = 0;
+                                $('.sub_total_s_real').each(function() {
+                                    sum_s += +$(this).val();
+                                });
 
-                    //ambil buying per mata uang
-                    calculate();
-                    //end
-                    // var total = parseInt(sum_s, 10);
-                    // var description = tr.find('.autosuggest').val();
-                    $('#customer_dp').val(name);
-                    $('#currency_dp').val(curr_sell);
-                    $('#total_dp').val(sum_s);
-                    $('#d_payment').val('0');
-                })
-                $(document).on('click', '#calculate', function(e) {
-                    e.preventDefault();
-                    calculate();
-                    // console.log(curr);
+                                //ambil buying per mata uang
+                                calculate();
+                                //end
+                                // var total = parseInt(sum_s, 10);
+                                // var description = tr.find('.autosuggest').val();
+                                $('#customer_dp').val(name);
+                                $('#currency_dp').val(curr_sell);
+                                $('#total_dp').val(sum_s);
+                                $('#d_payment').val('0');
+                            }
+                        })
+                    })
+                    $('tbody.selling').on('blur', ".name_s", function() {
+                        var tr = $(this).parent().parent();
+                        $('#total_dp').val('');
+                        $('#d_payment').val('');
+                        $('#total_selling').val('');
+                        $('#total_buying').val('');
+                        $('#profit_buy').val('');
+                        var remark = tr.find('.remark_s').val();
+                        var name = tr.find('.name_s').val();
+                        var curr_sell = tr.find('.curr_s').val();
+                        // var sub_total = $('.sub_total_s').val();
+                        // var curr_buy = $('.curr_b').val();
+                        var sub_total_buy = $('.sub_total_b_real').val();
+                        var sum_s = 0;
+                        $('.sub_total_s_real').each(function() {
+                            sum_s += +$(this).val();
+                        });
+
+                        //ambil buying per mata uang
+                        calculate();
+                        //end
+                        // var total = parseInt(sum_s, 10);
+                        // var description = tr.find('.autosuggest').val();
+                        $('#customer_dp').val(name);
+                        $('#currency_dp').val(curr_sell);
+                        $('#total_dp').val(sum_s);
+                        $('#d_payment').val('0');
+                    })
+                    $(document).on('click', '#calculate', function(e) {
+                        e.preventDefault();
+                        calculate();
+                        // console.log(curr);
+                    });
                 });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
+            }
+            automasi();
             $('#history_sales_tb').DataTable({
                 processing: true,
                 serverSide: true,
                 drawCallback: function(settings) {
+                    var appendidr = true;
+                    var appendusd = true;
+                    var appendsgd = true;
+                    var appendeur = true;
                     $(".infoHS").click(function(e) {
                         $currID = $(this).attr("data-id");
                         $.get('/history_modal?pid=' + $currID, function(data) {
                             $('#table-trans').html(data.html);
+                            pricy();
+                            automasi();
                             // console.log(data);
                             // For debugging purposes you can add : console.log(data); to see the output of your request
                         });
