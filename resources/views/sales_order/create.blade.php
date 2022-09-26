@@ -327,45 +327,45 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label class="form-control-label"
-                                            for="input-Profit">{{ __('Down Payment') }}</label>
-                                        <div>
-                                            <table id="dp" class="table-dp align-items-center table-flush">
-                                                <thead class="thead-light">
-                                                    <th>Customer</th>
-                                                    <th>Curr</th>
-                                                    <th>Total</th>
-                                                    <th>DP</th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><input class="form-control" type="text" id="customer_dp"
-                                                                name="customer_dp" readonly required></td>
-                                                        <td><input class="form-control" type="text" id="currency_dp"
-                                                                name="currency_dp" readonly required></td>
-                                                        <td><input class="form-control" id="total_dp" name="total_dp"
-                                                                readonly required></td>
-                                                        <td><input class="form-control" id="d_payment" name="dp"
-                                                                required></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-Profit">{{ __('Down Payment') }}</label>
+                                    <div>
+                                        <table id="dp" class="table-dp align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Customer</th>
+                                                <th>Curr</th>
+                                                <th>Total</th>
+                                                <th>DP</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="form-control" type="text" id="customer_dp"
+                                                            name="customer_dp" readonly required></td>
+                                                    <td><input class="form-control" type="text" id="currency_dp"
+                                                            name="currency_dp" readonly required></td>
+                                                    <td><input class="form-control" id="total_dp" name="total_dp"
+                                                            readonly required></td>
+                                                    <td><input class="form-control" id="d_payment" name="dp"
+                                                            required></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
-                                        <div class="table-responsive">
-                                            <table id="profit" class="table-profit align-items-center table-flush">
-                                                <thead class="thead-light">
-                                                    <th>Curr</th>
-                                                    <th>Total Selling</th>
-                                                    <th>Total Buying</th>
-                                                    <th>Profit</th>
-                                                </thead>
-                                                <tbody class="profit_tb">
-                                                    {{-- <tr>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-control-label" for="input-Profit">{{ __('Profit') }}</label>
+                                    <div class="table-responsive">
+                                        <table id="profit" class="table-profit align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <th>Curr</th>
+                                                <th>Total Selling</th>
+                                                <th>Total Buying</th>
+                                                <th>Profit</th>
+                                            </thead>
+                                            <tbody class="profit_tb">
+                                                {{-- <tr>
                                                     <td><input type="text" class="curr_prof" id="currency_prof" name="currency[]"
                                                             readonly></td>
                                                     <td><input type="text" id="total_selling" name="total_selling[]" readonly>
@@ -375,12 +375,12 @@
                                                     <td><input type="text" id="profit_buy" name="profit[]" readonly>
                                                     </td>
                                                 </tr> --}}
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-12">
                                     <label class="form-control-label" for="input-Notes">{{ __('Notes') }}</label>
