@@ -413,7 +413,10 @@
     <script type="text/javascript" src="{{ asset('argon/js/sales_order.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            pricy();
+            function call_pricy() {
+                pricy();
+            }
+            call_pricy();
             var appendidr = true;
             var appendusd = true;
             var appendsgd = true;
@@ -675,7 +678,8 @@
                         $currID = $(this).attr("data-id");
                         $.get('/history_modal?pid=' + $currID, function(data) {
                             $('#table-trans').html(data.html);
-                            pricy();
+                            // pricy();
+                            call_pricy();
                             automasi();
                             // console.log(data);
                             // For debugging purposes you can add : console.log(data); to see the output of your request
