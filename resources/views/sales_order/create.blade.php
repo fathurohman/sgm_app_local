@@ -681,6 +681,10 @@
                             // pricy();
                             call_pricy();
                             automasi();
+                            $('#customer_dp').val(data.dp.customer);
+                            $('#currency_dp').val(data.dp.currency);
+                            $('#total_dp').val(data.dp.total);
+                            $('#d_payment').val('0');
                             // console.log(data);
                             // For debugging purposes you can add : console.log(data); to see the output of your request
                         });

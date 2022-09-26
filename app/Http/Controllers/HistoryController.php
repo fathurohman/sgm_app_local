@@ -56,7 +56,7 @@ class HistoryController extends BaseController
             'dp' => $dp,
         );
         $html = view('sales_order.modal.table_sales')->with(compact('data'))->render();
-        return response()->json(['success' => true, 'html' => $html]);
+        return response()->json(['success' => true, 'html' => $html, 'dp' => $dp]);
         // return Response::json($data);
     }
 
