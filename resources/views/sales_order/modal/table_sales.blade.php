@@ -30,12 +30,12 @@
                                     <option>EUR</option>
                                 </select></td>
                             <td><input class="form-control price" type="text" id="price_s"
-                                    value="{{ $x->price }}">
+                                    value="{{ number_format((float) $x->price, 2, '.', ',') }}">
                                 <input class="form-control price_real" type="text" id="price_s_r" name="price_s[]"
                                     value="{{ $x->price }}" hidden>
                             </td>
-                            <td><input class="form-control sub_total_s" id="sub_total_s" value="{{ $x->sub_total }}"
-                                    readonly>
+                            <td><input class="form-control sub_total_s" id="sub_total_s"
+                                    value="{{ number_format((float) $x->sub_total, 2, '.', ',') }}" readonly>
                                 <input class="form-control sub_total_s_real" type="text" id="sub_total_s_r"
                                     name="sub_total_s[]" value="{{ $x->sub_total }}" hidden>
                             </td>
@@ -93,12 +93,12 @@
                                     <option>EUR</option>
                                 </select></td>
                             <td><input type="text" class="form-control price" id="price_b"
-                                    value="{{ $x->price }}">
+                                    value="{{ number_format((float) $x->price, 2, '.', ',') }}">
                                 <input type="text" class="form-control price_real" id="price_b_r" name="price_b[]"
                                     value="{{ $x->price }}" hidden>
                             </td>
                             <td><input type="text" class="form-control sub_total_b" id="sub_total_b"
-                                    value="{{ $x->sub_total }}" readonly>
+                                    value="{{ number_format((float) $x->sub_total, 2, '.', ',') }}" readonly>
                                 <input type="text" class="form-control sub_total_b_real" id="sub_total_b_real"
                                     name="sub_total_b[]" value="{{ $x->sub_total }}" hidden>
                             </td>
