@@ -57,29 +57,7 @@ class FinanceController extends BaseController
         return view('finance.detail_invoice', compact('settings', 'sales_data', 'tipe_cetak', 'date'));
     }
 
-    public function order_row($tipe, $month, $year)
-    {
-        $jml_by_month = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $year)
-            ->where([
-                ['tipe', '=', $tipe],
-            ])
-            ->count();
-        $urutan = SalesOrder::select('order_row')->where('tipe', $tipe)
-            ->whereMonth('created_at', $month)->whereYear('created_at', $year)->get();
-        $results = array();
-        foreach ($urutan as $query) {
-            $order_row = $query->order_row;
-            array_push($results, $order_row);
-        }
-        $max = max($results);
-        if ($jml_by_month == '0') {
-            $order_month = '1';
-        } else {
-            //ini ambil nilai max di kolom
-            $order_month = $max + 1;
-        }
-        return $order_month;
-    }
+    
 
     function convertNumber($number)
     {
@@ -279,6 +257,32 @@ class FinanceController extends BaseController
         }
     }
 
+    public function order_row($tipe, $month, $year)
+    {   
+        // inv_date sebelumnya crated_at
+
+        $jml_by_month = SalesOrder::whereMonth('inv_date', $month)->whereYear('inv_date', $year)
+            ->where([
+                ['tipe', '=', $tipe],
+            ])
+            ->count();
+        $urutan = SalesOrder::select('order_row')->where('tipe', $tipe)
+            ->whereMonth('inv_date', $month)->whereYear('inv_date', $year)->get();
+        $results = array();
+        foreach ($urutan as $query) {
+            $order_row = $query->order_row;
+            array_push($results, $order_row);
+        }
+        $max = max($results);
+        if ($jml_by_month == '0') {
+            $order_month = '1';
+        } else {
+            //ini ambil nilai max di kolom
+            $order_month = $max + 1;
+        }
+        return $order_month;
+    }
+
     public function cetak_invoice_dua(Request $request)
     {
         $date = $request->inv_date;
@@ -288,6 +292,11 @@ class FinanceController extends BaseController
         } else {
             $now = $date;
         }
+        //update inv date di awal
+        SalesOrder::where('id', $id)->update([
+            'inv_date' => $now,
+        ]);
+
         $tipe = $request->tipe_cetak;
         $pajak = $request->tipe_pajak;
         $sum = 0;
@@ -299,7 +308,12 @@ class FinanceController extends BaseController
         // $month = Carbon::now()->format('m');
         $tahun = $sales_order->created_at->format('y');
         $year = $sales_order->created_at->format('Y');
-        $month = $sales_order->created_at->format('m');
+        // $month = $request->inv_date;
+        // mengambil format inv_date
+        $month = Carbon::createFromFormat('Y-m-d', $now)->format('m');
+
+
+       
         // $order_month = $jml_by_month + 1;
         if ($sales_order->printed == '1') {
             $order_month = $sales_order->order_row;
@@ -319,7 +333,7 @@ class FinanceController extends BaseController
             'vat' => $pajak,
             'order_row' => $order_month,
             'nomor_invoice' => $inv,
-            'inv_date' => $now,
+            // 'inv_date' => $now,
         ]);
         //end update
         $ptng = sprintf('%03d', $inv);
