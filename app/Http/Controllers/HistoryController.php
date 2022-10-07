@@ -13,6 +13,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 class HistoryController extends BaseController
 {
@@ -89,6 +90,7 @@ class HistoryController extends BaseController
             $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
             return $rslt;
         });
+       
         $sales_name = User::where('department', 'sales')->get();
         return view('reports.daily', compact('month', 'sales_name'));
     }
@@ -102,6 +104,8 @@ class HistoryController extends BaseController
         $sales_name = User::where('department', 'sales')->get();
         return view('reports.tarik_profit', compact('month', 'sales_name'));
     }
+
+   
 
     public function export(Request $request)
     {
@@ -121,6 +125,308 @@ class HistoryController extends BaseController
         $download = Excel::download(new ProfitExport($month, $sales_id), 'ProfitMonthly.xlsx');
         return $download;
     }
+
+    public function data_remonthly($tipe, $month, $month2, $sales_id)
+    {   
+        $sum_idr = 0;
+        $sum_usd = 0;
+        $tahun = Carbon::now()->format('Y');
+        switch ($tipe) {
+            case 'All':
+                if ($sales_id == "All") {
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                        ])->get();
+                } else {
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['created_by', '=', $sales_id]
+                        ])->get();
+                }
+                break;
+            case  'I':
+            case 'DN':
+                if ($sales_id == "All") {
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' ,  $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['tipe', '=', $tipe],
+                        ])->get();
+                } else {
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                        ->where([
+                            ['printed', '=', '1'],
+                            ['published', '=', '1'],
+                            ['booked', '=', '1'],
+                            ['tipe', '=', $tipe],
+                            ['created_by', '=', $sales_id]
+                        ])->get();
+                }
+                break;
+            default:
+                echo "HHMMMMM!";
+        }
+        
+        foreach ($sales as $x) {
+            $id = $x->id;
+            if (empty($x->vat)) {
+                $pajak = 0;
+            } else {
+                $pajak = $x->vat;
+            }
+            $no_inv = $x->nomor_invoice;
+            $ptng = sprintf('%03d', $no_inv);
+            $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
+            $inv_fix = "$ptng/$sub_string";
+            $inv_date = $x->inv_date;
+            $job_orders = $x->job_orders->order_id;
+            if ($x->tipe == 'I') {
+                $faktur = '-';
+            } else {
+                $faktur = 'DEBIT NOTE';
+            }
+            $sales_name = $x->sales->name;
+            // $dop = '0000-00-00';
+            $selling = SalesOrder::find($id)->sellings;
+            foreach ($selling as $y) {
+                $curr = $y->curr;
+                $sub_total = $y->sub_total;
+                if ($curr == 'IDR') {
+                    $sum_usd = 0;
+                    $sum_idr += $sub_total;
+                } elseif ($curr == 'USD') {
+                    $sum_idr = 0;
+                    $sum_usd += $sub_total;
+                } else {
+                    $sum_idr = 0;
+                    $sum_usd = 0;
+                }
+                $customer = $y->name;
+            }
+            // $pajak = Settings::where('name', 'Pajak')->first();
+            // $nilai_pajak = $pajak->value;
+            if ($x->tipe == 'I') {
+                $pph = $sum_idr * (2 / 100);
+                $vat = $pajak / 100;
+                $total_pajak = $sum_idr * $vat;
+                $total_charge = $sum_idr + $total_pajak;
+                $amount_ar = $total_charge - $pph;
+            } else {
+                $pph = 0;
+                $vat = 0;
+                $total_pajak = 0;
+                $total_charge = $sum_idr;
+                $amount_ar = $total_charge;
+            }
+            $payment = 0;
+            $kurs_bi = 0;
+          
+        }
+
+        return array(
+            'sales' => $sales,
+            // 'no_inv' => $inv_fix,
+            // 'inv_date' => $inv_date,
+            // 'seri_faktur' => $faktur,
+            // 'cust_name' => $customer,
+            // // 'rankings' => $rankings_idr,
+            // 'nilai_inv_idr' => $sum_idr,
+            // 'nilai_inv_usd' => $sum_usd,
+            // 'ppn' => $total_pajak,
+            // 'grand_total' => $total_charge,
+            // 'vat' => $pajak,
+            // 'job_no' => $job_orders,
+            // 'sales_name' => $sales_name,
+            // // 'dop' => $dop,
+            // 'pph' => $pph,
+            // 'amount' => $amount_ar,
+            // 'payment' => $payment,
+            // 'AR' => $amount_ar,
+            // 'sales_usd' => $sum_usd,
+            // 'kurs_bi' => $kurs_bi,
+    );
+        
+        
+          
+          // return reports::whereMonth('inv_date', $month)->get();
+       
+        
+    }
+
+    public function getremonthly(Request $request)
+    {   
+        $tipe =  $request->tipe;
+        $month = $request->month;
+        $month2 = $request->month2;
+        $sales_id = $request->sales_id;
+
+        $data = $this->data_remonthly($tipe, $month, $month2, $sales_id);
+        // var_dump($data);
+        $html = view('reports.remonthly')->with(compact('data'))->render();
+        return response()->json(['success' => true, 'html' => $html]);
+        // return json_encode($data);
+    }
+
+    // public function narikdata2($tipe, $month, $sales_id)
+    // {
+    //     // reports::query()->truncate();
+    //     $sum_idr = 0;
+    //     $sum_usd = 0;
+    //     $tahun = Carbon::now()->format('Y');
+    //     switch ($tipe) {
+    //         case 'All':
+    //             if ($sales_id == "All") {
+    //                 $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+    //                     ->where([
+    //                         ['printed', '=', '1'],
+    //                         ['published', '=', '1'],
+    //                         ['booked', '=', '1'],
+    //                     ])->get();
+    //             } else {
+    //                 $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+    //                     ->where([
+    //                         ['printed', '=', '1'],
+    //                         ['published', '=', '1'],
+    //                         ['booked', '=', '1'],
+    //                         ['created_by', '=', $sales_id]
+    //                     ])->get();
+    //             }
+    //             break;
+    //         case  'I':
+    //         case 'DN':
+    //             if ($sales_id == "All") {
+    //                 $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+    //                     ->where([
+    //                         ['printed', '=', '1'],
+    //                         ['published', '=', '1'],
+    //                         ['booked', '=', '1'],
+    //                         ['tipe', '=', $tipe],
+    //                     ])->get();
+    //             } else {
+    //                 $sales = SalesOrder::whereMonth('created_at', $month)->whereYear('created_at', $tahun)
+    //                     ->where([
+    //                         ['printed', '=', '1'],
+    //                         ['published', '=', '1'],
+    //                         ['booked', '=', '1'],
+    //                         ['tipe', '=', $tipe],
+    //                         ['created_by', '=', $sales_id]
+    //                     ])->get();
+    //             }
+    //             break;
+    //         default:
+    //             echo "HHMMMMM!";
+    //     }
+    //     // dd($sales);
+    //     foreach ($sales as $x) {
+    //         $id = $x->id;
+    //         if (empty($x->vat)) {
+    //             $pajak = 0;
+    //         } else {
+    //             $pajak = $x->vat;
+    //         }
+    //         $no_inv = $x->nomor_invoice;
+    //         $ptng = sprintf('%03d', $no_inv);
+    //         $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
+    //         $inv_fix = "$ptng/$sub_string";
+    //         $inv_date = $x->inv_date;
+    //         $job_orders = $x->job_orders->order_id;
+    //         if ($x->tipe == 'I') {
+    //             $faktur = '-';
+    //         } else {
+    //             $faktur = 'DEBIT NOTE';
+    //         }
+    //         $sales_name = $x->sales->name;
+    //         // $dop = '0000-00-00';
+    //         $selling = SalesOrder::find($id)->sellings;
+    //         foreach ($selling as $y) {
+    //             $curr = $y->curr;
+    //             $sub_total = $y->sub_total;
+    //             if ($curr == 'IDR') {
+    //                 $sum_usd = 0;
+    //                 $sum_idr += $sub_total;
+    //             } elseif ($curr == 'USD') {
+    //                 $sum_idr = 0;
+    //                 $sum_usd += $sub_total;
+    //             } else {
+    //                 $sum_idr = 0;
+    //                 $sum_usd = 0;
+    //             }
+    //             $customer = $y->name;
+    //         }
+    //         // $pajak = Settings::where('name', 'Pajak')->first();
+    //         // $nilai_pajak = $pajak->value;
+    //         if ($x->tipe == 'I') {
+    //             $pph = $sum_idr * (2 / 100);
+    //             $vat = $pajak / 100;
+    //             $total_pajak = $sum_idr * $vat;
+    //             $total_charge = $sum_idr + $total_pajak;
+    //             $amount_ar = $total_charge - $pph;
+    //         } else {
+    //             $pph = 0;
+    //             $vat = 0;
+    //             $total_pajak = 0;
+    //             $total_charge = $sum_idr;
+    //             $amount_ar = $total_charge;
+    //         }
+    //         $payment = 0;
+    //         $kurs_bi = 0;
+
+    //         $data = array(
+    //             'no_inv' => $inv_fix,
+    //             'inv_date' => $inv_date,
+    //             'seri_faktur' => $faktur,
+    //             'cust_name' => $customer,
+    //             'rankings' => $rankings_idr,
+    //             'nilai_inv_idr' => $sum_idr,
+    //             'nilai_inv_usd' => $sum_usd,
+    //             'ppn' => $total_pajak,
+    //             'grand_total' => $total_charge,
+    //             'vat' => $pajak,
+    //             'job_no' => $job_orders,
+    //             'sales_name' => $sales_name,
+    //             'dop' => $dop,
+    //             'pph' => $pph,
+    //             'amount' => $amount_ar,
+    //             'payment' => $payment,
+    //             'AR' => $amount_ar,
+    //             'sales_usd' => $sum_usd,
+    //             'kurs_bi' => $kurs_bi,
+    //         );
+
+    //         // $reports = new reports;
+    //         // $reports->no_inv = $inv_fix;
+    //         // $reports->inv_date = $inv_date;
+    //         // $reports->seri_faktur = $faktur;
+    //         // $reports->cust_name = $customer;
+    //         // $reports->nilai_inv_idr = $sum_idr;
+    //         // $reports->nilai_inv_usd = $sum_usd;
+    //         // $reports->ppn = $total_pajak;
+    //         // $reports->grand_total = $total_charge;
+    //         // $reports->vat = $pajak;
+    //         // $reports->job_no = $job_orders;
+    //         // $reports->sales_name = $sales_name;
+    //         // // $reports->dop = $dop;
+    //         // $reports->pph = $pph;
+    //         // $reports->amount = $amount_ar;
+    //         // $reports->payment = $payment;
+    //         // $reports->AR = $amount_ar;
+    //         // $reports->sales_usd = $sum_usd;
+    //         // $reports->kurs_bi = $kurs_bi;
+    //         // $reports->save();
+    //         // $sum_idr = 0;
+    //         // $sum_usd = 0;
+    //     }
+       
+        
+    // }
 
     public function narikdata($month, $tipe, $sales_id)
     {
@@ -250,4 +556,6 @@ class HistoryController extends BaseController
             $sum_usd = 0;
         }
     }
+
+  
 }
