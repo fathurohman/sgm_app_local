@@ -1,7 +1,7 @@
 @extends('layouts.app', ['activePage' => 'reports']) @push('css')
-     {{-- <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet"> --}}
-     <Link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+    <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
+     {{-- <Link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
+        {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet"> --}}
 @endpush
 @section('content')
     @include('users.partials.header', ['class' => 'col-lg-7'])
@@ -121,8 +121,8 @@
 
 @push('js')
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+ {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+ <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 //     $(document).ready( function () {
@@ -152,8 +152,10 @@
                     $('#table-remonthly').html(data.html);
                     console.log(data);
 
-                    $('#dataTables1').DataTable();
-                    
+                    $('#dataTables1').DataTable({
+                        order: [[1, 'asc']],
+                    });
+
                 }
             });
         }
