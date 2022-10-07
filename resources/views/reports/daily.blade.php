@@ -22,15 +22,24 @@
                             <br>
                             <label for="inputState">Bulan Sampai</label>
                             <select id="month_id2" name="month2" class="form-control" required>
-                                <option selected disabled value="">Pilih Bulan...</option>
+                                <option selected disabled value="ALL">Pilih Bulan...</option>
                                 @foreach ($month as $key => $m)
                                     <option value="{{ $key }}">{{ $m }}</option>
                                 @endforeach
                             </select>
                             <br>
-                            <label for="inputState">Tahun</label>
+                            {{-- <label for="inputState">Tahun</label>
                             <input type="text" class="form-control" name="datepicker" id="datepicker" />
-                          
+                           --}}
+                           <label for="inputState">Tahun</label>
+                            <select id="years_id" name="years" class="form-control" required>
+                                <option selected value="{{$y}}">{{$y}}</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                            </select>
+                            <br>
+                           
                         </div>
                     </div>
                 </div>
@@ -126,7 +135,7 @@
 </script>
 
     <script type="text/javascript">
-        function narik(tipe, month, month2, sales_id, token) {
+        function narik(tipe, month, month2, years, sales_id, token) {
             $.ajax({
                 url: "{{ route('getremonthly') }}",
                 method: "GET",
@@ -135,14 +144,16 @@
                     tipe: tipe,
                     month: month,
                     month2: month2,
+                    years: years,
                     sales_id: sales_id,
                     _token: token
                 },
                 success: function(data) {
                     $('#table-remonthly').html(data.html);
                     console.log(data);
-                
-                   
+
+                    $('#dataTables1').DataTable();
+                    
                 }
             });
         }
@@ -150,33 +161,47 @@
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
+            var years = $('#years_id option:selected').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
-            narik(tipe, month, month2, sales_id, _token);
+            narik(tipe, month, month2, years, sales_id, _token);
         });
         $("#month_id2").change(function() {
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
+            var years = $('#years_id option:selected').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
-            narik(tipe, month, month2, sales_id, _token);
+            narik(tipe, month, month2, years, sales_id, _token);
         });
         $("#sales_id").change(function() {
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
+            var years = $('#years_id option:selected').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
-            narik(tipe, month, month2, sales_id, _token);
+            narik(tipe, month, month2, years, sales_id, _token);
         });
         $("#tipe_id").change(function() {
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
+            var years = $('#years_id option:selected').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
-            narik(tipe, month, month2, sales_id, _token);
+            narik(tipe, month, month2, years, sales_id, _token);
+        });
+
+        $("#years_id").change(function() {
+            var tipe = $('#tipe_id option:selected').val();
+            var month = $('#month_id option:selected').val();
+            var month2 = $('#month_id2 option:selected').val();
+            var years = $('#years_id option:selected').val();
+            var sales_id = $('#sales_id option:selected').val();
+            var _token = $('input[name="_token"]').val();
+            narik(tipe, month, month2, years, sales_id, _token);
         });
     </script>
 @endpush

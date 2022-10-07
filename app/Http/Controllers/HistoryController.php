@@ -90,9 +90,15 @@ class HistoryController extends BaseController
             $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
             return $rslt;
         });
+        
+        $y = Carbon::now()->format('Y');
+        // $query = DB::table('sales_orders')->groupBy('inv_date', $y)
+        // ->count();
        
+        // dd($query);
+
         $sales_name = User::where('department', 'sales')->get();
-        return view('reports.daily', compact('month', 'sales_name'));
+        return view('reports.daily', compact('month', 'sales_name', 'y'));
     }
 
     public function tarik_profit()
@@ -126,22 +132,24 @@ class HistoryController extends BaseController
         return $download;
     }
 
-    public function data_remonthly($tipe, $month, $month2, $sales_id)
+    public function data_remonthly($tipe, $month, $month2, $years, $sales_id)
     {   
         $sum_idr = 0;
         $sum_usd = 0;
         $tahun = Carbon::now()->format('Y');
+     
+
         switch ($tipe) {
             case 'All':
                 if ($sales_id == "All") {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
                         ->where([
                             ['printed', '=', '1'],
                             ['published', '=', '1'],
                             ['booked', '=', '1'],
                         ])->get();
                 } else {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
                         ->where([
                             ['printed', '=', '1'],
                             ['published', '=', '1'],
@@ -153,7 +161,7 @@ class HistoryController extends BaseController
             case  'I':
             case 'DN':
                 if ($sales_id == "All") {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' ,  $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' ,  $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
                         ->where([
                             ['printed', '=', '1'],
                             ['published', '=', '1'],
@@ -161,7 +169,7 @@ class HistoryController extends BaseController
                             ['tipe', '=', $tipe],
                         ])->get();
                 } else {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('created_at', $tahun)
+                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
                         ->where([
                             ['printed', '=', '1'],
                             ['published', '=', '1'],
@@ -266,10 +274,12 @@ class HistoryController extends BaseController
         $tipe =  $request->tipe;
         $month = $request->month;
         $month2 = $request->month2;
+        $years = $request->years;
         $sales_id = $request->sales_id;
 
-        $data = $this->data_remonthly($tipe, $month, $month2, $sales_id);
+        $data = $this->data_remonthly($tipe, $month, $month2, $years, $sales_id);
         // var_dump($data);
+        // dd($request);
         $html = view('reports.remonthly')->with(compact('data'))->render();
         return response()->json(['success' => true, 'html' => $html]);
         // return json_encode($data);
