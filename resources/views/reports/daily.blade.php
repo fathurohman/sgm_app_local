@@ -1,5 +1,7 @@
 @extends('layouts.app', ['activePage' => 'reports']) @push('css')
     <link href="{{ asset('argon') }}/datatable/datatables.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
      {{-- <Link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
         {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet"> --}}
 @endpush
@@ -22,24 +24,24 @@
                             <br>
                             <label for="inputState">Bulan Sampai</label>
                             <select id="month_id2" name="month2" class="form-control" required>
-                                <option selected disabled value="ALL">Pilih Bulan...</option>
+                                <option selected disabled value="">Pilih Bulan...</option>
                                 @foreach ($month as $key => $m)
                                     <option value="{{ $key }}">{{ $m }}</option>
                                 @endforeach
                             </select>
                             <br>
-                            {{-- <label for="inputState">Tahun</label>
-                            <input type="text" class="form-control" name="datepicker" id="datepicker" />
-                           --}}
-                           <label for="inputState">Tahun</label>
+                            <label for="inputState">Tahun</label>
+                            <input type="text" value="{{$y}}" class="form-control" name="years" id="years_id" />
+
+                           {{-- <label for="inputState">Tahun</label>
                             <select id="years_id" name="years" class="form-control" required>
                                 <option selected value="{{$y}}">{{$y}}</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
                             </select>
-                            <br>
-                           
+                            <br> --}}
+
                         </div>
                     </div>
                 </div>
@@ -65,8 +67,8 @@
                         </div>
                     </div>
                 </div>
-                
-              
+
+
             </div>
             {{-- <div class="row mt-2">
                 <div class="col-xl-6 mb-5 mb-xl-0">
@@ -112,8 +114,8 @@
         </div>
     </div>
 
-       
-        
+
+
     </div>
 
 @endsection
@@ -123,18 +125,17 @@
 
  {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
  <script src="{{ asset('argon') }}/datatable/datatables.min.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-//     $(document).ready( function () {
-//     $('#dataTables1').DataTable();
-// } );
-
-// $(document).ready(function () {
-//     $('#example').DataTable();
-// });
-</script>
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript">
+        $( function() {
+            $( "#years_id" ).datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose:true
+
+            });
+        } );
         function narik(tipe, month, month2, years, sales_id, token) {
             $.ajax({
                 url: "{{ route('getremonthly') }}",
@@ -154,16 +155,19 @@
 
                     $('#dataTables1').DataTable({
                         order: [[1, 'asc']],
+                        responsive: true
                     });
 
                 }
             });
         }
+        // $('#month_id2').hide();
         $("#month_id").change(function() {
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
-            var years = $('#years_id option:selected').val();
+            // $('#month_id2').show();
+            var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
             narik(tipe, month, month2, years, sales_id, _token);
@@ -172,7 +176,7 @@
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
-            var years = $('#years_id option:selected').val();
+            var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
             narik(tipe, month, month2, years, sales_id, _token);
@@ -181,7 +185,7 @@
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
-            var years = $('#years_id option:selected').val();
+            var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
             narik(tipe, month, month2, years, sales_id, _token);
@@ -190,7 +194,7 @@
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
-            var years = $('#years_id option:selected').val();
+            var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
             narik(tipe, month, month2, years, sales_id, _token);
@@ -200,7 +204,7 @@
             var tipe = $('#tipe_id option:selected').val();
             var month = $('#month_id option:selected').val();
             var month2 = $('#month_id2 option:selected').val();
-            var years = $('#years_id option:selected').val();
+            var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
             narik(tipe, month, month2, years, sales_id, _token);

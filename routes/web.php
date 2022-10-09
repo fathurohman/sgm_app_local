@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//ajax report monthly
 	Route::get('/getremonthly', 'HistoryController@getremonthly')->name('getremonthly');
-	
+
 	//history routes
 	Route::get('/listsaleshistory', 'HistorySalesController@listsaleshistory')->name('listsaleshistory');
 	Route::get('/history_sales', 'HistorySalesController@index')->name('history_sales');
@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/bol_data', 'BOLController@getdataorder');
 	//ajax profit
 	Route::get('/getprofit', 'HomeController@getprofit')->name('getprofit');
-	
+
 	//jurnal routes
 	Route::get('/jurnal', 'JurnalController@index')->name('jurnal');
 	Route::post('/export_jurnal', 'JurnalController@export_jurnal')->name('export_jurnal');
