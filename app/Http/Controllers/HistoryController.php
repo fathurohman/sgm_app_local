@@ -90,11 +90,11 @@ class HistoryController extends BaseController
             $rslt[$m] = date('F', mktime(0, 0, 0, $m, 10));
             return $rslt;
         });
-        
+
         $y = Carbon::now()->format('Y');
         // $query = DB::table('sales_orders')->groupBy('inv_date', $y)
         // ->count();
-       
+
         // dd($query);
 
         $sales_name = User::where('department', 'sales')->get();
@@ -111,7 +111,7 @@ class HistoryController extends BaseController
         return view('reports.tarik_profit', compact('month', 'sales_name'));
     }
 
-   
+
 
     public function export(Request $request)
     {
@@ -127,8 +127,11 @@ class HistoryController extends BaseController
         $month2 = $request->month2;
         $years = $request->years;
         $sales_id = $request->sales;
-        $this->narikdata_new($tipe, $month, $month2, $years, $sales_id);
-        
+
+        $export = 1;
+
+        $this->narikdata_new($tipe, $month, $month2, $years, $sales_id, $export);
+
         $download = Excel::download(new SalesExport($month, $month2, $years), 'ReportMonthly.xlsx');
         return $download;
 
@@ -144,23 +147,28 @@ class HistoryController extends BaseController
     }
 
     public function getremonthly(Request $request)
-    {   
+    {
         $tipe =  $request->tipe;
         $month = $request->month;
         $month2 = $request->month2;
         $years = $request->years;
         $sales_id = $request->sales_id;
 
-        $data = $this->narikdata_new($tipe, $month, $month2, $years, $sales_id);
-       
+        $export = 0;
+
+        $data = $this->narikdata_new($tipe, $month, $month2, $years, $sales_id, $export);
+
         $html = view('reports.remonthly')->with(compact('data'))->render();
         return response()->json(['success' => true, 'html' => $html]);
         // return json_encode($data);
     }
 
-    public function narikdata_new($tipe, $month, $month2, $years, $sales_id)
+    public function narikdata_new($tipe, $month, $month2, $years, $sales_id, $export)
     {
-        reports::query()->truncate();
+        if($export == 1 ){
+            reports::query()->truncate();
+        }
+
         $sum_idr = 0;
         $sum_usd = 0;
         $tahun = Carbon::now()->format('Y');
@@ -263,6 +271,10 @@ class HistoryController extends BaseController
             $payment = 0;
             $kurs_bi = 0;
 
+
+
+
+
             $reports = new reports;
             $reports->no_inv = $inv_fix;
             $reports->inv_date = $inv_date;
@@ -282,16 +294,18 @@ class HistoryController extends BaseController
             $reports->AR = $amount_ar;
             $reports->sales_usd = $sum_usd;
             $reports->kurs_bi = $kurs_bi;
-            $reports->save();
+                if($export == 1 ){
+                    $reports->save();
+                }
             $sum_idr = 0;
             $sum_usd = 0;
 
-            
+
         }
-       
+
         return array('sales' => $sales);
     }
 
 
-  
+
 }
