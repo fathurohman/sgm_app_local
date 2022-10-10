@@ -176,6 +176,7 @@
             var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
+            
             narik(tipe, month, month2, years, sales_id, _token);
         });
     </script>

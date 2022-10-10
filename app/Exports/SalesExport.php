@@ -33,8 +33,6 @@ class SalesExport implements FromView, ShouldAutoSize, WithStrictNullComparison
         $dateObj2   = DateTime::createFromFormat('!m', $bulan2);
         $monthName2 = $dateObj2->format('F'); // March
 
-
-
         $reports = reports::all();
         // foreach ($reports as $x) {
         //     $ptng = sprintf('%03d', $x->no_inv);

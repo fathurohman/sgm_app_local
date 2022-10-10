@@ -127,7 +127,7 @@ class HistoryController extends BaseController
         $month2 = $request->month2;
         $years = $request->years;
         $sales_id = $request->sales;
-        $this->narikdata2($tipe, $month, $month2, $years, $sales_id);
+        $this->narikdata_new($tipe, $month, $month2, $years, $sales_id);
         
         $download = Excel::download(new SalesExport($month, $month2, $years), 'ReportMonthly.xlsx');
         return $download;
@@ -143,138 +143,6 @@ class HistoryController extends BaseController
         return $download;
     }
 
-    public function data_remonthly($tipe, $month, $month2, $years, $sales_id)
-    {   
-        $sum_idr = 0;
-        $sum_usd = 0;
-        $tahun = Carbon::now()->format('Y');
-     
-
-        switch ($tipe) {
-            case 'All':
-                if ($sales_id == "All") {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
-                        ->where([
-                            ['printed', '=', '1'],
-                            ['published', '=', '1'],
-                            ['booked', '=', '1'],
-                        ])->get();
-                } else {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
-                        ->where([
-                            ['printed', '=', '1'],
-                            ['published', '=', '1'],
-                            ['booked', '=', '1'],
-                            ['created_by', '=', $sales_id]
-                        ])->get();
-                }
-                break;
-            case  'I':
-            case 'DN':
-                if ($sales_id == "All") {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' ,  $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
-                        ->where([
-                            ['printed', '=', '1'],
-                            ['published', '=', '1'],
-                            ['booked', '=', '1'],
-                            ['tipe', '=', $tipe],
-                        ])->get();
-                } else {
-                    $sales = SalesOrder::whereMonth('inv_date', '>=' , $month)->whereMonth('inv_date', '<=' , $month2)->whereYear('inv_date', $years)
-                        ->where([
-                            ['printed', '=', '1'],
-                            ['published', '=', '1'],
-                            ['booked', '=', '1'],
-                            ['tipe', '=', $tipe],
-                            ['created_by', '=', $sales_id]
-                        ])->get();
-                }
-                break;
-            default:
-                echo "HHMMMMM!";
-        }
-        
-        foreach ($sales as $x) {
-            $id = $x->id;
-            if (empty($x->vat)) {
-                $pajak = 0;
-            } else {
-                $pajak = $x->vat;
-            }
-            $no_inv = $x->nomor_invoice;
-            $ptng = sprintf('%03d', $no_inv);
-            $sub_string = substr($no_inv, strpos($no_inv, "/") + 1);
-            $inv_fix = "$ptng/$sub_string";
-            $inv_date = $x->inv_date;
-            $job_orders = $x->job_orders->order_id;
-            if ($x->tipe == 'I') {
-                $faktur = '-';
-            } else {
-                $faktur = 'DEBIT NOTE';
-            }
-            $sales_name = $x->sales->name;
-            // $dop = '0000-00-00';
-            $selling = SalesOrder::find($id)->sellings;
-            foreach ($selling as $y) {
-                $curr = $y->curr;
-                $sub_total = $y->sub_total;
-                if ($curr == 'IDR') {
-                    $sum_usd = 0;
-                    $sum_idr += $sub_total;
-                } elseif ($curr == 'USD') {
-                    $sum_idr = 0;
-                    $sum_usd += $sub_total;
-                } else {
-                    $sum_idr = 0;
-                    $sum_usd = 0;
-                }
-                $customer = $y->name;
-            }
-            // $pajak = Settings::where('name', 'Pajak')->first();
-            // $nilai_pajak = $pajak->value;
-            if ($x->tipe == 'I') {
-                $pph = $sum_idr * (2 / 100);
-                $vat = $pajak / 100;
-                $total_pajak = $sum_idr * $vat;
-                $total_charge = $sum_idr + $total_pajak;
-                $amount_ar = $total_charge - $pph;
-            } else {
-                $pph = 0;
-                $vat = 0;
-                $total_pajak = 0;
-                $total_charge = $sum_idr;
-                $amount_ar = $total_charge;
-            }
-            $payment = 0;
-            $kurs_bi = 0;
-          
-        }
-
-        return array(
-            'sales' => $sales,
-            // 'no_inv' => $inv_fix,
-            // 'inv_date' => $inv_date,
-            // 'seri_faktur' => $faktur,
-            // 'cust_name' => $customer,
-            // // 'rankings' => $rankings_idr,
-            // 'nilai_inv_idr' => $sum_idr,
-            // 'nilai_inv_usd' => $sum_usd,
-            // 'ppn' => $total_pajak,
-            // 'grand_total' => $total_charge,
-            // 'vat' => $pajak,
-            // 'job_no' => $job_orders,
-            // 'sales_name' => $sales_name,
-            // // 'dop' => $dop,
-            // 'pph' => $pph,
-            // 'amount' => $amount_ar,
-            // 'payment' => $payment,
-            // 'AR' => $amount_ar,
-            // 'sales_usd' => $sum_usd,
-            // 'kurs_bi' => $kurs_bi,
-    );
-
-    }
-
     public function getremonthly(Request $request)
     {   
         $tipe =  $request->tipe;
@@ -283,15 +151,14 @@ class HistoryController extends BaseController
         $years = $request->years;
         $sales_id = $request->sales_id;
 
-        $data = $this->data_remonthly($tipe, $month, $month2, $years, $sales_id);
-        // var_dump($data);
-        // dd($request);
+        $data = $this->narikdata_new($tipe, $month, $month2, $years, $sales_id);
+       
         $html = view('reports.remonthly')->with(compact('data'))->render();
         return response()->json(['success' => true, 'html' => $html]);
         // return json_encode($data);
     }
 
-    public function narikdata2($tipe, $month, $month2, $years, $sales_id)
+    public function narikdata_new($tipe, $month, $month2, $years, $sales_id)
     {
         reports::query()->truncate();
         $sum_idr = 0;
@@ -392,6 +259,7 @@ class HistoryController extends BaseController
                 $total_charge = $sum_idr;
                 $amount_ar = $total_charge;
             }
+
             $payment = 0;
             $kurs_bi = 0;
 
@@ -417,9 +285,11 @@ class HistoryController extends BaseController
             $reports->save();
             $sum_idr = 0;
             $sum_usd = 0;
+
+            
         }
        
-        
+        return array('sales' => $sales);
     }
 
     public function narikdata($month, $tipe, $sales_id)
