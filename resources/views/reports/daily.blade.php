@@ -70,35 +70,7 @@
 
 
             </div>
-            {{-- <div class="row mt-2">
-                <div class="col-xl-6 mb-5 mb-xl-0">
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <label for="inputState">Sales Name</label>
-                            <select id="sales_id" name="sales" class="form-control" required>
-                                <option selected value="All">ALL</option>
-                                @foreach ($sales_name as $x)
-                                    <option value="{{ $x->id }}">{{ $x->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 mb-5 mb-xl-0">
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <label for="inputState">Tipe Order</label>
-                            <select id="tipe_id" name="tipe" class="form-control" required>
-                                <option selected value="All">ALL</option>
-                                <option value="I">Invoice</option>
-                                <option value="DN">Debit Note</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-            </div> --}}
+           
             <div class="row">
                 <div class="ml-3 mt-2 col-lg-6 col-md-6 col-sm-6">
                     <button type="submit" class="btn btn-primary">{{ __('Export Excel') }}</button>
