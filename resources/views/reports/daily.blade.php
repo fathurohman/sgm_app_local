@@ -142,7 +142,13 @@
             var years = $('#years_id').val();
             var sales_id = $('#sales_id option:selected').val();
             var _token = $('input[name="_token"]').val();
-            narik(tipe, month, month2, years, sales_id, _token);
+
+            if(month2 = "ALL"){
+    
+            }else{
+                narik(tipe, month, month2, years, sales_id, _token);
+            }
+           
         });
         $("#month_id2").change(function() {
             var tipe = $('#tipe_id option:selected').val();
