@@ -13,7 +13,7 @@
         @else
         <th colspan="3">{{ $bulan }} s/d {{ $bulan2 }} {{ $tahun }}</th>
         @endif
-        {{-- <th colspan="3">{{ $bulan }} {{ $tahun }}</th> --}}
+        
     </tr>
 </table>
 <table>

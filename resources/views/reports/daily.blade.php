@@ -33,15 +33,6 @@
                             <label for="inputState">Tahun</label>
                             <input type="text" value="{{$y}}" class="form-control" name="years" id="years_id" />
 
-                           {{-- <label for="inputState">Tahun</label>
-                            <select id="years_id" name="years" class="form-control" required>
-                                <option selected value="{{$y}}">{{$y}}</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                            </select>
-                            <br> --}}
-
                         </div>
                     </div>
                 </div>
