@@ -8,7 +8,12 @@
         <th colspan="3">Sales Report</th>
     </tr>
     <tr>
-        <th colspan="3">{{ $bulan }} {{ $tahun }}</th>
+        @if ($bulan == $bulan2)
+            <th colspan="3">{{ $bulan }} {{ $tahun }}</th>
+        @else
+        <th colspan="3">{{ $bulan }} s/d {{ $bulan2 }} {{ $tahun }}</th>
+        @endif
+        {{-- <th colspan="3">{{ $bulan }} {{ $tahun }}</th> --}}
     </tr>
 </table>
 <table>

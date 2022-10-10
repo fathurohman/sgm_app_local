@@ -293,7 +293,7 @@ class HistoryController extends BaseController
 
     public function narikdata2($tipe, $month, $month2, $years, $sales_id)
     {
-        // reports::query()->truncate();
+        reports::query()->truncate();
         $sum_idr = 0;
         $sum_usd = 0;
         $tahun = Carbon::now()->format('Y');
